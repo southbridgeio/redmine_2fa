@@ -36,29 +36,13 @@ namespace :redmine_2fa do
       LOG.info "#{bot_name}: connected"
       LOG.info "#{bot_name}: waiting for new messages..."
 
+      bot_service = Redmine2FA::TelegramBotService.new(bot, LOG)
+
       bot.get_updates(fail_silently: false) do |message|
         begin
           next unless message.is_a?(Telegrammer::DataTypes::Message) # Update for telegrammer gem 0.8.0
           if message.text == '/start'
-            user   = message.from
-            t_user = Redmine2FA::TelegramAccount.where(telegram_id: user.id).first_or_initialize(username:   user.username,
-                                                                                         first_name: user.first_name,
-                                                                                         last_name:  user.last_name)
-            if t_user.new_record?
-              t_user.save
-              bot.send_message(chat_id: message.chat.id, text: "Hello, #{user.first_name}! I've added your profile for Redmine notifications.")
-              LOG.info "#{bot_name}: new user #{user.first_name} #{user.last_name} @#{user.username} added!"
-            else
-              t_user.update_columns username:   user.username,
-                                    first_name: user.first_name,
-                                    last_name:  user.last_name
-              if t_user.active?
-                bot.send_message(chat_id: message.chat.id, text: "Hello, #{user.first_name}! I've updated your profile for Redmine notifications.")
-              else
-                t_user.activate!
-                bot.send_message(chat_id: message.chat.id, text: "Hello again, #{user.first_name}! I've activated your profile for Redmine notifications.")
-              end
-            end
+            bot_service.start(message)
           end
         rescue Exception => e
           LOG.error "UPDATE ERROR #{e.class}: #{e.message}\n#{e.backtrace.join("\n")}"
