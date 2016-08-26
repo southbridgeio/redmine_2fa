@@ -1,4 +1,4 @@
-class RedmineTelegramAuth::TelegramAccount < ActiveRecord::Base
+class Redmine2FA::TelegramAccount < ActiveRecord::Base
   unloadable
 
   belongs_to :user
@@ -12,11 +12,11 @@ class RedmineTelegramAuth::TelegramAccount < ActiveRecord::Base
     end
   end
 
-  def activate
+  def activate!
     update(active: true) unless active?
   end
 
-  def deactivate
+  def deactivate!
     update(active: false) if active?
   end
 

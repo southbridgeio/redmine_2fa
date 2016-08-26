@@ -3,6 +3,11 @@ FileUtils.mkdir_p(Rails.root.join('log/redmine_2fa')) unless Dir.exist?(Rails.ro
 require 'redmine_2fa'
 
 ActionDispatch::Callbacks.to_prepare do
+  paths = '/app/models/redmine_2fa/*.rb'
+  Dir.glob(File.dirname(__FILE__) + paths).each do |file|
+    require_dependency file
+  end
+
   paths = '/lib/redmine_2fa/{patches/*_patch,hooks/*_hook}.rb'
   Dir.glob(File.dirname(__FILE__) + paths).each do |file|
     require_dependency file
