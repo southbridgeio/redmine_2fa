@@ -1,3 +1,0 @@
-= redmine_telegram_auth
-
-Description goes here
