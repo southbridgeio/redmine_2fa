@@ -1,0 +1,35 @@
+<div id="login-form">
+  <%= form_tag(telegram_confirm_path) do %>
+    <% if params[:autologin] %>
+      <%= hidden_field_tag 'autologin', params[:autologin] %>
+    <% end %>
+    <table>
+      <% if User.current.telegram_account.present? %>
+        <tr>
+          <td align="right"><label for="telegram_auth_code"><%= t 'redmine_2fa.auth_code' %>:</label></td>
+          <td align="left"><%= text_field_tag :telegram_auth_code, nil, :autocomplete => 'off' %></td>
+        </tr>
+        <tr>
+          <td align="left">
+            <%= link_to t('redmine_2fa.resend_auth_code'), telegram_resend_path %>
+          </td>
+          <td align="right" colspan="1">
+            <input type="submit" name="login" value="<%= l(:button_login) %> &#187;"/>
+          </td>
+        </tr>
+      <% else %>
+        <tr>
+          <td align="left" colspan="2">
+            <%= t 'redmine_2fa.new_connection.add' %>
+            <%= link_to t('redmine_2fa.new_connection.telegram_bot'), "https://telegram.me/#{Setting.plugin_redmine_2fa['bot_name']}", target: '_blank'  %>,
+            <%= t 'redmine_2fa.new_connection.it_will' %>.
+          </td>
+
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+</div>
+
+<%= javascript_tag "$('#telegram_auth_code').focus();" %>
+

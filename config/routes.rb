@@ -1,2 +1,2 @@
-# Plugin's routes
-# See: http://guides.rubyonrails.org/routing.html
+post :telegram_confirm, to: 'account#telegram_confirm', as: :telegram_confirm
+get :telegram_resend, to: 'account#telegram_resend', as: :telegram_resend

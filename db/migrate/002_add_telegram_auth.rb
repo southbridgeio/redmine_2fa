@@ -1,6 +1,6 @@
 class AddTelegramAuth < ActiveRecord::Migration
   def up
-    Redmine2FA::AuthSourceTelegram.create name: 'Telegram', :onthefly_register => false, :tls => false
+    Redmine2FA::AuthSourceTelegram.create name: 'Telegram', onthefly_register: false, tls: false
   end
 
   def down

@@ -1,0 +1,14 @@
+ru:
+  redmine_2fa:
+    new_connection:
+      add: Добавьте
+      telegram_bot: бота Telegram
+      it_will: он будет присылать вам авторизационные коды
+
+    auth_code: 'Код подтверждения'
+    resend_auth_code: 'Выслать повторно'
+    notice:
+      auth_code:
+        invalid: 'Неверный код подтверждения'
+        resent_again: 'Код подтверждения выслан повторно'
+        limit_exceeded_failed_attempts: 'Превышен предел неудачных попыток. Сгенерирован и выслан новый код подтверждения'

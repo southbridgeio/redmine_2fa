@@ -1,3 +1,13 @@
-# English strings go here for Rails i18n
 en:
-  # my_label: "My label"
+  redmine_2fa:
+    new_connection:
+      add: Plase add
+      telegram_bot: Telegram bot
+      it_will: it will be send authorization codes to you
+    auth_code: 'Authorization code'
+    resend_auth_code: 'Resend code'
+    notice:
+      auth_code:
+        invalid: 'Wrong authorization code'
+        resent_again: 'Authorization code sent again'
+        limit_exceeded_failed_attempts: 'Limit exceeded of failed attempts. New authorization code sent'
