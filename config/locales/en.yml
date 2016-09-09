@@ -4,6 +4,7 @@ en:
       add: Plase add
       telegram_bot: Telegram bot
       it_will: it will be send authorization codes to you
+      hint: Refresh this page after linking account or relogin one more time.
     auth_code: 'Authorization code'
     resend_auth_code: 'Resend code'
     notice:
@@ -11,3 +12,7 @@ en:
         invalid: 'Wrong authorization code'
         resent_again: 'Authorization code sent again'
         limit_exceeded_failed_attempts: 'Limit exceeded of failed attempts. New authorization code sent'
+    mailer:
+      telegram_connect:
+        subject: "Linking Redmine & Telegram accounts"
+        body: "For connect to %{telegram_account} account follow the link: %{link}"

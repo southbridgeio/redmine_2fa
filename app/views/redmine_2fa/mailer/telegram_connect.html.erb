@@ -1,0 +1,5 @@
+<%= t('redmine_2fa.mailer.telegram_connect.body',
+      telegram_account: @telegram_account.username.present? ? "@#{@telegram_account.username}" : 'Telegram',
+      link: redmine_2fa_telegram_connect_url(user_id: @user.id, user_email: @user.mail,
+                                             telegram_id: @telegram_account.telegram_id, token: @telegram_account.token)
+    ) %>

@@ -20,4 +20,8 @@ class Redmine2FA::TelegramAccount < ActiveRecord::Base
     update(active: false) if active?
   end
 
+  def token
+    'token'
+  end
+
 end

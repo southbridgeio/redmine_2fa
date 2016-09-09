@@ -23,6 +23,9 @@
             <%= t 'redmine_2fa.new_connection.add' %>
             <%= link_to t('redmine_2fa.new_connection.telegram_bot'), "https://telegram.me/#{Setting.plugin_redmine_2fa['bot_name']}", target: '_blank'  %>,
             <%= t 'redmine_2fa.new_connection.it_will' %>.
+            <p>
+              <%= t 'redmine_2fa.new_connection.hint' %>
+            </p>
           </td>
 
         </tr>
