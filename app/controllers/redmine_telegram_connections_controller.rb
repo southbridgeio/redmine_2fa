@@ -1,6 +1,8 @@
 class RedmineTelegramConnectionsController < ApplicationController
   unloadable
 
+  skip_before_filter :check_if_login_required, :check_password_change
+
 
   def create
     @user = User.find(params[:user_id])
