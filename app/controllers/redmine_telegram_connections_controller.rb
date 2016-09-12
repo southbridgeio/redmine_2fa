@@ -3,7 +3,6 @@ class RedmineTelegramConnectionsController < ApplicationController
 
   skip_before_filter :check_if_login_required, :check_password_change
 
-
   def create
     @user = User.find(params[:user_id])
     @user.mail == params[:user_email]
@@ -16,6 +15,8 @@ class RedmineTelegramConnectionsController < ApplicationController
       @user.save
     end
 
+    notice = @user.telegram_account.present? ? 'Аккаунты успешно связаны' : 'Связать аккаунты не удалось. Напишите нам письмо'
 
+    redirect_to home_path, notice: notice
   end
 end
