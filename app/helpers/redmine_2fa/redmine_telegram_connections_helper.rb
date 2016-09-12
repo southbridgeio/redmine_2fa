@@ -1,2 +1,0 @@
-module Redmine2FA::RedmineTelegramConnectionsHelper
-end

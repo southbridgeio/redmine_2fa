@@ -2,5 +2,9 @@
   <label for="settings_bot_token">Bot Token</label>
   <%= text_field_tag 'settings[bot_token]', @settings['bot_token'], size: 50 %>
 </p>
+<% unless @settings['bot_name'].present? %>
+  После сохранения токена нужно
+  <%= link_to 'инициализировать бота', redmine_2fa_bot_init_path %>
+<% end %>
 <%= hidden_field_tag 'settings[bot_name]', @settings['bot_name'] %>
-<%= hidden_field_tag 'settings[bot_id]',   @settings['bot_id'] %>
+<%= hidden_field_tag 'settings[bot_id]', @settings['bot_id'] %>
