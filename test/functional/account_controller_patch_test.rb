@@ -26,7 +26,7 @@ class AccountControllerPatchTest < ActionController::TestCase
     assert_select 'input[name=password][value]', 0
   end
 
-  def test_login_without_telegram_auth
+  def test_login_without_otp_code
     post :login, :username => 'dlopper', :password => 'foo'
     assert_redirected_to '/my/page'
   end
@@ -45,7 +45,7 @@ class AccountControllerPatchTest < ActionController::TestCase
     post :login, :username => 'jsmith', :password => 'jsmith'
 
     assert_template 'telegram'
-    assert @request.session[:telegram_user_id] == 2
+    assert @request.session[:otp_user_id] == 2
     assert @request.session[:telegram_password] == '1234'
     assert @request.session[:telegram_failed_attempts] == 0
   end
@@ -57,21 +57,21 @@ class AccountControllerPatchTest < ActionController::TestCase
   end
 
   def test_telegram_confirm_without_telegram_user_id_in_session
-    @request.session[:telegram_user_id] = nil
+    @request.session[:otp_user_id]       = nil
     @request.session[:telegram_password] = '1234'
     post :telegram_confirm, telegram_password: '1234'
     assert_redirected_to '/'
   end
 
   def test_telegram_confirm_without_telegram_password_in_session
-    @request.session[:telegram_user_id] = 2
+    @request.session[:otp_user_id]       = 2
     @request.session[:telegram_password] = nil
     post :telegram_confirm, telegram_password: '1234'
     assert_redirected_to '/'
   end
 
   def test_telegram_confirm_with_wrong_telegram_password
-    @request.session[:telegram_user_id] = 2
+    @request.session[:otp_user_id]       = 2
     @request.session[:telegram_password] = '1234'
     post :telegram_confirm, telegram_password: '12345'
 
@@ -85,26 +85,26 @@ class AccountControllerPatchTest < ActionController::TestCase
     Redmine2FA::TelegramAuth.expects(:generate_telegram_password).returns('7890')
     Redmine2FA::TelegramAuth.expects(:send_telegram_password).with('79999999999', '7890')
 
-    @request.session[:telegram_user_id] = 2
-    @request.session[:telegram_password] = '1234'
+    @request.session[:otp_user_id]              = 2
+    @request.session[:telegram_password]        = '1234'
     @request.session[:telegram_failed_attempts] = 2
 
     post :telegram_confirm, telegram_password: '12345'
     assert_select 'div.flash.error', :text => /New password sent/
-    assert @request.session[:telegram_user_id] == 2
+    assert @request.session[:otp_user_id] == 2
     assert @request.session[:telegram_password] == '7890'
     assert @request.session[:telegram_failed_attempts] == 0
   end
 
   def test_telegram_confirm_with_correct_telegram_password
-    @request.session[:telegram_user_id] = 2
+    @request.session[:otp_user_id]       = 2
     @request.session[:telegram_password] = '1234'
     @request.session[:telegram_back_url] = 'http://localhost/somewhere'
     post :telegram_confirm, telegram_password: '1234'
 
     assert_redirected_to '/my/page'
     assert User.current == User.find(2)
-    assert @request.session[:telegram_user_id] == nil
+    assert @request.session[:otp_user_id] == nil
     assert @request.session[:telegram_password] == nil
     assert @request.session[:telegram_failed_attempts] == nil
     assert @request.session[:telegram_back_url] == nil
@@ -112,14 +112,14 @@ class AccountControllerPatchTest < ActionController::TestCase
   end
 
   def test_telegram_resend_without_telegram_user_id_in_session
-    @request.session[:telegram_user_id] = nil
+    @request.session[:otp_user_id]       = nil
     @request.session[:telegram_password] = '1234'
     get :telegram_resend
     assert_redirected_to '/'
   end
 
   def test_telegram_resend_without_telegram_password_in_session
-    @request.session[:telegram_user_id] = 2
+    @request.session[:otp_user_id]       = 2
     @request.session[:telegram_password] = nil
     get :telegram_resend
     assert_redirected_to '/'
@@ -127,7 +127,7 @@ class AccountControllerPatchTest < ActionController::TestCase
 
   def test_telegram_resend
     User.find(2).update_attribute :mobile_phone, '79999999999'
-    @request.session[:telegram_user_id] = 2
+    @request.session[:otp_user_id]       = 2
     @request.session[:telegram_password] = '1234'
 
     Redmine2FA::TelegramAuth.expects(:generate_telegram_password).returns('5678')
@@ -137,7 +137,7 @@ class AccountControllerPatchTest < ActionController::TestCase
 
     assert_template 'telegram'
     assert_select 'div.flash.notice', :text => /SMS confirmation password sent again/
-    assert @request.session[:telegram_user_id] == 2
+    assert @request.session[:otp_user_id] == 2
     assert @request.session[:telegram_password] == '5678'
     assert @request.session[:telegram_failed_attempts] == 0
   end

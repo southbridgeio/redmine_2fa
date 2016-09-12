@@ -8,6 +8,7 @@ module Redmine2FA
 
           has_one :telegram_account, dependent: :destroy, class_name: 'Redmine2FA::TelegramAccount'
 
+          has_one_time_password
         end
       end
 
