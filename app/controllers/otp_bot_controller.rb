@@ -11,10 +11,6 @@ class OtpBotController < ApplicationController
 
     token = Setting.plugin_redmine_2fa['bot_token']
 
-    unless token.present?
-      logger.error 'Telegram Bot Token not found. Please set it in the plugin config web-interface.'
-    end
-
     logger.info 'Telegram Bot: Connecting to telegram...'
     bot      = Telegrammer::Bot.new(token)
     bot_name = bot.me.username
@@ -46,7 +42,7 @@ class OtpBotController < ApplicationController
   end
 
   def update
-    logger = Rails.env.production? ? Logger.new(Rails.root.join('log/redmine_2fa', 'bot-update.log')) : Logger.new(STDOUT)
+    logger = Logger.new(Rails.root.join('log/redmine_2fa', 'bot-update.log'))
     logger.debug params
 
     message = JSON.parse(params[:message].to_json, object_class: OpenStruct)

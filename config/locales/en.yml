@@ -1,5 +1,8 @@
 en:
   redmine_2fa:
+    settings:
+      hint: After update bot token you need to
+      bot_init: initialize bot
     new_connection:
       add: Plase add
       telegram_bot: Telegram bot
