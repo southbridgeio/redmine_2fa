@@ -7,7 +7,7 @@ Supports:
 * SMS (coming soon)
 * Google Auth (coming soon)
 
-Developed by [centos-admin.ru](https://centos-admin.ru/)
+Developed by [Centos-admin.ru](https://centos-admin.ru/)
 
 ## Requirements
 
