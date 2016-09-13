@@ -29,4 +29,4 @@ ru:
     mailer:
       telegram_connect:
         subject: "Связывание аккаунтов Redmine и Telegram"
-        body: "Для привязки аккаунта %{telegram_account} пройдите по ссылке: %{link}"
+        body: "Для привязки аккаунта %{telegram_account} пройдите по ссылке:"

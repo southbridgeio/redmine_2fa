@@ -18,6 +18,9 @@ module Redmine2FA
 
       if telegram_account.new_record?
         telegram_account.save
+
+        message = 'Теперь нужно связать ваши аккаунты Redmine и Telegram. Для этого введите команду /connect your_redmine_account@email.com (где your_redmine_account@email.com - ваш email в Redmine)'
+
         @bot.send_message(chat_id: message.chat.id, text: "Hello, #{user.first_name}! I've added your profile for Redmine 2FA.")
         logger.info "New user #{user.first_name} #{user.last_name} @#{user.username} added!"
       else

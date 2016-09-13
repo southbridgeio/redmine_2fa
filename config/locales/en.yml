@@ -28,4 +28,4 @@ en:
     mailer:
       telegram_connect:
         subject: "Linking Redmine & Telegram accounts"
-        body: "For connect to %{telegram_account} account follow the link: %{link}"
+        body: "For connect to %{telegram_account} account follow the link:"
