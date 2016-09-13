@@ -33,5 +33,15 @@ module Redmine2FA
       end
     end
 
+    def connect(message)
+      message_text = message.text
+      email = message_text.scan(/([^@\s]+@(?:[-a-z0-9]+\.)+[a-z]{2,})/i)&.flatten&.first
+      user  = EmailAddress.find_by(address: email)&.user
+
+      telegram_account = Redmine2FA::TelegramAccount.where(telegram_id: message.from.id).first
+
+      Redmine2FA::Mailer.telegram_connect(user, telegram_account).deliver
+    end
+
   end
 end
