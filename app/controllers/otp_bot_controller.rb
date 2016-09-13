@@ -63,6 +63,6 @@ class OtpBotController < ApplicationController
       Redmine2FA::Mailer.telegram_connect(user, telegram_account).deliver
     end
 
-    render :nothing, status: :ok
+    head :ok
   end
 end
