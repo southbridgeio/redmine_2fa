@@ -9,6 +9,21 @@ ru:
         error:
           wrong_token: Ошибка иницализации. Неверно указан токен
           api_error: Telegram Bot API сейчас недоступна
+      start:
+        action:
+          add: добавил
+          update: обновил
+          activate: активировал
+        hello: "Здравствуйте, %{name}! Я %{action} ваш профиль в Redmine."
+        instruction_html: |
+          Теперь нужно связать ваши аккаунты Redmine и Telegram.
+          Для этого введите команду <b>/connect your_redmine_account@email.com</b> (где <b>your_redmine_account@email.com</b> - ваш email в Redmine)
+        done: 'Отлично! Теперь вы будете получать коды авторизации сюда'
+      connect:
+        already_connected: Ваши аккаунты уже связаны
+        wait_for_email: |
+          В ближайшее время на адрес %{email} придет письмо со ссылкой на привязку аккаунта Telegram к аккаунту Redmine.
+          Следуйте инструкциям изложенным в письме.
     redmine_telegram_connections:
       create:
         success: Аккаунты успешно связаны

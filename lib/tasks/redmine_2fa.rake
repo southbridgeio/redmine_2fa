@@ -1,3 +1,5 @@
+# TODO: remove it after release
+
 namespace :redmine_2fa do
   namespace :telegram do
     # bundle exec rake redmine_2fa:telegram:bot PID_DIR='tmp/pids'

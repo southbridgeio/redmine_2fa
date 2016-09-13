@@ -9,8 +9,8 @@ module Redmine2FA
     end
 
 
-    def start(message)
-      user             = message.from
+    def start(telegram_message)
+      user             = telegram_message.from
       telegram_account = Redmine2FA::TelegramAccount.where(telegram_id: user.id).
           first_or_initialize(username:   user.username,
                               first_name: user.first_name,
@@ -19,31 +19,49 @@ module Redmine2FA
       if telegram_account.new_record?
         telegram_account.save
 
-        message = 'Теперь нужно связать ваши аккаунты Redmine и Telegram. Для этого введите команду /connect your_redmine_account@email.com (где your_redmine_account@email.com - ваш email в Redmine)'
+        action = I18n.t('redmine_2fa.otp_bot.start.action.add')
 
-        @bot.send_message(chat_id: message.chat.id, text: "Hello, #{user.first_name}! I've added your profile for Redmine 2FA.")
-        logger.info "New user #{user.first_name} #{user.last_name} @#{user.username} added!"
+        @logger.info "New user #{user.first_name} #{user.last_name} @#{user.username} added!"
       else
         telegram_account.update_columns username:   user.username,
                                         first_name: user.first_name,
                                         last_name:  user.last_name
         if telegram_account.active?
-          @bot.send_message(chat_id: message.chat.id, text: "Hello, #{user.first_name}! I've updated your profile for Redmine 2FA.")
+          action = I18n.t('redmine_2fa.otp_bot.start.action.update')
         else
+          action = I18n.t('redmine_2fa.otp_bot.start.action.activate')
           telegram_account.activate!
-          @bot.send_message(chat_id: message.chat.id, text: "Hello again, #{user.first_name}! I've activated your profile for Redmine 2FA.")
         end
       end
+
+      message = I18n.t('redmine_2fa.otp_bot.start.hello', name: user.first_name, action: action)
+
+      @bot.send_message(chat_id: telegram_message.chat.id, text: message)
+
+      message_type = telegram_account.user.present? ? 'done' : 'instruction_html'
+
+      message = I18n.t("redmine_2fa.otp_bot.start.#{message_type}")
+
+      @bot.send_message(chat_id: telegram_message.chat.id, text: message, parse_mode: 'HTML')
     end
 
-    def connect(message)
-      message_text = message.text
-      email = message_text.scan(/([^@\s]+@(?:[-a-z0-9]+\.)+[a-z]{2,})/i)&.flatten&.first
-      user  = EmailAddress.find_by(address: email)&.user
+    def connect(telegram_message)
+      message_text = telegram_message.text
+      email        = message_text.scan(/([^@\s]+@(?:[-a-z0-9]+\.)+[a-z]{2,})/i)&.flatten&.first
+      user         = EmailAddress.find_by(address: email)&.user
 
-      telegram_account = Redmine2FA::TelegramAccount.where(telegram_id: message.from.id).first
+      telegram_account = Redmine2FA::TelegramAccount.where(telegram_id: telegram_message.from.id).first
 
-      Redmine2FA::Mailer.telegram_connect(user, telegram_account).deliver
+      if telegram_account.user_id == user.id
+        message = I18n.t('redmine_2fa.otp_bot.connect.already_connected')
+      else
+        message = I18n.t('redmine_2fa.otp_bot.connect.wait_for_email', email: email)
+
+        Redmine2FA::Mailer.telegram_connect(user, telegram_account).deliver
+      end
+
+      @bot.send_message(chat_id: telegram_message.chat.id, text: message, parse_mode: 'HTML')
+
     end
 
   end

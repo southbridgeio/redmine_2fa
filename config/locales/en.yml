@@ -9,6 +9,22 @@ en:
         error:
           wrong_token: Wrong token
           api_error: Telegram Bot API service anavailable
+      start:
+        action:
+          add: added
+          update: updated
+          activate: activated
+        hello: "Hello, %{name}! I am %{action} your Redmine profile."
+        instruction_html: |
+          Now we need to connect your Redmine & Telegram account.
+          Use the command for it: <b>/connect your_redmine_account@email.com</b> (where <b>your_redmine_account@email.com</b> - is your Redmine account email)
+        done: 'Отлично! Теперь вы будете получать коды авторизации сюда'
+      connect:
+        already_connected: Your accounts already connected
+        wait_for_email: |
+          Please wait for email. It will be send to % {email} and contain the link to connect Telegram & Redmine accounts.
+          Follow the instructions from the letter.
+
     redmine_telegram_connections:
       create:
         success: Accounts successfully connected
