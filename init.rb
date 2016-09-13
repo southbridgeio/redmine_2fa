@@ -21,7 +21,7 @@ Redmine::Plugin.register :redmine_2fa do
   url 'https://github.com/centosadmin/redmine_2fa'
   description 'Two-factor authorization for Redmine'
   author 'Centos-admin.ru'
-  author_url 'http://centos-admin.ru'
+  author_url 'https://centos-admin.ru'
 
   settings(default: { 'bot_token' => 'bot_token' },
            partial: 'settings/redmine_2fa')
