@@ -3,6 +3,16 @@ ru:
     settings:
       hint: После сохранения (обновления) токена нужно
       bot_init: инициализировать бота
+    otp_bot:
+      init:
+        success: Бот успешно инициализирован
+        error:
+          wrong_token: Ошибка иницализации. Неверно указан токен
+          api_error: Telegram Bot API сейчас недоступна
+    redmine_telegram_connections:
+      create:
+        success: Аккаунты успешно связаны
+        error: Связать аккаунты не удалось
     new_connection:
       add: Добавьте
       telegram_bot: бота Telegram

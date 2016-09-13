@@ -15,7 +15,11 @@ class RedmineTelegramConnectionsController < ApplicationController
       @user.save
     end
 
-    notice = @user.telegram_account.present? ? 'Аккаунты успешно связаны' : 'Связать аккаунты не удалось. Напишите нам письмо'
+    notice = if @user.telegram_account.present?
+               t('redmine_2fa.redmine_telegram_connections.create.success')
+             else
+               t('redmine_2fa.redmine_telegram_connections.create.error')
+             end
 
     redirect_to home_path, notice: notice
   end

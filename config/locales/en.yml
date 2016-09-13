@@ -3,6 +3,16 @@ en:
     settings:
       hint: After update bot token you need to
       bot_init: initialize bot
+    otp_bot:
+      init:
+        success: Bot successfully initialzied
+        error:
+          wrong_token: Wrong token
+          api_error: Telegram Bot API service anavailable
+    redmine_telegram_connections:
+      create:
+        success: Accounts successfully connected
+        error: Accounts connection error
     new_connection:
       add: Plase add
       telegram_bot: Telegram bot
