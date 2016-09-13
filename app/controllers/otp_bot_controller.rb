@@ -54,7 +54,7 @@ class OtpBotController < ApplicationController
 
     if message_text == '/start'
       Redmine2FA::TelegramBotService.new.start(message)
-    elsif message_text.include?('/connect')
+    elsif message_text&.include?('/connect')
       email = message_text.scan(/([^@\s]+@(?:[-a-z0-9]+\.)+[a-z]{2,})/i)&.flatten&.first
       user  = EmailAddress.find_by(address: email)&.user
 
