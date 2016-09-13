@@ -1,6 +1,10 @@
 class OtpBotController < ApplicationController
   unloadable
 
+  skip_before_filter :verify_authenticity_token
+
+  skip_before_filter :check_if_login_required, :check_password_change
+
 
   def init
     logger = Rails.env.production? ? Logger.new(Rails.root.join('log/redmine_2fa', 'bot.log')) : Logger.new(STDOUT)
@@ -44,6 +48,20 @@ class OtpBotController < ApplicationController
   def update
     logger = Rails.env.production? ? Logger.new(Rails.root.join('log/redmine_2fa', 'bot-update.log')) : Logger.new(STDOUT)
     logger.debug params
+
+    message = JSON.parse(params[:message].to_json, object_class: OpenStruct)
+    message_text = message.text
+
+    if message_text == '/start'
+      Redmine2FA::TelegramBotService.new.start(message)
+    elsif message_text.include?('/connect')
+      email = message_text.scan(/([^@\s]+@(?:[-a-z0-9]+\.)+[a-z]{2,})/i)&.flatten&.first
+      user  = EmailAddress.find_by(address: email)&.user
+
+      telegram_account = Redmine2FA::TelegramAccount.where(telegram_id: message.from.id).first
+
+      Redmine2FA::Mailer.telegram_connect(user, telegram_account).deliver
+    end
 
     render :nothing, status: :ok
   end

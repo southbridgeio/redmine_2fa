@@ -36,7 +36,7 @@ namespace :redmine_2fa do
       LOG.info "#{bot_name}: connected"
       LOG.info "#{bot_name}: waiting for new messages..."
 
-      bot_service = Redmine2FA::TelegramBotService.new(bot, LOG)
+      bot_service = Redmine2FA::TelegramBotService.new
 
       bot.get_updates(fail_silently: false) do |message|
         begin
