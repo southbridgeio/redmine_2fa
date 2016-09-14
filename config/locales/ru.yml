@@ -1,7 +1,7 @@
 ru:
   redmine_2fa:
     settings:
-      hint: После сохранения (обновления) токена нужно
+      hint_html: <strong>Важно!!!</strong> После сохранения (обновления) токена нужно
       bot_init: инициализировать бота
     otp_bot:
       init:
@@ -10,29 +10,24 @@ ru:
           wrong_token: Ошибка иницализации. Неверно указан токен
           api_error: Telegram Bot API сейчас недоступна
       start:
-        action:
-          add: добавил
-          update: обновил
-          activate: активировал
-        hello: "Здравствуйте, %{name}! Я %{action} ваш профиль в Redmine."
         instruction_html: |
-          Теперь нужно связать ваши аккаунты Redmine и Telegram.
-          Для этого введите команду <b>/connect your_redmine_account@email.com</b> (где <b>your_redmine_account@email.com</b> - ваш email в Redmine)
-        done: 'Отлично! Теперь вы будете получать коды авторизации сюда'
+          Чтобы связать аккаунты Redmine и Telegram, пожалуйста, введите комманду "/connect your_redmine_account@email.com",
+          где your_redmine_account@email.com - ваш E-Mail в Redmine.
       connect:
         already_connected: Ваши аккаунты уже связаны
-        wait_for_email: |
-          В ближайшее время на адрес %{email} придет письмо со ссылкой на привязку аккаунта Telegram к аккаунту Redmine.
-          Следуйте инструкциям изложенным в письме.
+        wait_for_email: Мы отправили подтверждение на адрес "%{email}". Пожалуйста, следуйте инструкциям из письма.
     redmine_telegram_connections:
       create:
         success: Аккаунты успешно связаны
         error: Связать аккаунты не удалось
     new_connection:
-      add: Добавьте
-      telegram_bot: бота Telegram
-      it_will: он будет присылать вам авторизационные коды
-      hint: После связывания аккаунтов обновите эту страницу или залогиньтесь ещё раз.
+      title: Настройка 2FA
+      instruction_html: |
+        Бот "%{bot_name}" будет отправлять вам коды авторизации. Пожалуйста, активируйте бота.<br>
+        Для этого перейдите по <a href="https://telegram.me/%{bot_name}" target="_blank">ссылке</a> и напишите ему "/start" и выполните инструкции.
+
+    telegram_auth:
+      message: 'Код Redmine "%{app_title}": %{code}'
 
     auth_code: 'Код подтверждения'
     resend_auth_code: 'Выслать повторно'

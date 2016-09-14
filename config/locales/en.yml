@@ -1,7 +1,7 @@
 en:
   redmine_2fa:
     settings:
-      hint: After update bot token you need to
+      hint_html: <strong>Important!!!</strong> After update bot token you need to
       bot_init: initialize bot
     otp_bot:
       init:
@@ -10,30 +10,24 @@ en:
           wrong_token: Wrong token
           api_error: Telegram Bot API service anavailable
       start:
-        action:
-          add: added
-          update: updated
-          activate: activated
-        hello: "Hello, %{name}! I am %{action} your Redmine profile."
         instruction_html: |
           Now we need to connect your Redmine & Telegram account.
           Use the command for it: <b>/connect your_redmine_account@email.com</b> (where <b>your_redmine_account@email.com</b> - is your Redmine account email)
-        done: 'Отлично! Теперь вы будете получать коды авторизации сюда'
       connect:
         already_connected: Your accounts already connected
-        wait_for_email: |
-          Please wait for email. It will be send to % {email} and contain the link to connect Telegram & Redmine accounts.
-          Follow the instructions from the letter.
-
+        wait_for_email: We sent email to address "%{email}". Please follow instructions from it.
     redmine_telegram_connections:
       create:
         success: Accounts successfully connected
         error: Accounts connection error
     new_connection:
-      add: Plase add
-      telegram_bot: Telegram bot
-      it_will: it will be send authorization codes to you
-      hint: Refresh this page after linking account or relogin one more time.
+      title: '2FA setup'
+      instruction_html: |
+        %{bot_name} will send you aouthorization codes. Pleas activate it.<br>
+        Follow the <a href="https://telegram.me/%{bot_name}" target="_blank">link</a> and say "/start" to bot. Then follow the bot instruction.
+    telegram_auth:
+      message: 'Redmine "%{app_title}" auth code: %{code}'
+
     auth_code: 'Authorization code'
     resend_auth_code: 'Resend code'
     notice:

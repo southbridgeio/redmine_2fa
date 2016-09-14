@@ -43,7 +43,7 @@ class OtpBotController < ApplicationController
     message      = JSON.parse(params[:message].to_json, object_class: OpenStruct)
     message_text = message.text
 
-    if message_text == '/start'
+    if message_text&.include?('start')
       Redmine2FA::TelegramBotService.new.start(message)
     elsif message_text&.include?('/connect')
       Redmine2FA::TelegramBotService.new.connect(message)

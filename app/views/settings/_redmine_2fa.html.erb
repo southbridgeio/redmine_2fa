@@ -3,7 +3,7 @@
   <%= text_field_tag 'settings[bot_token]', @settings['bot_token'], size: 50 %>
 </p>
 <p>
-  <%= t 'redmine_2fa.settings.hint' %>
+  <%= t 'redmine_2fa.settings.hint_html' %>
   <%= link_to t('redmine_2fa.settings.bot_init'), redmine_2fa_bot_init_path %>.
 </p>
 <%= hidden_field_tag 'settings[bot_name]', @settings['bot_name'] %>

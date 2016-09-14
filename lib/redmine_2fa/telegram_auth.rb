@@ -12,7 +12,7 @@ module Redmine2FA
           token = Setting.plugin_redmine_2fa['bot_token']
           bot   = Telegrammer::Bot.new(token)
 
-          message = "#{user.otp_code}"
+          message = I18n.t('redmine_2fa.telegram_auth.message', app_title: Setting.app_title, code: user.otp_code)
           bot.send_message(chat_id: telegram_account.telegram_id, text: message)
         end
       else

@@ -18,29 +18,21 @@ module Redmine2FA
 
       if telegram_account.new_record?
         telegram_account.save
-
-        action = I18n.t('redmine_2fa.otp_bot.start.action.add')
-
         @logger.info "New user #{user.first_name} #{user.last_name} @#{user.username} added!"
       else
         telegram_account.update_columns username:   user.username,
                                         first_name: user.first_name,
                                         last_name:  user.last_name
-        if telegram_account.active?
-          action = I18n.t('redmine_2fa.otp_bot.start.action.update')
-        else
-          action = I18n.t('redmine_2fa.otp_bot.start.action.activate')
-          telegram_account.activate!
-        end
+
+        telegram_account.activate! unless telegram_account.active?
       end
 
-      message = I18n.t('redmine_2fa.otp_bot.start.hello', name: user.first_name, action: action)
 
-      @bot.send_message(chat_id: telegram_message.chat.id, text: message)
-
-      message_type = telegram_account.user.present? ? 'done' : 'instruction_html'
-
-      message = I18n.t("redmine_2fa.otp_bot.start.#{message_type}")
+      message = if telegram_account.user.present?
+                  I18n.t('redmine_2fa.redmine_telegram_connections.create.success')
+                else
+                  I18n.t('redmine_2fa.otp_bot.start.instruction_html')
+                end
 
       @bot.send_message(chat_id: telegram_message.chat.id, text: message, parse_mode: 'HTML')
     end

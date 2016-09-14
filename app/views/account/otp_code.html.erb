@@ -20,12 +20,8 @@
       <% else %>
         <tr>
           <td align="left" colspan="2">
-            <%= t 'redmine_2fa.new_connection.add' %>
-            <%= link_to t('redmine_2fa.new_connection.telegram_bot'), "https://telegram.me/#{Setting.plugin_redmine_2fa['bot_name']}", target: '_blank'  %>,
-            <%= t 'redmine_2fa.new_connection.it_will' %>.
-            <p>
-              <%= t 'redmine_2fa.new_connection.hint' %>
-            </p>
+            <strong><%= t 'redmine_2fa.new_connection.title' %></strong>
+            <%= t 'redmine_2fa.new_connection.instruction_html', bot_name: Setting.plugin_redmine_2fa['bot_name'] %>
           </td>
 
         </tr>
