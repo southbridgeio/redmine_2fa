@@ -7,20 +7,11 @@ class OtpBotController < ApplicationController
     token = Setting.plugin_redmine_2fa['bot_token']
 
     bot      = Telegrammer::Bot.new(token)
-    bot_name = bot.me.username
+    bot_info = bot.me
 
-    webhook_url = URI::HTTPS.build({ host: Setting['host_name'], path: '/redmine_2fa/update' }).to_s
+    set_webhook(bot)
 
-    response = bot.set_webhook(webhook_url)
-
-    plugin_settings = Setting.find_by(name: 'plugin_redmine_2fa')
-
-    plugin_settings_hash             = plugin_settings.value
-    plugin_settings_hash['bot_name'] = bot_name
-    plugin_settings_hash['bot_id']   = bot.me.id
-    plugin_settings.value            = plugin_settings_hash
-
-    plugin_settings.save
+    update_plugin_settings(bot_info)
 
     redirect_to plugin_settings_path('redmine_2fa'), notice: t('redmine_2fa.otp_bot.init.success')
 
@@ -40,15 +31,37 @@ class OtpBotController < ApplicationController
     logger = Logger.new(Rails.root.join('log/redmine_2fa', 'bot-update.log'))
     logger.debug params
 
-    message      = JSON.parse(params[:message].to_json, object_class: OpenStruct)
-    message_text = message.text
+    if params[:message].present?
+      message      = JSON.parse(params[:message].to_json, object_class: OpenStruct)
+      message_text = message.text
 
-    if message_text&.include?('start')
-      Redmine2FA::TelegramBotService.new.start(message)
-    elsif message_text&.include?('/connect')
-      Redmine2FA::TelegramBotService.new.connect(message)
+      if message_text&.include?('start')
+        Redmine2FA::TelegramBotService.new.start(message)
+      elsif message_text&.include?('/connect')
+        Redmine2FA::TelegramBotService.new.connect(message)
+      end
     end
 
     head :ok
+  end
+
+  private
+
+
+  def update_plugin_settings(bot_info)
+    plugin_settings = Setting.find_by(name: 'plugin_redmine_2fa')
+
+    plugin_settings_hash             = plugin_settings.value
+    plugin_settings_hash['bot_name'] = bot_info.username
+    plugin_settings_hash['bot_id']   = bot_info.id
+    plugin_settings.value            = plugin_settings_hash
+
+    plugin_settings.save
+  end
+
+  def set_webhook(bot)
+    webhook_url = URI::HTTPS.build({ host: Setting['host_name'], path: '/redmine_2fa/update' }).to_s
+
+    response = bot.set_webhook(webhook_url)
   end
 end
