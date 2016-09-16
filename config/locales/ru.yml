@@ -27,7 +27,7 @@ ru:
         Для этого перейдите по <a href="https://telegram.me/%{bot_name}" target="_blank">ссылке</a> и напишите ему "/start" и выполните инструкции.
 
     telegram_auth:
-      message: 'Код Redmine "%{app_title}": %{code}'
+      message: 'Код Redmine "%{app_title}": %{code}. Действителен до %{expiration_time}'
 
     auth_code: 'Код подтверждения'
     resend_auth_code: 'Выслать повторно'

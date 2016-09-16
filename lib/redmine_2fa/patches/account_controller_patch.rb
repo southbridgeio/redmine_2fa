@@ -16,7 +16,7 @@ module Redmine2FA
         def otp_code_confirm
           if session[:otp_user_id]
             @user = User.find(session[:otp_user_id])
-            if @user.authenticate_otp(params[:otp_code], drift: 60)
+            if @user.authenticate_otp(params[:otp_code], drift: 120)
               params[:back_url]             = session[:otp_back_url]
               session[:otp_user_id]         = nil
               session[:otp_failed_attempts] = nil

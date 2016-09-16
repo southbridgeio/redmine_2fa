@@ -26,7 +26,7 @@ en:
         %{bot_name} will send you aouthorization codes. Pleas activate it.<br>
         Follow the <a href="https://telegram.me/%{bot_name}" target="_blank">link</a> and say "/start" to bot. Then follow the bot instruction.
     telegram_auth:
-      message: 'Redmine "%{app_title}" auth code: %{code}'
+      message: 'Redmine "%{app_title}" auth code: %{code}. Expired at %{expiration_time}'
 
     auth_code: 'Authorization code'
     resend_auth_code: 'Resend code'
