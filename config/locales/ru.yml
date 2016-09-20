@@ -31,7 +31,7 @@ ru:
 
     auth_code: 'Код подтверждения'
     resend:
-      link: 'Выслать повторно'
+      link: 'Отправить повторно'
       instruction_html: 'Код отправлен. Повторная отправка кода возможна через <span id="otpCodeResendTimer">%{timeout}</span> секунд.'
     notice:
       auth_code:
