@@ -29,6 +29,7 @@ module Redmine2FA
                 regenerate_otp_code(@user)
                 flash[:error] = t('redmine_2fa.notice.auth_code.limit_exceeded_failed_attempts')
               else
+                @hide_countdown = true
                 flash[:error] = t('redmine_2fa.notice.auth_code.invalid')
               end
               render 'otp_code'
@@ -42,8 +43,13 @@ module Redmine2FA
           if session[:otp_user_id]
             @user = User.find(session[:otp_user_id])
             regenerate_otp_code(@user)
-            flash[:notice] = t('redmine_2fa.notice.auth_code.resent_again')
-            render 'otp_code'
+            respond_to do |format|
+              format.html do
+                flash[:notice] = t('redmine_2fa.notice.auth_code.resent_again')
+                render 'otp_code'
+              end
+              format.js
+            end
           else
             redirect_to '/'
           end

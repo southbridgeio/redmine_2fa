@@ -30,7 +30,9 @@ ru:
       message: 'Код Redmine "%{app_title}": %{code}. Действителен до %{expiration_time}'
 
     auth_code: 'Код подтверждения'
-    resend_auth_code: 'Выслать повторно'
+    resend:
+      link: 'Выслать повторно'
+      instruction_html: 'Код отправлен. Повторная отправка кода возможна через <span id="otpCodeResendTimer">%{timeout}</span> секунд.'
     notice:
       auth_code:
         invalid: 'Неверный код подтверждения'

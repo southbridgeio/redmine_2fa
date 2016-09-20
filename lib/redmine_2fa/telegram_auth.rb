@@ -25,7 +25,6 @@ module Redmine2FA
       else
         puts "AUTH CODE: #{code}"
       end
-
     end
 
   end

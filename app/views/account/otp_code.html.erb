@@ -3,20 +3,27 @@
     <% if params[:autologin] %>
       <%= hidden_field_tag 'autologin', params[:autologin] %>
     <% end %>
-    <table>
+    <table style="width: 350px;">
       <% if @user&.telegram_account.present? %>
         <tr>
           <td align="right"><label for="otp_code"><%= t 'redmine_2fa.auth_code' %>:</label></td>
-          <td align="left"><%= text_field_tag :otp_code, nil, :autocomplete => 'off' %></td>
+          <td align="right"><%= text_field_tag :otp_code, nil, autocomplete: 'off', autofocus: true %></td>
+        </tr>
+        <tr id="otpCodeResentInstruction" style="display: none">
+          <%= debug @hide_countdown %>
+          <td align="center" colspan="2">
+            <%= t('redmine_2fa.resend.instruction_html', timeout: 30) %>
+          </td>
         </tr>
         <tr>
           <td align="left">
-            <%= link_to t('redmine_2fa.resend_auth_code'), otp_code_resend_path %>
+            <%= link_to t('redmine_2fa.resend.link'), otp_code_resend_path, remote: true, id: 'otpCodeResendLink' %>
           </td>
           <td align="right" colspan="1">
             <input type="submit" name="login" value="<%= l(:button_login) %> &#187;"/>
           </td>
         </tr>
+
       <% else %>
         <tr>
           <td align="left" colspan="2">
@@ -30,5 +37,33 @@
   <% end %>
 </div>
 
-<%= javascript_tag "$('#otp_code').focus();" %>
+<script>
+  function startOtpTimer() {
+    var duration = 30,
+        display = document.querySelector('#otpCodeResendTimer'),
+        timer = duration,
+        seconds,
+        nIntervId;
 
+    $('#otpCodeResendLink').hide();
+    $('#otpCodeResentInstruction').show();
+
+    nIntervId = setInterval(function () {
+
+      seconds = parseInt(timer, 10);
+
+      display.textContent = seconds;
+
+      if (--timer < 0) {
+        $('#otpCodeResendLink').show();
+        $('#otpCodeResentInstruction').hide();
+        display.textContent = duration;
+        clearInterval(nIntervId);
+      }
+    }, 1000);
+  }
+</script>
+
+<% unless @hide_countdown %>
+  <%= script_tag 'window.onload = function () {startOtpTimer();};' %>
+<% end %>

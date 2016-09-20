@@ -29,7 +29,9 @@ en:
       message: 'Redmine "%{app_title}" auth code: %{code}. Expired at %{expiration_time}'
 
     auth_code: 'Authorization code'
-    resend_auth_code: 'Resend code'
+    resend:
+      link: 'Resend code'
+      instruction_html: 'Code sent. Code resending  possible after 5 seconds <span id="otpCodeResendTimer">%{timeout}</span> секунд.'
     notice:
       auth_code:
         invalid: 'Wrong authorization code'
