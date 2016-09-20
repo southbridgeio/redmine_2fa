@@ -65,5 +65,5 @@
 </script>
 
 <% unless @hide_countdown %>
-  <%= script_tag 'window.onload = function () {startOtpTimer();};' %>
+  <%= javascript_tag 'window.onload = function () {startOtpTimer();};' %>
 <% end %>
