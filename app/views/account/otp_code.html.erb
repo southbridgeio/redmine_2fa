@@ -10,7 +10,6 @@
           <td align="right"><%= text_field_tag :otp_code, nil, autocomplete: 'off', autofocus: true %></td>
         </tr>
         <tr id="otpCodeResentInstruction" style="display: none">
-          <%= debug @hide_countdown %>
           <td align="center" colspan="2">
             <%= t('redmine_2fa.resend.instruction_html', timeout: 30) %>
           </td>
