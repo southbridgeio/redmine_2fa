@@ -36,32 +36,10 @@
   <% end %>
 </div>
 
-<script>
-  function startOtpTimer() {
-    var duration = 30,
-        display = document.querySelector('#otpCodeResendTimer'),
-        timer = duration,
-        seconds,
-        nIntervId;
+<% content_for :header_tags do %>
+  <%= javascript_include_tag 'redmine_2fa.js', plugin: 'redmine_2fa' %>
+<% end %>
 
-    $('#otpCodeResendLink').hide();
-    $('#otpCodeResentInstruction').show();
-
-    nIntervId = setInterval(function () {
-
-      seconds = parseInt(timer, 10);
-
-      display.textContent = seconds;
-
-      if (--timer < 0) {
-        $('#otpCodeResendLink').show();
-        $('#otpCodeResentInstruction').hide();
-        display.textContent = duration;
-        clearInterval(nIntervId);
-      }
-    }, 1000);
-  }
-</script>
 
 <% unless @hide_countdown %>
   <%= javascript_tag 'window.onload = function () {startOtpTimer();};' %>
