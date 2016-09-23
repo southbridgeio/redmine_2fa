@@ -38,8 +38,8 @@ class AccountControllerPatchTest < ActionController::TestCase
   def test_login_with_mobile_phone
     User.find(2).update_attribute :mobile_phone, '79999999999'
 
-    Redmine2FA::TelegramAuth.expects(:generate_telegram_password).returns('1234')
-    Redmine2FA::TelegramAuth.expects(:send_telegram_password).with('79999999999', '1234')
+    Redmine2FA::OtpAuth.expects(:generate_telegram_password).returns('1234')
+    Redmine2FA::OtpAuth.expects(:send_telegram_password).with('79999999999', '1234')
 
     post :login, username: 'jsmith', password: 'jsmith'
 
@@ -81,8 +81,8 @@ class AccountControllerPatchTest < ActionController::TestCase
   def test_telegram_confirm_with_wrong_telegram_password_limit_of_failed_attempts_exceeded
     User.find(2).update_attribute :mobile_phone, '79999999999'
 
-    Redmine2FA::TelegramAuth.expects(:generate_telegram_password).returns('7890')
-    Redmine2FA::TelegramAuth.expects(:send_telegram_password).with('79999999999', '7890')
+    Redmine2FA::OtpAuth.expects(:generate_telegram_password).returns('7890')
+    Redmine2FA::OtpAuth.expects(:send_telegram_password).with('79999999999', '7890')
 
     @request.session[:otp_user_id]              = 2
     @request.session[:telegram_password]        = '1234'
@@ -129,8 +129,8 @@ class AccountControllerPatchTest < ActionController::TestCase
     @request.session[:otp_user_id]       = 2
     @request.session[:telegram_password] = '1234'
 
-    Redmine2FA::TelegramAuth.expects(:generate_telegram_password).returns('5678')
-    Redmine2FA::TelegramAuth.expects(:send_telegram_password).with('79999999999', '5678')
+    Redmine2FA::OtpAuth.expects(:generate_telegram_password).returns('5678')
+    Redmine2FA::OtpAuth.expects(:send_telegram_password).with('79999999999', '5678')
 
     get :telegram_resend
 

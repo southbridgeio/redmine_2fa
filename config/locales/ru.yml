@@ -1,4 +1,6 @@
 ru:
+  field_mobile_phone: 'Мобильный телефон'
+
   redmine_2fa:
     settings:
       init:

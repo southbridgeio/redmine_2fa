@@ -3,7 +3,6 @@ require_dependency 'account_controller'
 module Redmine2FA
   module Patches
     module AccountControllerPatch
-
       def self.included(base)
         base.send(:include, InstanceMethods)
         base.class_eval do
@@ -12,7 +11,6 @@ module Redmine2FA
       end
 
       module InstanceMethods
-
         def otp_code_confirm
           if session[:otp_user_id]
             @user = User.find(session[:otp_user_id])
@@ -61,7 +59,7 @@ module Redmine2FA
         def password_authentication_with_otp_code
           @user = User.where(login: params[:username].to_s).first
           @telegram_account = @user.telegram_account
-          if @user&.auth_source&.auth_method_name == 'Telegram' && @telegram_account.present?
+          if @user.has_otp_auth?
             session[:otp_back_url] = params[:back_url]
             if User.try_to_login(params[:username], params[:password]) == @user
               session[:otp_user_id] = @user.id
@@ -78,15 +76,12 @@ module Redmine2FA
         end
 
         def regenerate_otp_code(user)
-          Redmine2FA::TelegramAuth.send_otp_code(user) if user.telegram_account.active?
+          Redmine2FA::OtpAuth.new.send_otp_code(user)
           session[:otp_failed_attempts] = 0
         end
-
       end
-
     end
   end
 end
-
 
 AccountController.send(:include, Redmine2FA::Patches::AccountControllerPatch)

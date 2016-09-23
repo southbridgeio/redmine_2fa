@@ -16,7 +16,7 @@ end
 
 Redmine::Plugin.register :redmine_2fa do
   name 'Redmine 2FA'
-  version '0.0.4'
+  version '0.2.0'
   url 'https://github.com/centosadmin/redmine_2fa'
   description 'Two-factor authorization for Redmine'
   author 'Centos-admin.ru'

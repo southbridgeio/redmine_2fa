@@ -1,4 +1,5 @@
 en:
+  field_mobile_phone: 'Mobile phone'
   redmine_2fa:
     settings:
       init:

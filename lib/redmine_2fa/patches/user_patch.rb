@@ -1,13 +1,34 @@
 module Redmine2FA
   module Patches
     module UserPatch
-      def self.included(base) # :nodoc:
+      def self.included(base)
+        base.send(:include, InstanceMethods)
+        base.safe_attributes 'mobile_phone'
+        base.validates_format_of :mobile_phone, with: /\A[-+0-9]*\z/, allow_blank: true
+
         base.class_eval do
           unloadable
 
           has_one :telegram_account, dependent: :destroy, class_name: 'Redmine2FA::TelegramAccount'
 
-          has_one_time_password length: 4
+          has_one_time_password length: Redmine2FA::Configuration.password_length
+
+          alias_method_chain :update_hashed_password, :sms_auth
+        end
+      end
+
+      module InstanceMethods
+        def update_hashed_password_with_sms_auth
+          if auth_source && auth_source.auth_method_name == 'SMS'
+            salt_password(password) if password
+          else
+            update_hashed_password_without_sms_auth
+          end
+        end
+
+        def has_otp_auth?
+          auth_source&.auth_method_name == 'Telegram' && telegram_account.present? ||
+              auth_source&.auth_method_name == 'SMS'
         end
       end
     end
