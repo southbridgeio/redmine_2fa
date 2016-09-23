@@ -71,6 +71,8 @@ module Redmine2FA
           else
             password_authentication_without_otp_code
           end
+        rescue MultiJson::ParseError
+          password_authentication_without_otp_code
         end
 
         def regenerate_otp_code(user)

@@ -1,8 +1,25 @@
 ru:
   redmine_2fa:
     settings:
-      hint_html: <strong>Важно!!!</strong> После сохранения (обновления) токена нужно
-      bot_init: инициализировать бота
+      init:
+        header: Инициализация бота
+        description_html: |
+          Во время инициализации:
+          <ul>
+            <li>для бота создаётся веб-хук</li>
+            <li>в систему сохраняется имя и id бота</li>
+          </ul>
+        button_text: Инициализировать бота
+      deactivate:
+        header: Деактивация бота
+        description_html: |
+          Во время деактивации:
+          <ul>
+            <li>у бота удаляется веб-хук</li>
+            <li>связанные с ботом аккаунты Telegram деактивируются.</li>
+          </ul>
+          При добавлении нового бота, его придётся инициализировать.
+        button_text: Деактивировать бота
     otp_bot:
       init:
         success: Бот успешно инициализирован
@@ -27,7 +44,7 @@ ru:
         Для этого перейдите по <a href="https://telegram.me/%{bot_name}" target="_blank">ссылке</a> и напишите ему "/start" и выполните инструкции.
 
     telegram_auth:
-      message: 'Код Redmine "%{app_title}": %{code}. Действителен до %{expiration_time}'
+      message: 'Код Redmine "%{app_title}": %{code}. Действителен до %{expiration_time}.'
 
     auth_code: 'Код подтверждения'
     resend:

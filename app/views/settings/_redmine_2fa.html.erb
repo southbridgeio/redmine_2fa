@@ -2,9 +2,32 @@
   <label for="settings_bot_token">Bot Token</label>
   <%= text_field_tag 'settings[bot_token]', @settings['bot_token'], size: 50 %>
 </p>
-<p>
-  <%= t 'redmine_2fa.settings.hint_html' %>
-  <%= link_to t('redmine_2fa.settings.bot_init'), redmine_2fa_bot_init_path %>.
-</p>
+<table style="width: 100%">
+  <tr>
+    <td style="width: 50%"><h3><%= t('redmine_2fa.settings.init.header') %></h3></td>
+    <td style="width: 50%"><h3><%= t('redmine_2fa.settings.deactivate.header') %></h3></td>
+  </tr>
+  <tr>
+    <td>
+      <%= t('redmine_2fa.settings.init.description_html') %>
+    </td>
+    <td>
+      <%= t('redmine_2fa.settings.deactivate.description_html') %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <%= link_to redmine_2fa_bot_init_path do %>
+        <button type="button"><%= t('redmine_2fa.settings.init.button_text') %></button>
+      <% end %>
+    </td>
+    <td>
+      <%= link_to redmine_2fa_bot_deactivate_path do %>
+        <button type="button"><%= t('redmine_2fa.settings.deactivate.button_text') %></button>
+      <% end %>
+    </td>
+  </tr>
+</table>
+
 <%= hidden_field_tag 'settings[bot_name]', @settings['bot_name'] %>
 <%= hidden_field_tag 'settings[bot_id]', @settings['bot_id'] %>

@@ -4,4 +4,5 @@ get :otp_code_resend, to: 'account#otp_code_resend', as: :otp_code_resend
 get 'redmine_2fa/telegram_connect' => 'redmine_telegram_connections#create', as: 'redmine_2fa_telegram_connect'
 
 get 'redmine_2fa/bot_init' => 'otp_bot#init', as: 'redmine_2fa_bot_init'
+get 'redmine_2fa/bot_deactivate' => 'otp_bot#deactivate', as: 'redmine_2fa_bot_deactivate'
 post 'redmine_2fa/update' => 'otp_bot#update'
