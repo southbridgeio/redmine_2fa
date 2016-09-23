@@ -28,7 +28,7 @@ module Redmine2FA
                 flash[:error] = t('redmine_2fa.notice.auth_code.limit_exceeded_failed_attempts')
               else
                 @hide_countdown = true
-                flash[:error] = t('redmine_2fa.notice.auth_code.invalid')
+                flash[:error]   = t('redmine_2fa.notice.auth_code.invalid')
               end
               render 'otp_code'
             end
@@ -39,8 +39,7 @@ module Redmine2FA
 
         def otp_code_resend
           if session[:otp_user_id]
-            @user = User.find(session[:otp_user_id])
-            @telegram_account = @user.telegram_account
+            @user             = User.find(session[:otp_user_id])
             regenerate_otp_code(@user)
             respond_to do |format|
               format.html do
@@ -58,7 +57,6 @@ module Redmine2FA
 
         def password_authentication_with_otp_code
           @user = User.where(login: params[:username].to_s).first
-          @telegram_account = @user.telegram_account
           if @user.has_otp_auth?
             session[:otp_back_url] = params[:back_url]
             if User.try_to_login(params[:username], params[:password]) == @user

@@ -27,8 +27,16 @@ module Redmine2FA
         end
 
         def has_otp_auth?
-          auth_source&.auth_method_name == 'Telegram' && telegram_account.present? ||
-              auth_source&.auth_method_name == 'SMS'
+          has_telegram_auth? && telegram_account.present? ||
+              has_sms_auth?
+        end
+
+        def has_sms_auth?
+          auth_source&.auth_method_name == 'SMS'
+        end
+
+        def has_telegram_auth?
+          auth_source&.auth_method_name == 'Telegram'
         end
       end
     end

@@ -13,6 +13,8 @@ Developed by [Centos-admin.ru](https://centos-admin.ru/)
 
 This plugin works only on HTTPS host, because of Telegram Bot Webhook needs to POST on HTTPS hosts.
 
+Ruby 2.3+
+
 ### Важно!!!
 
 Бот для этого плагина должен быть уникальным. Иначе могут быть конфликты, если тот же бот используется в другом плагине в режиме опроса обновлений.
