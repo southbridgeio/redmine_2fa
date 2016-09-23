@@ -14,7 +14,6 @@ ActionDispatch::Callbacks.to_prepare do
   end
 end
 
-
 Redmine::Plugin.register :redmine_2fa do
   name 'Redmine 2FA'
   version '0.0.4'

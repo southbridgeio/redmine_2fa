@@ -2,7 +2,6 @@ module Redmine2FA
   module Patches
     module UserPatch
       def self.included(base) # :nodoc:
-
         base.class_eval do
           unloadable
 
@@ -11,9 +10,7 @@ module Redmine2FA
           has_one_time_password length: 4
         end
       end
-
     end
   end
-
 end
 User.send(:include, Redmine2FA::Patches::UserPatch)

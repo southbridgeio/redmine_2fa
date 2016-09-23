@@ -27,5 +27,4 @@ class Redmine2FA::TelegramAccount < ActiveRecord::Base
   def set_token
     self.token = ROTP::Base32.random_base32
   end
-
 end

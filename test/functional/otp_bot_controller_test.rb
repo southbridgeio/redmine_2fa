@@ -2,7 +2,7 @@ require File.expand_path('../../test_helper', __FILE__)
 
 class OtpBotControllerTest < ActionController::TestCase
   fixtures :users, :roles
-  
+
   setup do
     Setting.create name: 'plugin_redmine_2fa', value: { 'bot_token' => '12345678:botSecretToken' }
     Setting['host_name'] = 'redmine.test'
