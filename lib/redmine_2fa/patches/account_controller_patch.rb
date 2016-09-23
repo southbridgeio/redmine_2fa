@@ -42,6 +42,7 @@ module Redmine2FA
         def otp_code_resend
           if session[:otp_user_id]
             @user = User.find(session[:otp_user_id])
+            @telegram_account = @user.telegram_account
             regenerate_otp_code(@user)
             respond_to do |format|
               format.html do
@@ -59,7 +60,8 @@ module Redmine2FA
 
         def password_authentication_with_otp_code
           @user = User.where(login: params[:username].to_s).first
-          if @user&.auth_source&.auth_method_name == 'Telegram'
+          @telegram_account = @user.telegram_account
+          if @user&.auth_source&.auth_method_name == 'Telegram' && @telegram_account.present?
             session[:otp_back_url] = params[:back_url]
             if User.try_to_login(params[:username], params[:password]) == @user
               session[:otp_user_id] = @user.id
@@ -76,7 +78,7 @@ module Redmine2FA
         end
 
         def regenerate_otp_code(user)
-          Redmine2FA::TelegramAuth.send_otp_code(user)
+          Redmine2FA::TelegramAuth.send_otp_code(user) if user.telegram_account.active?
           session[:otp_failed_attempts] = 0
         end
 

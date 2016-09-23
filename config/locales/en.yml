@@ -25,6 +25,8 @@ en:
         error:
           wrong_token: Wrong token
           api_error: Telegram Bot API service anavailable
+        deactivate:
+          success: Bot successfully deactivated
       start:
         instruction_html: |
           Now we need to connect your Redmine & Telegram account.

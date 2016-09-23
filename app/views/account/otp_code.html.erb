@@ -4,7 +4,7 @@
       <%= hidden_field_tag 'autologin', params[:autologin] %>
     <% end %>
     <table style="width: 350px;">
-      <% if @user&.telegram_account.present? %>
+      <% if @telegram_account.present? && @telegram_account.active? %>
         <tr>
           <td align="right"><label for="otp_code"><%= t 'redmine_2fa.auth_code' %>:</label></td>
           <td align="right"><%= text_field_tag :otp_code, nil, autocomplete: 'off', autofocus: true %></td>

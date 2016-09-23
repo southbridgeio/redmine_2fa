@@ -26,6 +26,8 @@ ru:
         error:
           wrong_token: Ошибка иницализации. Неверно указан токен
           api_error: Telegram Bot API сейчас недоступна
+      deactivate:
+        success: Бот успешно деактивирован
       start:
         instruction_html: |
           Чтобы связать аккаунты Redmine и Telegram, пожалуйста, введите комманду "/connect your_redmine_account@email.com",
