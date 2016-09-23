@@ -1,8 +1,30 @@
 require File.expand_path('../../test_helper', __FILE__)
 
 class OtpBotControllerTest < ActionController::TestCase
-  # Replace this with your real tests.
-  def test_truth
-    assert true
+  fixtures :users, :roles
+  
+  setup do
+    Setting.create name: 'plugin_redmine_2fa', value: { 'bot_token' => '12345678:botSecretToken' }
+    Setting['host_name'] = 'redmine.test'
+    @request             = ActionController::TestRequest.new
+    @response            = ActionController::TestResponse.new
+  end
+
+  def test_init
+    @request.session[:user_id] = 1
+
+    plugin_settings      = Setting.find_by(name: 'plugin_redmine_2fa')
+    plugin_settings_hash = plugin_settings.value
+
+    assert plugin_settings_hash['bot_name'].nil?
+    assert plugin_settings_hash['bot_id'].nil?
+
+    VCR.use_cassette('init') { get :init }
+
+    plugin_settings      = Setting.find_by(name: 'plugin_redmine_2fa')
+    plugin_settings_hash = plugin_settings.value
+
+    assert_not plugin_settings_hash['bot_name'].nil?
+    assert_not plugin_settings_hash['bot_id'].nil?
   end
 end
