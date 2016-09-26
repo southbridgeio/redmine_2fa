@@ -6,7 +6,7 @@ module Redmine2FA
       expiration_time = time + 2.minutes
       expiration_time_string = expiration_time.strftime('%H:%M:%S')
       code = user.otp_code(time: time)
-      
+
       auth_method_name = user&.auth_source&.auth_method_name
 
       if auth_method_name == 'Telegram'
@@ -28,7 +28,7 @@ module Redmine2FA
         command = command.sub('%{phone}', phone).sub('%{password}', code)
         system command
       end
-      
+
       code
     end
   end

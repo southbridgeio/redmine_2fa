@@ -8,7 +8,7 @@ class AccountControllerPatchTest < ActionController::TestCase
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
 
-    auth_source = Redmine2FA::AuthSourceTelegram.create name: 'Telegram', onthefly_register: false, tls: false
+    auth_source = Redmine2FA::AuthSource::Telegram.create name: 'Telegram', onthefly_register: false, tls: false
     User.current = nil
     user = User.find(2) # jsmith
     user.update_attribute :auth_source_id, auth_source.id

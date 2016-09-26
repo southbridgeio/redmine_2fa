@@ -39,7 +39,7 @@ module Redmine2FA
 
         def otp_code_resend
           if session[:otp_user_id]
-            @user             = User.find(session[:otp_user_id])
+            @user = User.find(session[:otp_user_id])
             regenerate_otp_code(@user)
             respond_to do |format|
               format.html do

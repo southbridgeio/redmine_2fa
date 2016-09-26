@@ -11,7 +11,7 @@ module Redmine2FA
 
           has_one :telegram_account, dependent: :destroy, class_name: 'Redmine2FA::TelegramAccount'
 
-          has_one_time_password length: Redmine2FA::Configuration.password_length
+          has_one_time_password length: 6
 
           alias_method_chain :update_hashed_password, :sms_auth
         end
@@ -28,7 +28,7 @@ module Redmine2FA
 
         def has_otp_auth?
           has_telegram_auth? && telegram_account.present? ||
-              has_sms_auth?
+              has_sms_auth? || has_google_auth?
         end
 
         def has_sms_auth?
@@ -37,6 +37,10 @@ module Redmine2FA
 
         def has_telegram_auth?
           auth_source&.auth_method_name == 'Telegram'
+        end
+
+        def has_google_auth?
+          auth_source&.auth_method_name == 'Google Auth'
         end
       end
     end

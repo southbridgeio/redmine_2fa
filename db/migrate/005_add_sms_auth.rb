@@ -1,9 +1,9 @@
 class AddSmsAuth < ActiveRecord::Migration
   def up
-    Redmine2FA::AuthSourceSms.create name: 'SMS', onthefly_register: false, tls: false
+    Redmine2FA::AuthSource::SMS.create name: 'SMS', onthefly_register: false, tls: false
   end
 
   def down
-    Redmine2FA::AuthSourceSms.destroy_all
+    Redmine2FA::AuthSource::SMS.destroy_all
   end
 end

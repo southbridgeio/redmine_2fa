@@ -5,7 +5,7 @@ Two-factor authorization plugin for Redmine.
 Supports:
 * Telegram
 * SMS
-* Google Auth (coming soon)
+* Google Auth
 
 Developed by [Centos-admin.ru](https://centos-admin.ru/)
 
@@ -69,7 +69,7 @@ curl http://my-sms-gateway.net?phone=%{phone}&message=%{password}
 ```
 `%{phone}` and `%{password}` are placeholders. They will be replaced with actual data during runtime. Default command is `echo %{phone} %{password}`.
 
-Default password length is 4.
+Password length is 6.
 
 ## Миграция с плагина redmine_sms_auth
 
@@ -92,10 +92,11 @@ Default password length is 4.
     production:
       redmine_2fa:
         sms_command: 'echo %{phone} %{password}'
-        password_length: 5
     ```
 
 * перезапустите Redmine
+
+Параметр password_length больше не используется, так как в Google Auth используется фиксированная длинна кода - 6 цифр.
 
 В плагине redmine_sms_auth к польвателям было добавлено поле "Мобильный телефон", значение которого используется для 
 отправки СМС.

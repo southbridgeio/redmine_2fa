@@ -4,7 +4,7 @@
       <%= hidden_field_tag 'autologin', params[:autologin] %>
     <% end %>
     <table style="width: 350px;">
-      <% if @user.has_sms_auth? || @user.telegram_account&.active? %>
+      <% if @user.has_sms_auth? || @user.has_google_auth? || @user.telegram_account&.active? %>
         <tr>
           <td align="right"><label for="otp_code"><%= t 'redmine_2fa.auth_code' %>:</label></td>
           <td align="right"><%= text_field_tag :otp_code, nil, autocomplete: 'off', autofocus: true %></td>
@@ -16,7 +16,9 @@
         </tr>
         <tr>
           <td align="left">
-            <%= link_to t('redmine_2fa.resend.link'), otp_code_resend_path, remote: true, id: 'otpCodeResendLink' %>
+            <% unless @user.has_google_auth? %>
+              <%= link_to t('redmine_2fa.resend.link'), otp_code_resend_path, remote: true, id: 'otpCodeResendLink' %>
+            <% end %>
           </td>
           <td align="right" colspan="1">
             <input type="submit" name="login" value="<%= l(:button_login) %> &#187;"/>
@@ -30,15 +32,21 @@
           </td>
         </tr>
       <% end %>
+
     </table>
   <% end %>
 </div>
 
+<% if @user.has_google_auth? %>
+  <%= render 'qr_code' %>
+<% end %>
+
 <% content_for :header_tags do %>
-  <%= javascript_include_tag 'redmine_2fa.js', plugin: 'redmine_2fa' %>
+  <%= javascript_include_tag 'redmine_2fa', plugin: 'redmine_2fa' %>
+  <%= stylesheet_link_tag 'redmine_2fa', plugin: 'redmine_2fa' %>
 <% end %>
 
 
-<% unless @hide_countdown %>
+<% unless @hide_countdown or @user.has_google_auth? %>
   <%= javascript_tag 'window.onload = function () {startOtpTimer();};' %>
 <% end %>
