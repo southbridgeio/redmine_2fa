@@ -23,7 +23,7 @@ before_script:
 
 script:
   - export TESTSPACE=`pwd`/testspace
-  - export NAME_OF_PLUGIN=redmine_percent_done
+  - export NAME_OF_PLUGIN=redmine_2fa
   - export PATH_TO_PLUGIN=`pwd`
   - export PATH_TO_REDMINE=$TESTSPACE/redmine
   - mkdir $TESTSPACE
