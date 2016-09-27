@@ -35,9 +35,6 @@ then
   git checkout -b $REDMINE_GIT_TAG origin/$REDMINE_GIT_TAG
 fi
 
-# create a link to the backlogs plugin
-ln -sf $PATH_TO_PLUGIN plugins/$NAME_OF_PLUGIN
-
 mv $TESTSPACE/database.yml.travis config/database.yml
 mv $TESTSPACE/additional_environment.rb config/
 
@@ -46,6 +43,12 @@ bundle install
 
 # run redmine database migrations
 bundle exec rake db:migrate
+
+# create a link to the backlogs plugin
+ln -sf $PATH_TO_PLUGIN plugins/$NAME_OF_PLUGIN
+
+# install gems
+bundle install
 
 # run plugin database migrations
 bundle exec rake redmine:plugins:migrate
