@@ -16,7 +16,7 @@ class UserPatchTest < ActiveSupport::TestCase
   end
 
   def test_otp_expiration_time
-    time = Time.now
+    time = Time.now.beginning_of_minute
 
     otp_code = @user.otp_code(time: time)
 
@@ -28,7 +28,7 @@ class UserPatchTest < ActiveSupport::TestCase
       assert @user.authenticate_otp(otp_code, drift: 120)
     end
 
-    Timecop.freeze(time + 2.minutes + 5.seconds) do
+    Timecop.freeze(time + 2.minutes + 15.seconds) do
       assert !@user.authenticate_otp(otp_code, drift: 120)
     end
   end
