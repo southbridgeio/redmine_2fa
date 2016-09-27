@@ -19,7 +19,7 @@ module Redmine2FA
 
       module InstanceMethods
         def update_hashed_password_with_sms_auth
-          if auth_source && auth_source.auth_method_name == 'SMS'
+          if has_telegram_auth?  || has_sms_auth? || has_google_auth?
             salt_password(password) if password
           else
             update_hashed_password_without_sms_auth
