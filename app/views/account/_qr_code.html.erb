@@ -1,4 +1,4 @@
-<% @qr = RQRCode::QRCode.new(@user.provisioning_uri('redmine_2fa'), :size => 7, :level => :h ) %>
+<% @qr = RQRCode::QRCode.new(@user.provisioning_uri("#{@user.login}@#{Setting.host_name}"), size: 8, level: :h) %>
 <table class="qr">
   <caption>Google Authenticator</caption>
   <% @qr.modules.each_index do |x| %>

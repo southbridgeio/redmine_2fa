@@ -1,7 +1,5 @@
-module Redmine2FA
-  class AuthSource::GoogleAuth < AuthSource
-    def auth_method_name
-      'Google Auth'
-    end
+class Redmine2FA::AuthSource::GoogleAuth < Redmine2FA::AuthSource
+  def auth_method_name
+    'Google Auth'
   end
 end

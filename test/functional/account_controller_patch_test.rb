@@ -36,7 +36,7 @@ class AccountControllerPatchTest < ActionController::TestCase
 
     post :login, username: 'jsmith', password: 'jsmith'
 
-    assert_template 'otp_code'
+    assert_template 'redmine_2fa'
     assert @request.session[:otp_user_id] == 2
     assert @request.session[:otp_failed_attempts].zero?
   end
@@ -54,7 +54,7 @@ class AccountControllerPatchTest < ActionController::TestCase
     @request.session[:otp_code] = '1234'
     post :otp_code_confirm, otp_code: '12345'
 
-    assert_template 'otp_code'
+    assert_template 'redmine_2fa'
     assert_select 'div.flash.error', text: /Wrong SMS confirmation password/
   end
 
@@ -113,7 +113,7 @@ class AccountControllerPatchTest < ActionController::TestCase
 
     get :otp_code_resend
 
-    assert_template 'otp_code'
+    assert_template 'redmine_2fa'
     assert_select 'div.flash.notice', text: /SMS confirmation password sent again/
     assert @request.session[:otp_user_id] == 2
     assert @request.session[:telegram_failed_attempts].zero?

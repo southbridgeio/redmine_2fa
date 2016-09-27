@@ -27,7 +27,7 @@ module Redmine2FA
                 @hide_countdown = true
                 flash[:error]   = t('redmine_2fa.notice.auth_code.invalid')
               end
-              render 'otp_code'
+              render 'redmine_2fa'
             end
           else
             redirect_to '/'
@@ -41,7 +41,7 @@ module Redmine2FA
             respond_to do |format|
               format.html do
                 flash[:notice] = t('redmine_2fa.notice.auth_code.resent_again')
-                render 'otp_code'
+                render 'redmine_2fa'
               end
               format.js
             end
@@ -56,11 +56,13 @@ module Redmine2FA
 
           @user = User.find_by_login(params[:username])
 
+          # binding.pry
+
           if @user.has_otp_auth?
             if User.try_to_login(params[:username], params[:password]) == @user
               set_otp_session
               send_otp_code(@user)
-              render 'otp_code'
+              render 'redmine_2fa'
             else
               invalid_credentials
             end
