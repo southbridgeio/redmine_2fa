@@ -41,7 +41,7 @@
   <% end %>
 </div>
 
-<% if @user.has_google_auth? && !@user.google_authorized? %>
+<% if @user.has_google_auth? && !@user.google_authenticated? %>
   <%= render 'qr_code' %>
 <% end %>
 

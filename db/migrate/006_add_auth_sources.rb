@@ -8,7 +8,6 @@ class AddAuthSources < ActiveRecord::Migration
     else
       Redmine2FA::AuthSource::SMS.create name: 'SMS', onthefly_register: false, tls: false
     end
-
   end
 
   def down

@@ -1,7 +1,6 @@
 require File.expand_path('../../../test_helper', __FILE__)
 
 class Redmine2FA::TelegramAccountTest < ActiveSupport::TestCase
-
   def setup
     @telegram_account = Redmine2FA::TelegramAccount.new first_name: 'John', last_name: 'Smith'
   end
