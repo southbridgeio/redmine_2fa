@@ -12,8 +12,8 @@ class AddAuthSources < ActiveRecord::Migration
   end
 
   def down
-    Redmine2FA::AuthSource::Telegram.destroy_all
-    Redmine2FA::AuthSource::SMS.destroy_all
-    Redmine2FA::AuthSource::GoogleAuth.destroy_all
+    auth_sources = AuthSource.where(type: %w(Redmine2FA::AuthSource::Telegram Redmine2FA::AuthSource::SMS Redmine2FA::AuthSource::GoogleAuth))
+    User.where(auth_source_id: auth_sources.pluck(:id)).update_all(auth_source_id: nil)
+    auth_sources.destroy_all
   end
 end

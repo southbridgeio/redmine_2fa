@@ -3,7 +3,7 @@ module Redmine2FA
     module UserPatch
       def self.included(base)
         base.send(:include, InstanceMethods)
-        base.safe_attributes 'mobile_phone'
+        base.safe_attributes 'mobile_phone', 'google_authorized'
         base.validates_format_of :mobile_phone, with: /\A[-+0-9]*\z/, allow_blank: true
 
         base.class_eval do
@@ -13,22 +13,21 @@ module Redmine2FA
 
           has_one_time_password length: 6
 
-          alias_method_chain :update_hashed_password, :sms_auth
+          alias_method_chain :update_hashed_password, :otp_auth
         end
       end
 
       module InstanceMethods
-        def update_hashed_password_with_sms_auth
-          if has_telegram_auth?  || has_sms_auth? || has_google_auth?
+        def update_hashed_password_with_otp_auth
+          if has_otp_auth?
             salt_password(password) if password
           else
-            update_hashed_password_without_sms_auth
+            update_hashed_password_without_otp_auth
           end
         end
 
         def has_otp_auth?
-          has_telegram_auth? && telegram_account.present? ||
-              has_sms_auth? || has_google_auth?
+          has_telegram_auth? || has_sms_auth? || has_google_auth?
         end
 
         def has_sms_auth?

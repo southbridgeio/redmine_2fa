@@ -17,6 +17,7 @@ module Redmine2FA
 
             if @user.authenticate_otp(params[:otp_code], drift: 120)
               reset_otp_session
+              update_google_authentication(@user) if @user.has_google_auth?
               successful_authentication(@user)
             else
               increment_failed_attempts
@@ -93,6 +94,10 @@ module Redmine2FA
         def increment_failed_attempts
           session[:otp_failed_attempts] ||= 0
           session[:otp_failed_attempts] += 1
+        end
+
+        def update_google_authentication(user)
+          user.update(google_authorized: true) unless user.google_authorized?
         end
 
       end
