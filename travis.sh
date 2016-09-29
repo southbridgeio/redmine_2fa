@@ -38,17 +38,14 @@ fi
 mv $TESTSPACE/database.yml.travis config/database.yml
 mv $TESTSPACE/additional_environment.rb config/
 
-# install gems
-bundle install
-
-# run redmine database migrations
-bundle exec rake db:migrate
-
 # create a link to the backlogs plugin
 ln -sf $PATH_TO_PLUGIN plugins/$NAME_OF_PLUGIN
 
 # install gems
 bundle install
+
+# run redmine database migrations
+bundle exec rake db:migrate
 
 # run plugin database migrations
 bundle exec rake redmine:plugins:migrate

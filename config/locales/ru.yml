@@ -1,6 +1,7 @@
 ru:
   field_mobile_phone: 'Мобильный телефон'
-
+  link_google_authentication_reset: Сбросить Google Authentication
+  notice_google_auth_reseted: Ваш ключ доступа Google Athentication был сброшен.
   redmine_2fa:
     settings:
       init:
@@ -45,7 +46,9 @@ ru:
       title: Настройка 2FA
       instruction_html: |
         Бот "%{bot_name}" будет отправлять вам коды авторизации. Пожалуйста, активируйте бота.<br>
-        Для этого перейдите по <a href="https://telegram.me/%{bot_name}" target="_blank">ссылке</a> и напишите ему "/start" и выполните инструкции.
+        Для этого перейдите по <a href="https://telegram.me/%{bot_name}" target="_blank">ссылке</a> и напишите ему
+        "/start" и выполните инструкции.<br>
+        После выполнения инструкций нажмите "Далее".
 
     telegram_auth:
       message: 'Код Redmine "%{app_title}": %{code}. Действителен до %{expiration_time}.'

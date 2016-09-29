@@ -3,7 +3,7 @@ module Redmine2FA
     module UserPatch
       def self.included(base)
         base.send(:include, InstanceMethods)
-        base.safe_attributes 'mobile_phone', 'google_authenticated'
+        base.safe_attributes 'mobile_phone'
         base.validates_format_of :mobile_phone, with: /\A[-+0-9]*\z/, allow_blank: true
 
         base.class_eval do
@@ -42,11 +42,24 @@ module Redmine2FA
           auth_source&.auth_method_name == 'Google Auth'
         end
 
-        def reset_google_auth
+        def reset_second_auth
           self.otp_regenerate_secret
-          self.google_authenticated = false
+          self.auth_source_id = nil
           self.save!
         end
+
+        def ignore_2fa? # TODO: add this to DB and in user settings page
+          true
+          # false
+        end
+
+        def confirm_mobile_phone(code)
+          if mobile_phone.present? && authenticate_otp(code)
+            self.mobile_phone_confirmed = true
+            self.save
+          end
+        end
+
       end
     end
   end

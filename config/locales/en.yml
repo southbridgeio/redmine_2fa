@@ -1,5 +1,7 @@
 en:
   field_mobile_phone: 'Mobile phone'
+  link_google_authentication_reset: Reset Google Authentication
+  notice_google_auth_reseted: Your Google Athentication access key was reset.
   redmine_2fa:
     settings:
       init:
@@ -43,7 +45,8 @@ en:
       title: '2FA setup'
       instruction_html: |
         %{bot_name} will send you aouthorization codes. Pleas activate it.<br>
-        Follow the <a href="https://telegram.me/%{bot_name}" target="_blank">link</a> and say "/start" to bot. Then follow the bot instruction.
+        Follow the <a href="https://telegram.me/%{bot_name}" target="_blank">link</a> and say "/start" to bot. Then follow the bot instruction.<br>
+        After done with bot instructions click "Next".
     telegram_auth:
       message: 'Redmine "%{app_title}" auth code: %{code}. Expired at %{expiration_time}.'
 

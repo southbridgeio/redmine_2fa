@@ -6,7 +6,7 @@ class Redmine2FA::Mailer < ActionMailer::Base
 
   include Redmine::I18n
 
-  default from: "#{Setting.app_title} <#{Setting.mail_from}>"
+  default from: "#{Setting.app_title} <#{Setting.mail_from}>" unless Rails.env.test?
 
   def self.default_url_options
     Mailer.default_url_options

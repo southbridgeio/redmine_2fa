@@ -10,4 +10,8 @@ class Redmine2FA::AuthSource < AuthSource
   def self.allow_password_changes?
     true
   end
+
+  def self.all
+    AuthSource.where(type: %w(Redmine2FA::AuthSource::Telegram Redmine2FA::AuthSource::SMS Redmine2FA::AuthSource::GoogleAuth))
+  end
 end

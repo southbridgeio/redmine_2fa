@@ -1,6 +1,7 @@
-<% @qr = RQRCode::QRCode.new(@user.provisioning_uri("#{@user.login}@#{Setting.host_name}"), size: 8, level: :h) %>
+<p>Установите приложение Google Authnticator, следуя инструкции предложенной по
+  <a href="https://support.google.com/accounts/answer/1066447" target="_blank">ссылке</a>.</p>
+<p>Используйте предложенный ниже QR-код в приложении.</p>
 <table class="qr">
-  <caption>Google Authenticator</caption>
   <% @qr.modules.each_index do |x| %>
     <tr>
       <% @qr.modules.each_index do |y| %>
