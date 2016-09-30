@@ -1,3 +1,3 @@
-<% if user.has_google_auth? %>
-  <%= link_to l(:link_google_authentication_reset), google_authentications_reset_path, method: :post %>
+<% if user.has_otp_auth? %>
+  <%= link_to l(:link_2fa_reset), second_authentication_reset_path, method: :delete, class: 'icon icon-not-ok' %>
 <% end %>

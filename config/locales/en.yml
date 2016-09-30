@@ -1,8 +1,8 @@
 en:
   field_mobile_phone: 'Mobile phone'
   field_ignore_2fa: 'Ignore 2FA'
-  link_google_authentication_reset: Reset Google Authentication
-  notice_google_auth_reseted: Your Google Athentication access key was reset.
+  link_2fa_reset: Reset 2FA
+  notice_2fa_reset: Your 2FA was reset.
   redmine_2fa:
     settings:
       init:

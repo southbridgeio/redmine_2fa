@@ -1,8 +1,8 @@
 ru:
   field_mobile_phone: 'Мобильный телефон'
   field_ignore_2fa: 'Игнорировать 2FA'
-  link_google_authentication_reset: Сбросить Google Authentication
-  notice_google_auth_reseted: Ваш ключ доступа Google Athentication был сброшен.
+  link_2fa_reset: Сбросить 2FA
+  notice_2fa_reset: Ваша двухфактораная авторизацию успешно сброшена.
   redmine_2fa:
     settings:
       init:
