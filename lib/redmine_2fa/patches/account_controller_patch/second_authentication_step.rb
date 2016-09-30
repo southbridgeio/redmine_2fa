@@ -44,21 +44,18 @@ module Redmine2FA
         private
 
         def password_authentication
-
           if !@user.ignore_2fa? && @user.has_otp_auth?
             send_otp_code(@user)
             render 'redmine_2fa'
           else
             super
           end
-
         end
 
         def send_otp_code(user)
           Redmine2FA::OtpAuth.new.send_otp_code(user)
           session[:otp_failed_attempts] = 0
         end
-
 
         def reset_otp_session
           params[:back_url] = session[:otp_back_url]

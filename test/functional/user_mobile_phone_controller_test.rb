@@ -36,7 +36,7 @@ class UserMobilePhoneControllerTest < ActionController::TestCase
     User.any_instance.stubs(:mobile_phone).returns('7894561230')
     User.any_instance.expects(:authenticate_otp).returns(true)
 
-    post :confirm,  code: '12345'
+    post :confirm, code: '12345'
 
     @user.reload
 

@@ -2,8 +2,6 @@ module Redmine2FA
   module Patches
     module AccountControllerPatch
       module SecondAuthenticationPrepare
-
-
         private
 
         def password_authentication

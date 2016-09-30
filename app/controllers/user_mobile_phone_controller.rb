@@ -31,6 +31,4 @@ class UserMobilePhoneController < ApplicationController
       deny_access
     end
   end
-
-
 end

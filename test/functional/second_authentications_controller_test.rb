@@ -32,5 +32,4 @@ class SecondAuthenticationsControllerTest < ActionController::TestCase
 
     assert_not_equal @auth_source.id, @user.auth_source_id
   end
-
 end
