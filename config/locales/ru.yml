@@ -2,7 +2,7 @@ ru:
   field_mobile_phone: 'Мобильный телефон'
   field_ignore_2fa: 'Игнорировать 2FA'
   link_2fa_reset: Сбросить 2FA
-  notice_2fa_reset: Ваша двухфактораная авторизацию успешно сброшена.
+  notice_2fa_reset: При следующей авторизации мы попросим заново выбрать настройки 2FA.
   redmine_2fa:
     settings:
       init:

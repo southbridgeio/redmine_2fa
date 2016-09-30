@@ -2,7 +2,7 @@ en:
   field_mobile_phone: 'Mobile phone'
   field_ignore_2fa: 'Ignore 2FA'
   link_2fa_reset: Reset 2FA
-  notice_2fa_reset: Your 2FA was reset.
+  notice_2fa_reset: Your 2FA settings was reset.
   redmine_2fa:
     settings:
       init:
