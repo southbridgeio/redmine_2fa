@@ -3,7 +3,7 @@ module Redmine2FA
     module UserPatch
       def self.included(base)
         base.send(:include, InstanceMethods)
-        base.safe_attributes 'mobile_phone'
+        base.safe_attributes 'mobile_phone', 'ignore_2fa'
         base.validates_format_of :mobile_phone, with: /\A[-+0-9]*\z/, allow_blank: true
 
         base.class_eval do
@@ -46,11 +46,6 @@ module Redmine2FA
           self.otp_regenerate_secret
           self.auth_source_id = nil
           self.save!
-        end
-
-        def ignore_2fa? # TODO: add this to DB and in user settings page
-          # true
-          false
         end
 
         def confirm_mobile_phone(code)
