@@ -1,7 +1,8 @@
-post 'redmine_2fa/init'
+put 'redmine_2fa/confirm', to: 'second_authentications#update', as: 'second_authentication_confirm'
+delete 'redmine_2fa/reset', to: 'second_authentications#destroy', as: 'second_authentication_reset'
 
-post 'redmine_2fa/mobile_phone/update', to: 'user_mobile_phone#update'
-post 'redmine_2fa/mobile_phone/confirm', to: 'user_mobile_phone#confirm'
+post 'redmine_2fa/mobile_phone/update', to: 'user_mobile_phone#update', as: 'user_mobile_phone_update'
+post 'redmine_2fa/mobile_phone/confirm', to: 'user_mobile_phone#confirm', as: 'user_mobile_phone_confirm'
 
 post :google_authentications_reset, to: 'google_authentications#reset', as: :google_authentications_reset
 

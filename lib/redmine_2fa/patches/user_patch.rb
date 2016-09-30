@@ -49,14 +49,14 @@ module Redmine2FA
         end
 
         def ignore_2fa? # TODO: add this to DB and in user settings page
-          true
-          # false
+          # true
+          false
         end
 
         def confirm_mobile_phone(code)
-          if mobile_phone.present? && authenticate_otp(code)
+          if mobile_phone.present? && authenticate_otp(code, drift: 120)
             self.mobile_phone_confirmed = true
-            self.save
+            self.save!
           end
         end
 

@@ -32,7 +32,7 @@ class AccountControllerPatchTest < ActionController::TestCase
   end
 
   def test_login_with_2fa
-    @user.expects(:has_otp_auth?).returns(true)
+    User.any_instance.expects(:has_otp_auth?).returns(true)
 
     post :login, username: 'jsmith', password: 'jsmith'
 
@@ -42,7 +42,7 @@ class AccountControllerPatchTest < ActionController::TestCase
   end
 
   def test_login_with_back_url
-    @user.expects(:has_otp_auth?).returns(true)
+    User.any_instance.expects(:has_otp_auth?).returns(true)
 
     post :login, username: 'jsmith', password: 'jsmith', back_url: 'http://localhost/somewhere'
     assert @request.session[:otp_back_url] == 'http://localhost/somewhere'

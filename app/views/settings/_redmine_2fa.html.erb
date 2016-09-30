@@ -1,3 +1,9 @@
+<h4>Общие настройки</h4>
+<p>
+  <label for="settings_required">required</label>
+  <%= check_box_tag 'settings[required]', '1', @settings['required'] %>
+</p>
+<h4>Telegram</h4>
 <p>
   <label for="settings_bot_token">Bot Token</label>
   <%= text_field_tag 'settings[bot_token]', @settings['bot_token'], size: 50 %>

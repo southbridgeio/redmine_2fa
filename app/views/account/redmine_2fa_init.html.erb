@@ -1,6 +1,6 @@
 <div id="login-form">
   <table style="width: 500px;">
-    <%= form_tag(user_auth_protocol_confirm_path) do %>
+    <%= form_tag(second_authentication_confirm_path, method: :put, id: 'init2FAForm' ) do %>
       <% if params[:autologin] %>
         <%= hidden_field_tag 'autologin', params[:autologin] %>
       <% end %>
@@ -12,8 +12,8 @@
 
       <tr>
         <% Redmine2FA::AuthSource.all.each do |auth_source| %>
-          <td>
-            <%= radio_button_tag 'auth_source_id', auth_source.id, data: { protocol: auth_source.protocol } %>
+          <td style="width: 33%" align="center">
+            <%= radio_button_tag 'auth_source_id', auth_source.id, false, data: { protocol: auth_source.protocol } %>
             <%= label_tag "auth_source_id_#{auth_source.id}", auth_source.auth_method_name %>
           </td>
         <% end %>
@@ -21,35 +21,31 @@
       </tr>
 
 
-      <tr>
-
-        <td align="right" colspan="3">
-          <input type="submit" name="login" value="<%= l(:button_next) %> &#187;"/>
-        </td>
-      </tr>
-
-
     <% end %>
-    <tr id="smsInstruction">
-      <td colspan="3">
-        <%= t 'redmine_2fa.new_connection.instruction_html', bot_name: Setting.plugin_redmine_2fa['bot_name'] %>
-      </td>
-    </tr>
-    <tr id="telegramInstruction">
-      <td colspan="3">
-        <%= t 'redmine_2fa.new_connection.instruction_html', bot_name: Setting.plugin_redmine_2fa['bot_name'] %>
-      </td>
-    </tr>
+    <%= render 'second_authentications/sms' %>
+    <%= render 'second_authentications/telegram' %>
+    <%= render 'second_authentications/google_auth' %>
 
-    <tr id="googleInstruction">
-      <td colspan="3">
-        <%= render 'qr_code' %>
-      </td>
-    </tr>
+
 
 
   </table>
 </div>
+<script>
+  $('input:radio[name="auth_source_id"]').change(
+      function(){
+        if ($(this).is(':checked')) {
+          console.log($(this));
+          var protocol = $(this).data('protocol');
+          $('.instruction2FA').hide();
+          $('.'+protocol+'Instruction').show();
+        }
+      });
+
+  $('.next2FAStep input[type=submit]').on( "click", function() {
+    $('#init2FAForm').submit();
+  });
+</script>
 
 
 <% content_for :header_tags do %>

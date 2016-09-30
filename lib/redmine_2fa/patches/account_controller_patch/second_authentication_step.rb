@@ -44,21 +44,14 @@ module Redmine2FA
         private
 
         def password_authentication
-          @user = User.find_by_login(params[:username])
 
-          if @user.has_otp_auth?
-            if User.try_to_login(params[:username], params[:password]) == @user
-              set_otp_session
-              send_otp_code(@user)
-              render 'redmine_2fa'
-            else
-              invalid_credentials
-            end
+          if !@user.ignore_2fa? && @user.has_otp_auth?
+            send_otp_code(@user)
+            render 'redmine_2fa'
           else
             super
           end
-        rescue MultiJson::ParseError
-          super
+
         end
 
         def send_otp_code(user)
@@ -66,10 +59,6 @@ module Redmine2FA
           session[:otp_failed_attempts] = 0
         end
 
-        def set_otp_session
-          session[:otp_back_url] = params[:back_url]
-          session[:otp_user_id]  = @user.id
-        end
 
         def reset_otp_session
           params[:back_url] = session[:otp_back_url]

@@ -1,0 +1,3 @@
+<% if user.has_google_auth? %>
+  <%= link_to l(:link_google_authentication_reset), google_authentications_reset_path, method: :post %>
+<% end %>

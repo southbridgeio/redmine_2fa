@@ -1,4 +1,7 @@
 require_dependency 'account_controller'
 
-AccountController.send(:prepend, Redmine2FA::Patches::AccountControllerPatch::SecondAuthenticationStep) # 2
-AccountController.send(:prepend, Redmine2FA::Patches::AccountControllerPatch::SecondAuthenticationInit) # 1
+
+AccountController.send(:prepend, Redmine2FA::Patches::AccountControllerPatch::SecondAuthenticationStep)
+AccountController.send(:prepend, Redmine2FA::Patches::AccountControllerPatch::SecondAuthenticationInit)
+AccountController.send(:prepend, Redmine2FA::Patches::AccountControllerPatch::SecondAuthenticationPrepare)
+

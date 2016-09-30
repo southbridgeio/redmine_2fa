@@ -32,6 +32,6 @@ Redmine::Plugin.register :redmine_2fa do
   author 'Centos-admin.ru'
   author_url 'https://centos-admin.ru'
 
-  settings(default: { 'bot_token' => 'bot_token' },
+  settings(default: { 'bot_token' => 'bot_token', 'required' => false },
            partial: 'settings/redmine_2fa')
 end

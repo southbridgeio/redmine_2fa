@@ -1,16 +1,36 @@
 class UserMobilePhoneController < ApplicationController
   unloadable
 
-  before_filter :require_login
+  skip_before_filter :check_if_login_required
+
+  before_filter :authorize
 
   def update
-    @user = User.current
-    @user.mobile_phone = params[:user][:mobile_phone] if params[:user]
+    @user.mobile_phone = params[:user][:mobile_phone]
+    send_confirmation_code(@user)
     @user.save
   end
 
   def confirm
-    @user = User.current
     @user.confirm_mobile_phone(params[:code]) if params[:code]
   end
+
+  private
+
+  def send_confirmation_code(user)
+    phone   = user.mobile_phone.gsub(/[^-+0-9]+/, '') # Additional phone sanitizing
+    command = Redmine2FA::Configuration.sms_command
+    command = command.sub('%{phone}', phone).sub('%{password}', user.otp_code)
+    system command
+  end
+
+  def authorize
+    if session[:otp_user_id]
+      @user = User.find(session[:otp_user_id])
+    else
+      deny_access
+    end
+  end
+
+
 end
