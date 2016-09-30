@@ -1,13 +1,13 @@
 <tr class="instruction2FA smsInstruction" id="smsInstruction" style="display: none">
   <td colspan="3">
-    Пожалуйста, подтвердите ваш номер, на который вы будете получать СМС.<br>
+    Пожалуйста, подтвердите номер, на который вы будете получать SMS.<br>
   </td>
 </tr>
 <tr class="instruction2FA smsInstruction" id="smsInstruction" style="display: none">
   <%= form_tag(user_mobile_phone_update_path, remote: true) do %>
     <td colspan="2" align="right">
       +<%= text_field_tag 'user[mobile_phone]', @user.mobile_phone, placeholder: '79283124585' %><br>
-      <em class="info">введите все цифры номера, <br> включая код страны, <br>например: 79256879854</em>
+      <em class="info">введите все цифры номера, <br>включая код страны. <br>Например: 79256879854</em>
     </td>
     <td align="left" style=" vertical-align: top;">
       <%= submit_tag 'Получить код' %>
@@ -18,7 +18,7 @@
   <%= form_tag(user_mobile_phone_confirm_path, remote: true) do %>
     <td colspan="2" align="right">
       <%= text_field_tag 'code', nil, placeholder: '123456' %>
-      <em class="info">введите код, полученный по СМС</em>
+      <em class="info">введите код, полученный по SMS</em>
     </td>
     <td align="left" style=" vertical-align: top;">
       <%= submit_tag 'Подтвердить' %>
