@@ -1,13 +1,13 @@
 <div id="login-form">
   <table style="width: 500px;">
     <%= form_tag(second_authentication_confirm_path, method: :put, id: 'init2FAForm' ) do %>
+
       <% if params[:autologin] %>
         <%= hidden_field_tag 'autologin', params[:autologin] %>
       <% end %>
 
-
       <tr>
-        <th colspan="3">Пожалуйста, выберите способ двухфакторной авторизации</th>
+        <th colspan="3"><%= t('redmine_2fa.second_authentications.init.instruction') %></th>
       </tr>
 
       <tr>
@@ -17,35 +17,15 @@
             <%= label_tag "auth_source_id_#{auth_source.id}", auth_source.auth_method_name %>
           </td>
         <% end %>
-
       </tr>
-
-
     <% end %>
+
     <%= render 'second_authentications/sms' %>
     <%= render 'second_authentications/telegram' %>
     <%= render 'second_authentications/google_auth' %>
 
-
-
-
   </table>
 </div>
-<script>
-  $('input:radio[name="auth_source_id"]').change(
-      function(){
-        if ($(this).is(':checked')) {
-          console.log($(this));
-          var protocol = $(this).data('protocol');
-          $('.instruction2FA').hide();
-          $('.'+protocol+'Instruction').show();
-        }
-      });
-
-  $('.next2FAStep input[type=submit]').on( "click", function() {
-    $('#init2FAForm').submit();
-  });
-</script>
 
 
 <% content_for :header_tags do %>

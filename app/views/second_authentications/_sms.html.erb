@@ -1,16 +1,18 @@
 <tr class="instruction2FA smsInstruction" id="smsInstruction" style="display: none">
   <td colspan="3">
-    Пожалуйста, подтвердите номер, на который вы будете получать SMS.<br>
+    <%= t('redmine_2fa.second_authentications.sms.instruction') %>
   </td>
 </tr>
 <tr class="instruction2FA smsInstruction" id="smsInstruction" style="display: none">
   <%= form_tag(user_mobile_phone_update_path, remote: true) do %>
     <td colspan="2" align="right">
       +<%= text_field_tag 'user[mobile_phone]', @user.mobile_phone, placeholder: '79283124585' %><br>
-      <em class="info">введите все цифры номера, <br>включая код страны. <br>Например: 79256879854</em>
+      <em class="info">
+        <%= t('redmine_2fa.second_authentications.sms.mobile_phone_hint_html') %>
+      </em>
     </td>
     <td align="left" style=" vertical-align: top;">
-      <%= submit_tag 'Получить код' %>
+      <%= submit_tag t('redmine_2fa.second_authentications.sms.mobile_phone_submit') %>
     </td>
   <% end %>
 </tr>
@@ -18,10 +20,12 @@
   <%= form_tag(user_mobile_phone_confirm_path, remote: true) do %>
     <td colspan="2" align="right">
       <%= text_field_tag 'code', nil, placeholder: '123456' %>
-      <em class="info">введите код, полученный по SMS</em>
+      <em class="info">
+        <%= t('redmine_2fa.second_authentications.sms.confirm_hint') %>
+      </em>
     </td>
     <td align="left" style=" vertical-align: top;">
-      <%= submit_tag 'Подтвердить' %>
+      <%= submit_tag t('redmine_2fa.second_authentications.sms.confirm_submit') %>
     </td>
   <% end %>
 </tr>

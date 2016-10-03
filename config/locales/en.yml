@@ -5,24 +5,50 @@ en:
   notice_2fa_reset: Your 2FA settings was reset.
   redmine_2fa:
     settings:
+      common:
+        title: Common settings
+        required: Require 2 factor authentication for each user
+      telegram:
+        init:
+          header: Bot initialization
+          description_html: |
+            Initialization process:
+            <ul>
+              <li>setup bot web-hook</li>
+              <li>save bot name and bot id to system</li>
+            </ul>
+          button_text: Initialize bot
+        deactivate:
+          header: Bot deactivation
+          description_html: |
+            Bot deactivation:
+            <ul>
+              <li>reset bot web-hook</li>
+              <li>deactivate users telegram accounts connected to bot</li>
+            </ul>
+          button_text: Deactivate bot
+    second_authentications:
       init:
-        header: Bot initialization
-        description_html: |
-          Initialization process:
-          <ul>
-            <li>setup bot web-hook</li>
-            <li>save bot name and bot id to system</li>
-          </ul>
-        button_text: Initialize bot
-      deactivate:
-        header: Bot deactivation
-        description_html: |
-          Bot deactivation:
-          <ul>
-            <li>reset bot web-hook</li>
-            <li>deactivate users telegram accounts connected to bot</li>
-          </ul>
-        button_text: Deactivate bot
+        instruction: Plase choose type of two-factor authentication
+      next_button_html: Next &#187;
+      google_auth:
+        instruction_html: |
+          <p>Please setup Google Authenticator follow
+            <a href="https://support.google.com/accounts/answer/1066447" target="_blank">the instruction</a>.</p>
+          <p>Use this QR-code in application.</p>
+        next_step_instruction: After app setup click "Next".
+      telegram:
+        instruction_html: |
+          %{bot_name} will send you aouthorization codes. Pleas activate it.<br>
+          Follow the <a href="https://telegram.me/%{bot_name}" target="_blank">link</a> and say "/start" to bot. Then follow the bot instruction.<br>
+          After done with bot instructions click "Next".
+      sms:
+        instruction: Please enter mobile phone number for SMS.
+        mobile_phone_hint_html: 'enter all digits <br>includes country code. <br>Example for Russia: 79256879854'
+        mobile_phone_submit: "Get code"
+        confirm_hint: enter code gotten by SMS
+        confirm_submit: Confirm
+
     otp_bot:
       init:
         success: Bot successfully initialzied
@@ -42,12 +68,7 @@ en:
       create:
         success: Accounts successfully connected
         error: Accounts connection error
-    new_connection:
-      title: '2FA setup'
-      instruction_html: |
-        %{bot_name} will send you aouthorization codes. Pleas activate it.<br>
-        Follow the <a href="https://telegram.me/%{bot_name}" target="_blank">link</a> and say "/start" to bot. Then follow the bot instruction.<br>
-        After done with bot instructions click "Next".
+
     telegram_auth:
       message: 'Redmine "%{app_title}" auth code: %{code}. Expired at %{expiration_time}.'
 

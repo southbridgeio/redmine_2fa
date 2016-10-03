@@ -1,11 +1,13 @@
 <tr class="instruction2FA googleInstruction"  style="display: none">
   <td colspan="3">
+    <%= t 'redmine_2fa.second_authentications.google_auth.instruction_html' %>
     <%= render 'second_authentications/qr_code' %>
+    <p><%= t 'redmine_2fa.second_authentications.google_auth.next_step_instruction' %></p>
   </td>
 </tr>
 <tr class="instruction2FA googleInstruction"  style="display: none">
   <td align="left" colspan="2"></td>
   <td align="right" colspan="1" class="next2FAStep">
-    <%= submit_tag raw('Далее &#187;') %>
+    <%= submit_tag t('redmine_2fa.second_authentications.next_button_html') %>
   </td>
 </tr>
