@@ -3,6 +3,7 @@
     border-collapse: collapse;
     margin: 25px auto;
 }
+
 #login-form table .qr td {
     border: 0 none #0000ff;
     border-collapse: collapse;
@@ -11,5 +12,37 @@
     width: 5px;
     height: 5px;
 }
-#login-form table .qr td.black { background-color: #000; }
-#login-form table .qr td.white { background-color: #fff; }
+
+#login-form table .qr td.black {
+    background-color: #000;
+}
+
+#login-form table .qr td.white {
+    background-color: #fff;
+}
+
+@media screen and (max-width: 899px) {
+    #login-form table .qr {
+        width: auto;
+        margin: 25px auto;
+        border: 0 none #0000ff;
+        border-collapse: collapse;
+    }
+
+    #login-form table .qr td {
+        border: 0 none #0000ff;
+        border-collapse: collapse;
+        padding: 0;
+        margin: 0;
+        width: 5px;
+        height: 5px;
+    }
+
+    #login-form table .qr td.black {
+        background-color: #000;
+    }
+
+    #login-form table .qr td.white {
+        background-color: #fff;
+    }
+}

@@ -23,16 +23,19 @@ function startOtpTimer() {
   }, 1000);
 }
 
-$('input:radio[name="auth_source_id"]').change(
-    function () {
-      if ($(this).is(':checked')) {
-        console.log($(this));
-        var protocol = $(this).data('protocol');
-        $('.instruction2FA').hide();
-        $('.' + protocol + 'Instruction').show();
-      }
-    });
+$(document).ready(function() {
+  $('input:radio[name="auth_source_id"]').change(
+      function () {
+        if ($(this).is(':checked')) {
+          console.log($(this));
+          var protocol = $(this).data('protocol');
+          $('.instruction2FA').hide();
+          $('.' + protocol + 'Instruction').show();
+        }
+      });
 
-$('.next2FAStep input[type=submit]').on("click", function () {
-  $('#init2FAForm').submit();
+  $('.next2FAStep input[type=submit]').on("click", function () {
+    $('#init2FAForm').submit();
+  });
 });
+

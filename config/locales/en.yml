@@ -7,7 +7,7 @@ en:
     settings:
       common:
         title: Common settings
-        required: Require 2 factor authentication for each user
+        required: Require 2FA for each user
       telegram:
         init:
           header: Bot initialization
