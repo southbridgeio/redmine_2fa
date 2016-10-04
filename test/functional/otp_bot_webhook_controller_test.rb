@@ -9,7 +9,7 @@ class OtpBotWebhookControllerTest < ActionController::TestCase
 
   def test_unauthorized_access
     post :update, message: message_hash, token: 'invalid'
-    assert_response :unauthorized
+    assert_response 403
   end
 
   def test_user_add_bot

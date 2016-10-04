@@ -2,7 +2,7 @@ scope 'redmine_2fa' do
   # Plugin settings
 
   post 'bot/init' => 'otp_bot#create', as: 'otp_bot_init'
-  delete 'bot/deactivate' => 'otp_bot#destroy', as: 'otp_bot_deactivate'
+  delete 'bot/reset' => 'otp_bot#destroy', as: 'otp_bot_reset'
 
   # 2FA init
   get 'telegram_connect' => 'redmine_telegram_connections#create', as: 'redmine_2fa_telegram_connect'

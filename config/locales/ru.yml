@@ -18,7 +18,7 @@ ru:
               <li>в систему сохраняется имя и id бота</li>
             </ul>
           button_text: Инициализировать бота
-        deactivate:
+        reset:
           header: Деактивация бота
           description_html: |
             Во время деактивации:
@@ -57,7 +57,7 @@ ru:
         error:
           wrong_token: Ошибка иницализации. Неверно указан токен
           api_error: Telegram Bot API сейчас недоступна
-      deactivate:
+      reset:
         success: Бот успешно деактивирован
       start:
         instruction_html: |

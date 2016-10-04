@@ -49,9 +49,9 @@ class OtpBotControllerTest < ActionController::TestCase
 
     context 'unauthorized' do
 
-      should 'return unauthorized status' do
+      should 'redirect to login page' do
         post :create
-        assert_redirected_to signin_path
+        assert_redirected_to signin_url(back_url: otp_bot_init_url)
       end
 
     end
@@ -86,9 +86,9 @@ class OtpBotControllerTest < ActionController::TestCase
 
     context 'unauthorized' do
 
-      should 'return unauthorized status' do
+      should 'redirect to login page' do
         delete :destroy
-        assert_redirected_to signin_path
+        assert_redirected_to signin_url(back_url: otp_bot_reset_url)
       end
 
     end

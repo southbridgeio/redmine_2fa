@@ -18,7 +18,7 @@ en:
               <li>save bot name and bot id to system</li>
             </ul>
           button_text: Initialize bot
-        deactivate:
+        reset:
           header: Bot deactivation
           description_html: |
             Bot deactivation:
@@ -55,7 +55,7 @@ en:
         error:
           wrong_token: Wrong token
           api_error: Telegram Bot API service anavailable
-        deactivate:
+        reset:
           success: Bot successfully deactivated
       start:
         instruction_html: |

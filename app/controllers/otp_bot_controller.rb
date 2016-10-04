@@ -10,10 +10,10 @@ class OtpBotController < ApplicationController
     redirect_to plugin_settings_path('redmine_2fa'), notice: t('redmine_2fa.otp_bot.init.success')
   end
 
-  def destroy # deactivate
+  def destroy # reset
     reset_bot_webhook
     deactivate_telegram_accounts
-    redirect_to plugin_settings_path('redmine_2fa'), notice: t('redmine_2fa.otp_bot.deactivate.success')
+    redirect_to plugin_settings_path('redmine_2fa'), notice: t('redmine_2fa.otp_bot.reset.success')
   end
 
   private
