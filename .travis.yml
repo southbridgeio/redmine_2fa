@@ -1,10 +1,10 @@
 language: ruby
 rvm:
-#  - 2.2
-  - 2.3.0
+  - 2.3
 
 branches:
   only:
+    - master
     - develop
 
 addons:
@@ -12,6 +12,7 @@ addons:
 
 env:
   - REDMINE_VER=3.3-stable
+  - REDMINE_VER=master
 
 install: "echo skip bundle install"
 

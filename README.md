@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/centosadmin/redmine_2fa.svg?branch=master)](https://travis-ci.org/centosadmin/redmine_2fa)
+
 # Redmine 2FA
 
 Two-factor authorization plugin for Redmine.
