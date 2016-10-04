@@ -23,12 +23,12 @@
   </tr>
   <tr>
     <td>
-      <%= link_to redmine_2fa_bot_init_path do %>
+      <%= link_to otp_bot_init_path, method: 'post' do %>
         <button type="button"><%= t('redmine_2fa.settings.telegram.init.button_text') %></button>
       <% end %>
     </td>
     <td>
-      <%= link_to redmine_2fa_bot_deactivate_path do %>
+      <%= link_to otp_bot_deactivate_path, method: 'delete' do %>
         <button type="button"><%= t('redmine_2fa.settings.telegram.deactivate.button_text') %></button>
       <% end %>
     </td>

@@ -1,40 +1,21 @@
 class OtpBotController < ApplicationController
   unloadable
 
-  # before_filter :authorize, :except => [:update]
-  skip_before_filter :verify_authenticity_token, :check_if_login_required, :check_password_change, only: [:update]
-  before_filter :set_bot, only: [:init, :deactivate]
+  # before_filter :authorize
+  # TODO: add secure check for it
 
-  def init
+  before_filter :set_bot
+
+  def create # init
     set_bot_webhook
     update_plugin_settings(@bot.me)
     redirect_to plugin_settings_path('redmine_2fa'), notice: t('redmine_2fa.otp_bot.init.success')
   end
 
-  def deactivate
+  def destroy # deactivate
     reset_bot_webhook
     deactivate_telegram_accounts
     redirect_to plugin_settings_path('redmine_2fa'), notice: t('redmine_2fa.otp_bot.deactivate.success')
-  end
-
-  ## Telegram Bot Webhook handler
-
-  def update
-    logger = Logger.new(Rails.root.join('log/redmine_2fa', 'bot-update.log'))
-    logger.debug params
-
-    if params[:message].present?
-      message      = JSON.parse(params[:message].to_json, object_class: OpenStruct)
-      message_text = message.text
-
-      if message_text&.include?('start')
-        Redmine2FA::TelegramBotService.new.start(message)
-      elsif message_text&.include?('/connect')
-        Redmine2FA::TelegramBotService.new.connect(message)
-      end
-    end
-
-    head :ok
   end
 
   private

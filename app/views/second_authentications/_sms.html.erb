@@ -4,7 +4,7 @@
   </td>
 </tr>
 <tr class="instruction2FA smsInstruction" id="smsInstruction" style="display: none">
-  <%= form_tag(user_mobile_phone_update_path, remote: true) do %>
+  <%= form_tag(user_mobile_phone_update_path, method: 'put', remote: true) do %>
     <td colspan="2" align="right">
       +<%= text_field_tag 'user[mobile_phone]', @user.mobile_phone, placeholder: '79283124585' %><br>
       <em class="info">

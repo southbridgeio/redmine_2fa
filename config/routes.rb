@@ -1,17 +1,28 @@
-put 'redmine_2fa/confirm', to: 'second_authentications#update', as: 'second_authentication_confirm'
-delete 'redmine_2fa/reset', to: 'second_authentications#destroy', as: 'second_authentication_reset'
+scope 'redmine_2fa' do
 
-post 'redmine_2fa/mobile_phone/update', to: 'user_mobile_phone#update', as: 'user_mobile_phone_update'
-post 'redmine_2fa/mobile_phone/confirm', to: 'user_mobile_phone#confirm', as: 'user_mobile_phone_confirm'
+  # Plugin settings
 
-post :google_authentications_reset, to: 'google_authentications#reset', as: :google_authentications_reset
+  post 'bot/init' => 'otp_bot#create', as: 'otp_bot_init'
+  delete 'bot/deactivate' => 'otp_bot#destroy', as: 'otp_bot_deactivate'
 
-post :otp_code_confirm, to: 'account#otp_code_confirm', as: :otp_code_confirm
-get :otp_code_resend, to: 'account#otp_code_resend', as: :otp_code_resend
+  # 2FA init
+  get 'telegram_connect' => 'redmine_telegram_connections#create', as: 'redmine_2fa_telegram_connect'
 
-get 'redmine_2fa/telegram_connect' => 'redmine_telegram_connections#create', as: 'redmine_2fa_telegram_connect'
+  put 'mobile_phone/update', to: 'user_mobile_phone#update', as: 'user_mobile_phone_update'
+  post 'mobile_phone/confirm', to: 'user_mobile_phone#confirm', as: 'user_mobile_phone_confirm'
 
-get 'redmine_2fa/bot/init' => 'otp_bot#init', as: 'redmine_2fa_bot_init'
-get 'redmine_2fa/bot/deactivate' => 'otp_bot#deactivate', as: 'redmine_2fa_bot_deactivate'
-post 'redmine_2fa/update' => 'otp_bot#update' # TODO: add bot token here
-post 'redmine_2fa/bot/:token/update' => 'otp_bot#update' # TODO: add bot token here
+  # 2FA management
+
+  put 'confirm', to: 'second_authentications#update', as: 'second_authentication_confirm'
+  delete 'reset', to: 'second_authentications#destroy', as: 'second_authentication_reset'
+
+  # 2FA step
+
+  post 'otp_code/resend', to: 'otp_codes#create', as: :otp_code_resend
+  put 'otp_code/confirm', to: 'otp_codes#update', as: :otp_code_confirm
+
+  # Telegram bot webhook
+
+  post 'bot/:token/update' => 'otp_bot_webhook#update'
+end
+
