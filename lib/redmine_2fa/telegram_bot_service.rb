@@ -1,10 +1,12 @@
+require 'telegrammer'
+
 module Redmine2FA
   class TelegramBotService
 
     attr_reader :bot, :logger
 
     def initialize
-      @bot    = Telegrammer::Bot.new(Setting.plugin_redmine_2fa['bot_token'])
+      @bot    = Telegrammer::Bot.new(Redmine2FA.bot_token)
       @logger = Logger.new(Rails.root.join('log/redmine_2fa', 'bot.log'))
     end
 

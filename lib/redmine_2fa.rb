@@ -11,6 +11,10 @@ module Redmine2FA
     !switched_on
   end
 
+  def self.bot_token
+    Setting.plugin_redmine_2fa['bot_token']
+  end
+
   module Configuration
     def self.configuration
       Redmine::Configuration['redmine_2fa']
