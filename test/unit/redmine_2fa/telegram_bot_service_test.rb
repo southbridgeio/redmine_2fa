@@ -3,7 +3,6 @@ require File.expand_path('../../../test_helper', __FILE__)
 class Redmine2FA::TelegramBotServiceTest < ActiveSupport::TestCase
   fixtures :users, :email_addresses, :roles
 
-
   setup do
     Redmine2FA.stubs(:bot_token)
     Telegrammer::Bot.any_instance.stubs(:get_me)
@@ -11,12 +10,12 @@ class Redmine2FA::TelegramBotServiceTest < ActiveSupport::TestCase
     @user = User.find(2)
 
     @telegram_message = ActionController::Parameters.new(
-        from: { id:         123,
-                username:   @user.login,
-                first_name: @user.firstname,
-                last_name:  @user.lastname },
-        chat: { id: 123 },
-        text: '/start'
+      from: { id:         123,
+              username:   @user.login,
+              first_name: @user.firstname,
+              last_name:  @user.lastname },
+      chat: { id: 123 },
+      text: '/start'
     )
 
     @bot_service = Redmine2FA::Telegram::BotService.new(@telegram_message)
@@ -68,18 +67,18 @@ class Redmine2FA::TelegramBotServiceTest < ActiveSupport::TestCase
     end
 
     def test_start_send_message_for_connected_user
-      Redmine2FA::Telegram::BotService.any_instance.
-          expects(:send_message).
-          with(123, I18n.t('redmine_2fa.redmine_telegram_connections.create.success'))
+      Redmine2FA::Telegram::BotService.any_instance
+                                      .expects(:send_message)
+                                      .with(123, I18n.t('redmine_2fa.redmine_telegram_connections.create.success'))
 
       Redmine2FA::TelegramAccount.create(telegram_id: 123, user_id: @user.id)
       @bot_service.start
     end
 
     def test_start_send_instruction_message
-      Redmine2FA::Telegram::BotService.any_instance.
-          expects(:send_message).
-          with(123, I18n.t('redmine_2fa.otp_bot.start.instruction_html'))
+      Redmine2FA::Telegram::BotService.any_instance
+                                      .expects(:send_message)
+                                      .with(123, I18n.t('redmine_2fa.otp_bot.start.instruction_html'))
 
       Redmine2FA::TelegramAccount.create(telegram_id: 123)
       @bot_service.start
@@ -87,8 +86,6 @@ class Redmine2FA::TelegramBotServiceTest < ActiveSupport::TestCase
   end
 
   # /start
-
-
 
   # /connect e@mail.com
 
@@ -107,7 +104,4 @@ class Redmine2FA::TelegramBotServiceTest < ActiveSupport::TestCase
   def test_send_connect_instructions
     skip 'need to write test'
   end
-
-
 end
-

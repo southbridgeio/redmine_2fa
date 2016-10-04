@@ -12,11 +12,9 @@ class OtpCodesController < ApplicationController
       end
       format.js
     end
-
   end
 
   def update # confirm
-
     if @user.authenticate_otp(params[:otp_code], drift: 120)
       reset_otp_session
       successful_authentication(@user)
@@ -31,7 +29,6 @@ class OtpCodesController < ApplicationController
       end
       render 'redmine_2fa/redmine_2fa'
     end
-
   end
 
   private
@@ -43,5 +40,4 @@ class OtpCodesController < ApplicationController
       deny_access
     end
   end
-
 end

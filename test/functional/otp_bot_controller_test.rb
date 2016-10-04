@@ -29,6 +29,5 @@ class OtpBotControllerTest < ActionController::TestCase
   end
 
   def test_reset
-
   end
 end

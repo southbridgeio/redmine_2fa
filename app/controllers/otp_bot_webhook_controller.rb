@@ -3,7 +3,6 @@ class OtpBotWebhookController < ApplicationController
 
   skip_before_filter :verify_authenticity_token, :check_if_login_required, :check_password_change
 
-
   before_filter :authorize
 
   ## Telegram Bot Webhook handler
@@ -17,12 +16,9 @@ class OtpBotWebhookController < ApplicationController
     head :ok
   end
 
-
   private
 
   def authorize
     render_403 unless params[:token] && Redmine2FA.bot_token == params[:token]
   end
-
-
 end

@@ -20,7 +20,6 @@ class OtpBotController < ApplicationController
 
   private
 
-
   def update_plugin_settings(bot_info)
     plugin_settings = Setting.find_by(name: 'plugin_redmine_2fa')
 
@@ -36,13 +35,13 @@ class OtpBotController < ApplicationController
     token = Setting.plugin_redmine_2fa['bot_token']
     @bot  = Telegrammer::Bot.new(token)
   rescue MultiJson::ParseError
-    render_error :message => t('redmine_2fa.otp_bot.init.error.wrong_token'), :status => 406
+    render_error message: t('redmine_2fa.otp_bot.init.error.wrong_token'), status: 406
   rescue Telegrammer::Errors::ServiceUnavailableError
-    render_error :message => t('redmine_2fa.otp_bot.init.error.api_error'), :status => 503
+    render_error message: t('redmine_2fa.otp_bot.init.error.api_error'), status: 503
   end
 
   def set_bot_webhook
-    webhook_url = URI::HTTPS.build({ host: Setting['host_name'], path: '/redmine_2fa/update' }).to_s
+    webhook_url = URI::HTTPS.build(host: Setting['host_name'], path: '/redmine_2fa/update').to_s
 
     @bot.set_webhook(webhook_url)
   end

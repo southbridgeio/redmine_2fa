@@ -20,6 +20,5 @@ class Redmine2FA::TelegramAccountTest < ActiveSupport::TestCase
 
   def test_deactivate
     skip 'need to write test'
-
   end
 end

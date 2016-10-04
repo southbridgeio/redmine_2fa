@@ -5,7 +5,6 @@ class OtpBotWebhookTest < Redmine::RoutingTest
     # should_route 'POST /redmine_2fa/bot/:token/update' => 'otp_bot_webhook#update'
 
     assert_routing({ method: 'post', path: '/redmine_2fa/bot/:token/update' },
-                   { controller: 'otp_bot_webhook', action: 'update', token: ':token' })
-
+                   controller: 'otp_bot_webhook', action: 'update', token: ':token')
   end
 end

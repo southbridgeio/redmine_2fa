@@ -9,7 +9,7 @@ module Redmine2FA
       def initialize(command)
         @bot     = Telegrammer::Bot.new(Redmine2FA.bot_token)
         @logger  = Logger.new(Rails.root.join('log/redmine_2fa', 'bot.log'))
-        @command = Telegrammer::DataTypes::Message.new(command)
+        @command = command.is_a?(Telegrammer::DataTypes::Message) ? command : Telegrammer::DataTypes::Message.new(command)
       end
 
       def call

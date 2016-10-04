@@ -53,11 +53,9 @@ class AccountControllerPatchTest < ActionController::TestCase
   end
 
   def test_init
-
   end
 
   def test_second_step
-
   end
 
   #

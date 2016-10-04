@@ -1,13 +1,11 @@
 require File.expand_path('../../test_helper', __FILE__)
 
 class OtpBotWebhookControllerTest < ActionController::TestCase
-
   setup do
     @valid_token = 'valid:token'
     Redmine2FA.expects(:bot_token).at_least_once.returns(@valid_token)
     Telegrammer::Bot.any_instance.stubs(:get_me)
   end
-
 
   def test_unauthorized_access
     post :update, message: message_hash, token: 'invalid'
@@ -38,6 +36,4 @@ class OtpBotWebhookControllerTest < ActionController::TestCase
   def message_hash
     { text: '/start', from: { id: 123, first_name: 'John', last_name: 'Smith' } }
   end
-
-
 end

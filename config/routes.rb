@@ -1,5 +1,4 @@
 scope 'redmine_2fa' do
-
   # Plugin settings
 
   post 'bot/init' => 'otp_bot#create', as: 'otp_bot_init'
@@ -25,4 +24,3 @@ scope 'redmine_2fa' do
 
   post 'bot/:token/update' => 'otp_bot_webhook#update'
 end
-
