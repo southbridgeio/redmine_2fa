@@ -1,9 +1,7 @@
 class OtpBotController < ApplicationController
   unloadable
 
-  # before_filter :authorize
-  # TODO: add secure check for it
-
+  before_filter :require_admin
   before_filter :set_bot
 
   def create # init
@@ -32,8 +30,8 @@ class OtpBotController < ApplicationController
   end
 
   def set_bot
-    token = Setting.plugin_redmine_2fa['bot_token']
-    @bot  = Telegrammer::Bot.new(token)
+    @token = Setting.plugin_redmine_2fa['bot_token']
+    @bot  = Telegrammer::Bot.new(@token)
   rescue MultiJson::ParseError
     render_error message: t('redmine_2fa.otp_bot.init.error.wrong_token'), status: 406
   rescue Telegrammer::Errors::ServiceUnavailableError
@@ -41,7 +39,8 @@ class OtpBotController < ApplicationController
   end
 
   def set_bot_webhook
-    webhook_url = URI::HTTPS.build(host: Setting['host_name'], path: '/redmine_2fa/update').to_s
+    webhook_url = URI::HTTPS.build(host: Setting['host_name'],
+                                   path: "/redmine_2fa/#{@token}/update").to_s
 
     @bot.set_webhook(webhook_url)
   end
