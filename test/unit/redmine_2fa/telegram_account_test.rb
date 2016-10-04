@@ -13,4 +13,13 @@ class Redmine2FA::TelegramAccountTest < ActiveSupport::TestCase
     @telegram_account.username = 'john_smith'
     assert_equal 'John Smith @john_smith', @telegram_account.name
   end
+
+  def test_activate
+    skip 'need to write test'
+  end
+
+  def test_deactivate
+    skip 'need to write test'
+
+  end
 end

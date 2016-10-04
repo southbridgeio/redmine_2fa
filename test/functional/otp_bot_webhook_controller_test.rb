@@ -15,7 +15,7 @@ class OtpBotWebhookControllerTest < ActionController::TestCase
   end
 
   def test_user_add_bot
-    Redmine2FA::TelegramBotService.any_instance.expects(:start)
+    Redmine2FA::Telegram::BotService.any_instance.expects(:start)
 
     post :update, message: message_hash, token: @valid_token
 
@@ -23,9 +23,9 @@ class OtpBotWebhookControllerTest < ActionController::TestCase
   end
 
   def test_connect_command
-    Redmine2FA::TelegramBotService.any_instance.expects(:connect)
+    Redmine2FA::Telegram::BotService.any_instance.expects(:connect)
 
-    message = message_hash
+    message        = message_hash
     message[:text] = '/connect user@email.com'
 
     post :update, message: message, token: @valid_token
@@ -33,13 +33,11 @@ class OtpBotWebhookControllerTest < ActionController::TestCase
     assert_response :ok
   end
 
-private
+  private
 
   def message_hash
-    {text: '/start', from: {id: 123, first_name: 'John', last_name: 'Smith'}}
+    { text: '/start', from: { id: 123, first_name: 'John', last_name: 'Smith' } }
   end
-
-
 
 
 end

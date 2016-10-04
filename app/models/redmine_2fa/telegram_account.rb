@@ -2,7 +2,7 @@ class Redmine2FA::TelegramAccount < ActiveRecord::Base
   unloadable
 
   belongs_to :user
-  attr_accessible :user_id, :first_name, :last_name, :username, :active
+  attr_accessible :user_id, :first_name, :last_name, :username, :active, :telegram_id
 
   before_save :set_token
 

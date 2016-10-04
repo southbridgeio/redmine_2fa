@@ -19,12 +19,16 @@ class OtpBotControllerTest < ActionController::TestCase
     assert plugin_settings_hash['bot_name'].nil?
     assert plugin_settings_hash['bot_id'].nil?
 
-    VCR.use_cassette('init') { get :init }
+    VCR.use_cassette('init') { post :create }
 
     plugin_settings      = Setting.find_by(name: 'plugin_redmine_2fa')
     plugin_settings_hash = plugin_settings.value
 
     assert_not plugin_settings_hash['bot_name'].nil?
     assert_not plugin_settings_hash['bot_id'].nil?
+  end
+
+  def test_reset
+
   end
 end

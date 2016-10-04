@@ -15,37 +15,49 @@ class AccountControllerPatchTest < ActionController::TestCase
     @user.otp_regenerate_secret
   end
 
-  def test_login_with_wrong_password
-    post :login, username: 'jsmith', password: 'bad'
-    assert_response :success
-    assert_template 'login'
+  # def test_login_with_wrong_password
+  #   post :login, username: 'jsmith', password: 'bad'
+  #   assert_response :success
+  #   assert_template 'login'
+  #
+  #   assert_select 'div.flash.error', text: /Invalid user or password/
+  #   assert_select 'input[name=username][value=jsmith]'
+  #   assert_select 'input[name=password]'
+  #   assert_select 'input[name=password][value]', 0
+  # end
+  #
+  # def test_login_without_2fa
+  #   post :login, username: 'jsmith', password: 'jsmith'
+  #   assert_redirected_to '/my/page'
+  # end
+  #
+  # def test_login_with_2fa
+  #   User.any_instance.expects(:has_otp_auth?).returns(true)
+  #
+  #   post :login, username: 'jsmith', password: 'jsmith'
+  #
+  #   assert_template 'redmine_2fa'
+  #   assert @request.session[:otp_user_id] == 2
+  #   assert @request.session[:otp_failed_attempts].zero?
+  # end
+  #
+  # def test_login_with_back_url
+  #   User.any_instance.expects(:has_otp_auth?).returns(true)
+  #
+  #   post :login, username: 'jsmith', password: 'jsmith', back_url: 'http://localhost/somewhere'
+  #   assert @request.session[:otp_back_url] == 'http://localhost/somewhere'
+  # end
 
-    assert_select 'div.flash.error', text: /Invalid user or password/
-    assert_select 'input[name=username][value=jsmith]'
-    assert_select 'input[name=password]'
-    assert_select 'input[name=password][value]', 0
+  def test_set_otp_session
+    skip
   end
 
-  def test_login_without_2fa
-    post :login, username: 'jsmith', password: 'jsmith'
-    assert_redirected_to '/my/page'
+  def test_init
+
   end
 
-  def test_login_with_2fa
-    User.any_instance.expects(:has_otp_auth?).returns(true)
+  def test_second_step
 
-    post :login, username: 'jsmith', password: 'jsmith'
-
-    assert_template 'redmine_2fa'
-    assert @request.session[:otp_user_id] == 2
-    assert @request.session[:otp_failed_attempts].zero?
-  end
-
-  def test_login_with_back_url
-    User.any_instance.expects(:has_otp_auth?).returns(true)
-
-    post :login, username: 'jsmith', password: 'jsmith', back_url: 'http://localhost/somewhere'
-    assert @request.session[:otp_back_url] == 'http://localhost/somewhere'
   end
 
   #
