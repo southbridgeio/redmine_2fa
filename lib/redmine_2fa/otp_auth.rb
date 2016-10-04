@@ -1,7 +1,7 @@
 module Redmine2FA
   class OtpAuth
 
-    def send_otp_code(user)
+    def send_code(user)
       time = Time.now
       expiration_time = time + 2.minutes
       expiration_time_string = expiration_time.strftime('%H:%M:%S')

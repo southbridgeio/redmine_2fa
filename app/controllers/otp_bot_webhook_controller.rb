@@ -1,11 +1,10 @@
+# Telegram Bot Webhook handler
 class OtpBotWebhookController < ApplicationController
   unloadable
 
   skip_before_filter :verify_authenticity_token, :check_if_login_required, :check_password_change
 
   before_filter :authorize
-
-  ## Telegram Bot Webhook handler
 
   def update
     logger = Logger.new(Rails.root.join('log/redmine_2fa', 'bot-update.log'))

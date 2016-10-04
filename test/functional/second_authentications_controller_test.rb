@@ -12,7 +12,7 @@ class SecondAuthenticationsControllerTest < ActionController::TestCase
   def test_confirm_auth_source
     @request.session[:otp_user_id] = @user.id
 
-    Redmine2FA::OtpAuth.any_instance.expects(:send_otp_code)
+    Redmine2FA::OtpAuth.any_instance.expects(:send_code)
 
     put :update, auth_source_id: @auth_source.id
 
