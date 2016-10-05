@@ -3,7 +3,7 @@ class UserMobilePhoneController < ApplicationController
 
   skip_before_filter :check_if_login_required
 
-  before_filter :authorize
+  before_filter :set_user_from_session
 
   def update
     @user.mobile_phone = params[:user][:mobile_phone]
@@ -23,7 +23,7 @@ class UserMobilePhoneController < ApplicationController
     system command
   end
 
-  def authorize
+  def set_user_from_session
     if session[:otp_user_id]
       @user = User.find(session[:otp_user_id])
     else

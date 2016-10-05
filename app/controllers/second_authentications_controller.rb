@@ -2,12 +2,12 @@ class SecondAuthenticationsController < ApplicationController
   unloadable
 
   skip_before_filter :check_if_login_required, only: [:update]
-  before_filter :authorize, only: [:update]
+  before_filter :set_user_from_session, only: [:update]
 
   def update
     @user.update!(auth_source_id: params[:auth_source_id])
-    Redmine2FA::OtpAuth.new.send_code(@user)
-    render 'account/redmine_2fa'
+    Redmine2FA::CodeSender.new(@user).send_code
+    render 'account/otp'
   end
 
   def destroy
@@ -18,7 +18,7 @@ class SecondAuthenticationsController < ApplicationController
 
   private
 
-  def authorize
+  def set_user_from_session
     if session[:otp_user_id]
       @user = User.find(session[:otp_user_id])
     else

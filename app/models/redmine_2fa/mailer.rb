@@ -9,11 +9,11 @@ class Redmine2FA::Mailer < ActionMailer::Base
   default from: "#{Setting.app_title} <#{Setting.mail_from}>" unless Rails.env.test?
 
   def self.default_url_options
-    Mailer.default_url_options
+    ::Mailer.default_url_options
   end
 
   def telegram_connect(user, telegram_account)
-    Intouch.set_locale
+    Redmine2FA.set_locale
     @user = user
     @telegram_account = telegram_account
 

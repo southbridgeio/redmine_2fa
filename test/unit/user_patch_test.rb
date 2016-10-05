@@ -48,8 +48,6 @@ class UserPatchTest < ActiveSupport::TestCase
     assert !@user.mobile_phone_confirmed?
   end
 
-
-
   context 'mobile phone' do
     context 'validation' do
       should 'contain only numbers' do
@@ -104,7 +102,5 @@ class UserPatchTest < ActiveSupport::TestCase
         assert @user.errors.present?
       end
     end
-
-
   end
 end

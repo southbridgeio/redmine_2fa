@@ -4,6 +4,8 @@ module Redmine2FA
   module Telegram
     class BotService
 
+      EMAIL_REGEXP = /([^@\s]+@(?:[-a-z0-9]+\.)+[a-z]{2,})/i
+
       attr_reader :bot, :logger, :command
 
       def initialize(command)
@@ -22,7 +24,6 @@ module Redmine2FA
         end
       end
 
-
       def start
         update_account
 
@@ -35,10 +36,9 @@ module Redmine2FA
         send_message(command.chat.id, message)
       end
 
-
       def connect
         message_text = command.text
-        email        = message_text.scan(/([^@\s]+@(?:[-a-z0-9]+\.)+[a-z]{2,})/i)&.flatten&.first
+        email        = message_text.scan(EMAIL_REGEXP)&.flatten&.first
         redmine_user = EmailAddress.find_by(address: email)&.user
 
         return user_not_found if redmine_user.nil?
@@ -81,14 +81,14 @@ module Redmine2FA
                                   active:     true
 
         if account.new_record?
-          @logger.info "New telegram_user #{user.first_name} #{user.last_name} @#{user.username} added!"
+          logger.info "New telegram_user #{user.first_name} #{user.last_name} @#{user.username} added!"
         end
 
         account.save!
       end
 
       def send_message(chat_id, message)
-        @bot.send_message(chat_id: chat_id, text: message, parse_mode: 'HTML')
+        bot.send_message(chat_id: chat_id, text: message, parse_mode: 'HTML')
       end
     end
   end

@@ -1,12 +1,10 @@
-# TODO: remove it after release
-
 namespace :redmine_2fa do
   namespace :telegram do
     # bundle exec rake redmine_2fa:telegram:bot PID_DIR='tmp/pids'
     task bot: :environment do
       LOG = Rails.env.production? ? Logger.new(Rails.root.join('log/redmine_2fa', 'bot.log')) : Logger.new(STDOUT)
 
-      token = Setting.plugin_redmine_2fa['bot_token']
+      token = Redmine2FA.bot_token
 
       unless token.present?
         LOG.error 'Telegram Bot Token not found. Please set it in the plugin config web-interface.'
@@ -14,7 +12,8 @@ namespace :redmine_2fa do
       end
 
       LOG.info 'Telegram Bot: Connecting to telegram...'
-      bot      = Telegrammer::Bot.new(token)
+      bot = Telegrammer::Bot.new(token)
+      bot.set_webhook('') # reset webhook
       bot_name = bot.me.username
 
       until bot_name.present?

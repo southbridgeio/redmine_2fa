@@ -85,7 +85,6 @@ class Redmine2FA::TelegramBotServiceTest < ActiveSupport::TestCase
     end
   end
 
-  # /start
 
   # /connect e@mail.com
 

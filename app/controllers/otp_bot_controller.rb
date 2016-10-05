@@ -30,8 +30,8 @@ class OtpBotController < ApplicationController
   end
 
   def set_bot
-    @token = Setting.plugin_redmine_2fa['bot_token']
-    @bot  = Telegrammer::Bot.new(@token)
+    @token = Redmine2FA.bot_token
+    @bot = Telegrammer::Bot.new(@token)
   rescue MultiJson::ParseError
     render_error message: t('redmine_2fa.otp_bot.init.error.wrong_token'), status: 406
   rescue Telegrammer::Errors::ServiceUnavailableError

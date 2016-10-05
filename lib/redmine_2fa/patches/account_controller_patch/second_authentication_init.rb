@@ -10,7 +10,7 @@ module Redmine2FA
           else
             @qr = RQRCode::QRCode.new(@user.provisioning_uri("#{@user.login}@#{Setting.host_name}"),
                                       size: 8, level: :h)
-            render 'redmine_2fa_init'
+            render 'account/init_2fa'
           end
         end
       end

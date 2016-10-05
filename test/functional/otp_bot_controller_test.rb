@@ -8,19 +8,17 @@ class OtpBotControllerTest < ActionController::TestCase
     Setting.create name: 'plugin_redmine_2fa', value: { 'bot_token' => @bot_token }
     Setting['host_name'] = 'redmine.test'
     @request             = ActionController::TestRequest.new
-
   end
 
   context 'init' do
     context 'authorized' do
-
       setup do
         @request.session[:user_id] = 1
       end
 
       should 'set webhook' do
-        Telegrammer::Bot.any_instance.expects(:set_webhook).
-            with('https://redmine.test/redmine_2fa/' + @bot_token + '/update')
+        Telegrammer::Bot.any_instance.expects(:set_webhook)
+                        .with('https://redmine.test/redmine_2fa/' + @bot_token + '/update')
 
         VCR.use_cassette('init') { post :create }
       end
@@ -48,15 +46,11 @@ class OtpBotControllerTest < ActionController::TestCase
     end
 
     context 'unauthorized' do
-
       should 'redirect to login page' do
         post :create
         assert_redirected_to signin_url(back_url: otp_bot_init_url)
       end
-
     end
-
-
   end
 
   context 'reset' do
@@ -83,17 +77,11 @@ class OtpBotControllerTest < ActionController::TestCase
       end
     end
 
-
     context 'unauthorized' do
-
       should 'redirect to login page' do
         delete :destroy
         assert_redirected_to signin_url(back_url: otp_bot_reset_url)
       end
-
     end
-
   end
-
-
 end

@@ -3,6 +3,10 @@ module Redmine2FA
     'redmine_2fa_'
   end
 
+  def self.set_locale
+    I18n.locale = Setting['default_language']
+  end
+
   def self.switched_on
     Setting.plugin_redmine_2fa['required']
   end
