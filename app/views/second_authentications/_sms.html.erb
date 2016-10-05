@@ -19,7 +19,7 @@
 </tr>
 <tr class="instruction2FA smsConfirm"  id="smsConfirm" style="display: none">
   <%= form_tag(user_mobile_phone_confirm_path, remote: true) do %>
-    <td colspan="2" align="right">
+    <td colspan="2" align="right" style=" vertical-align: top;">
       <%= text_field_tag 'code', nil, placeholder: '123456' %>
       <em class="info">
         <%= t('redmine_2fa.second_authentications.sms.confirm_hint') %>
@@ -27,6 +27,7 @@
     </td>
     <td align="left" style=" vertical-align: top;">
       <%= submit_tag t('redmine_2fa.second_authentications.sms.confirm_submit') %>
+      <em class="info error" id="mobilePhoneConfirmationError"></em>
     </td>
   <% end %>
 </tr>

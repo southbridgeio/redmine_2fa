@@ -52,6 +52,8 @@ module Redmine2FA
           if mobile_phone.present? && authenticate_otp(code, drift: 120)
             self.mobile_phone_confirmed = true
             self.save!
+          else
+            self.errors[:base] << I18n.t('redmine_2fa.notice.auth_code.invalid')
           end
         end
 
