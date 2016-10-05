@@ -7,8 +7,7 @@ class UserMobilePhoneController < ApplicationController
 
   def update
     @user.mobile_phone = params[:user][:mobile_phone]
-    send_confirmation_code(@user)
-    @user.save
+    send_confirmation_code(@user) if @user.save
   end
 
   def confirm

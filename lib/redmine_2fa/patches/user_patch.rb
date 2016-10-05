@@ -4,7 +4,7 @@ module Redmine2FA
       def self.included(base)
         base.send(:include, InstanceMethods)
         base.safe_attributes 'mobile_phone', 'ignore_2fa'
-        base.validates_format_of :mobile_phone, with: /\A[-+0-9]*\z/, allow_blank: true
+        base.validates_format_of :mobile_phone, with: /\A\d*\z/, allow_blank: true
 
         base.class_eval do
           unloadable

@@ -55,4 +55,39 @@ class UserPatchTest < ActiveSupport::TestCase
     @user.reload
     assert @user.mobile_phone_confirmed?
   end
+
+  context 'mobile phone' do
+    should 'contain only numbers' do
+      user = User.new mobile_phone: '7894561230'
+      user.valid?
+      assert user.errors[:mobile_phone].empty?
+    end
+
+    should 'can be empty' do
+      user = User.new mobile_phone: ''
+      user.valid?
+      assert user.errors[:mobile_phone].empty?
+    end
+
+
+    should 'can be nil' do
+      user = User.new mobile_phone: nil
+      user.valid?
+      assert user.errors[:mobile_phone].empty?
+    end
+
+    should 'not contain + symbol' do
+      user = User.new mobile_phone: '+7894561230'
+      user.valid?
+      assert user.errors[:mobile_phone].present?
+    end
+
+    should 'not contain - symbol' do
+      user = User.new mobile_phone: '7894-561-230'
+      user.valid?
+      assert user.errors[:mobile_phone].present?
+    end
+
+
+  end
 end
