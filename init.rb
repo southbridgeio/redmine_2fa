@@ -25,6 +25,6 @@ Redmine::Plugin.register :redmine_2fa do
   author_url 'https://centos-admin.ru'
 
   settings(default: { 'bot_token' => 'bot_token',
-                      'required' => !Rails.env.test? }, # switched off by default for tests
+                      'required' => false },
            partial: 'settings/redmine_2fa')
 end

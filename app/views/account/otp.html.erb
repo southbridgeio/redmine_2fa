@@ -1,8 +1,7 @@
 <div id="login-form">
   <%= form_tag(confirm_otp_path) do %>
-    <% if params[:autologin] %>
-      <%= hidden_field_tag 'autologin', params[:autologin] %>
-    <% end %>
+    <%= render 'account/autologin' %>
+
     <table style="width: 350px;">
 
       <tr>

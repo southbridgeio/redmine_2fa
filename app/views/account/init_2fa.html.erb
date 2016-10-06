@@ -1,16 +1,13 @@
 <div id="login-form">
   <table style="width: 500px;">
-    <%= form_tag(second_authentication_confirm_path, method: :put, id: 'init2FAForm' ) do %>
-
-      <% if params[:autologin] %>
-        <%= hidden_field_tag 'autologin', params[:autologin] %>
-      <% end %>
+    <%= form_tag(confirm_2fa_path, id: 'init2FAForm') do %>
+      <%= render 'account/autologin' %>
 
       <tr>
         <th colspan="3"><%= t('redmine_2fa.second_authentications.init.instruction') %></th>
       </tr>
 
-      <tr>
+      <tr id="init2FAFormAuthSources">
         <% Redmine2FA::AuthSource.all.each do |auth_source| %>
           <td style="width: 33%" align="center">
             <%= radio_button_tag 'auth_source_id', auth_source.id, false, data: { protocol: auth_source.protocol } %>
@@ -18,15 +15,32 @@
           </td>
         <% end %>
       </tr>
+
+      <% if Redmine2FA.switched_off %>
+        <tr>
+          <td colspan="3" align="center">
+            <%= check_box_tag 'ignore_2fa' %>
+            <%= label_tag 'ignore_2fa', t('redmine_2fa.second_authentications.init.disable') %>
+          </td>
+        </tr>
+
+        <tr id="init2FAFormSubmitRow" style="display: none">
+          <td colspan="2" align="center">
+          </td>
+          <td align="right">
+            <%= submit_tag t('redmine_2fa.second_authentications.next_button_html') %>
+          </td>
+        </tr>
+      <% end %>
+
     <% end %>
 
-    <%= render 'second_authentications/sms' %>
-    <%= render 'second_authentications/telegram' %>
-    <%= render 'second_authentications/google_auth' %>
+    <%= render 'account/init_2fa/sms' %>
+    <%= render 'account/init_2fa/telegram' %>
+    <%= render 'account/init_2fa/google_auth' %>
 
   </table>
 </div>
-
 
 <% content_for :header_tags do %>
   <%= javascript_include_tag 'redmine_2fa', plugin: 'redmine_2fa' %>

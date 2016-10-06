@@ -45,7 +45,7 @@ namespace :redmine_2fa do
             next
           end
 
-        rescue Exception => e
+        rescue StandardError => e
           LOG.error "UPDATE ERROR #{e.class}: #{e.message}\n#{e.backtrace.join("\n")}"
         end
       end

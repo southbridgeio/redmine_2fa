@@ -6,22 +6,38 @@ class AccountControllerPatchTest < ActionController::TestCase
   fixtures :users, :email_addresses, :roles, :auth_sources
 
   setup do
-    Redmine2FA.stubs(:switched_on).returns(true)
     @user = User.find(2) # jsmith
   end
 
   context 'user without 2fa' do
-    setup { post :login, username: 'jsmith', password: 'jsmith', back_url: 'http://test.host/' }
+    context 'with valid login data' do
+      setup { post :login, username: 'jsmith', password: 'jsmith', back_url: 'http://test.host/' }
 
-    context 'prepare' do
-      should set_session[:otp_user_id].to(2)
-      should set_session[:otp_back_url].to('http://test.host/')
+      context 'prepare' do
+        should set_session[:otp_user_id].to(2)
+        should set_session[:otp_back_url].to('http://test.host/')
+        should 'set user instance variable' do
+          assert_equal @user, assigns(:user)
+        end
+      end
+
+      context 'init' do
+        should render_template('account/init_2fa')
+        should 'set qr instance variable' do
+          assert_not_nil assigns(:qr)
+        end
+      end
     end
 
-    context 'init' do
-      should render_template('account/init_2fa')
-      should 'set qr instance variable' do
-        assert_not_nil assigns(:qr)
+    context 'with invalid login data' do
+      setup do
+        AccountController.any_instance.expects(:invalid_credentials)
+        post :login, username: 'jsmith', password: 'wrong', back_url: 'http://test.host/'
+      end
+
+      context 'prepare' do
+        should_not set_session[:otp_user_id].to(2)
+        should_not set_session[:otp_back_url].to('http://test.host/')
       end
     end
   end
@@ -51,14 +67,47 @@ class AccountControllerPatchTest < ActionController::TestCase
     end
 
 
-
     context 'with errors' do
 
     end
 
   end
 
+  context 'confirm auth source' do
+    setup do
+      User.any_instance.stubs(:otp_code)
 
+      @auth_source = auth_sources(:google_auth)
+    end
+
+    should 'update auth source' do
+      @request.session[:otp_user_id] = @user.id
+
+      Redmine2FA::CodeSender.any_instance.expects(:send_code)
+
+      post :confirm_2fa, auth_source_id: @auth_source.id
+
+      assert_template 'account/otp'
+
+      @user.reload
+
+      assert_equal @auth_source.id, @user.auth_source_id
+    end
+
+    context 'unauthorized' do
+      should 'not update auth source' do
+        @request.session[:otp_user_id] = nil
+
+        post :confirm_2fa, auth_source_id: @auth_source.id
+
+        @user.reload
+
+        assert_not_equal @auth_source.id, @user.auth_source_id
+      end
+    end
+
+
+  end
 
   context 'confirm one time password' do
 

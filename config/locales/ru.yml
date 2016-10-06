@@ -31,6 +31,7 @@ ru:
     second_authentications:
       init:
         instruction: Пожалуйста, выберите способ двухфакторной аутентификации
+        disable: "Не использовать двухфакторную аутентификацию"
       next_button_html: Далее &#187;
       google_auth:
         instruction_html: |

@@ -1,6 +1,7 @@
 require File.expand_path('../../../test_helper', __FILE__)
 class SecondAuthenticationsTest < Redmine::RoutingTest
   def test_second_authentications
-    should_route 'DELETE redmine_2fa/reset' => 'second_authentications#destroy'
+    should_route 'POST redmine_2fa/confirm' => 'account#confirm_2fa'
+    should_route 'POST /redmine_2fa/otp_code/confirm' => 'account#confirm_otp'
   end
 end

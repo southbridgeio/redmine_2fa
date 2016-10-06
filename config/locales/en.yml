@@ -30,6 +30,7 @@ en:
     second_authentications:
       init:
         instruction: Plase choose type of two-factor authentication
+        disable: "Do not use 2-factor authentication"
       next_button_html: Next &#187;
       google_auth:
         instruction_html: |

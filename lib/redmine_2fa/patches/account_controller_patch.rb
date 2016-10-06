@@ -4,4 +4,4 @@ AccountController.send(:prepend, Redmine2FA::Patches::AccountControllerPatch::Se
 AccountController.send(:prepend, Redmine2FA::Patches::AccountControllerPatch::SecondAuthenticationInit)
 AccountController.send(:prepend, Redmine2FA::Patches::AccountControllerPatch::SecondAuthenticationPrepare)
 
-AccountController.send(:include, Redmine2FA::Patches::AccountControllerPatch::ConfirmOTP)
+AccountController.send(:include, Redmine2FA::Patches::AccountControllerPatch::ConfirmMethods)

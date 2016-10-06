@@ -1,17 +1,29 @@
 module Redmine2FA
   module Patches
     module AccountControllerPatch
-      module ConfirmOTP
+      module ConfirmMethods
 
         def self.included(base)
           base.class_eval do
             unloadable
 
-            before_filter :set_user_from_session, only: [:confirm_otp]
+            before_filter :set_user_from_session, only: [:confirm_otp, :confirm_2fa]
+
+
+            def confirm_2fa
+              if params[:ignore_2fa]
+                @user.update!(ignore_2fa: params[:ignore_2fa])
+                reset_otp_session
+                successful_authentication(@user)
+              else
+                @user.update!(auth_source_id: params[:auth_source_id])
+                Redmine2FA::CodeSender.new(@user).send_code
+                render 'account/otp'
+              end
+            end
 
 
             def confirm_otp
-
               if @user.authenticate_otp(params[:otp_code], drift: 120)
                 reset_otp_session
                 successful_authentication(@user)

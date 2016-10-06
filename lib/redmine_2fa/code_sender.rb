@@ -27,8 +27,6 @@ module Redmine2FA
       end
     end
 
-    private
-
     def code
       user.otp_code
     end

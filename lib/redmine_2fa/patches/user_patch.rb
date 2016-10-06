@@ -45,6 +45,7 @@ module Redmine2FA
         def reset_second_auth
           self.otp_regenerate_secret
           self.auth_source_id = nil
+          self.ignore_2fa = false
           self.save!
         end
 
