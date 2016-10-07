@@ -1,34 +1,64 @@
 ru:
   field_mobile_phone: 'Мобильный телефон'
-
+  field_ignore_2fa: 'Игнорировать 2FA'
+  link_2fa_reset: Сбросить 2FA
+  notice_2fa_reset: При следующей аутентификации мы попросим заново выбрать настройки 2FA.
   redmine_2fa:
     settings:
+      common:
+        title: Общие настройки
+        required: Обязательно требовать выбрать один из способов аутентификации 2FA
+      telegram:
+        init:
+          header: Инициализация бота
+          description_html: |
+            Во время инициализации:
+            <ul>
+              <li>для бота создаётся веб-хук</li>
+              <li>в систему сохраняется имя и id бота</li>
+            </ul>
+          button_text: Инициализировать бота
+        reset:
+          header: Деактивация бота
+          description_html: |
+            Во время деактивации:
+            <ul>
+              <li>у бота удаляется веб-хук</li>
+              <li>связанные с ботом аккаунты Telegram деактивируются.</li>
+            </ul>
+            При добавлении нового бота, его придётся инициализировать.
+          button_text: Деактивировать бота
+    second_authentications:
       init:
-        header: Инициализация бота
-        description_html: |
-          Во время инициализации:
-          <ul>
-            <li>для бота создаётся веб-хук</li>
-            <li>в систему сохраняется имя и id бота</li>
-          </ul>
-        button_text: Инициализировать бота
-      deactivate:
-        header: Деактивация бота
-        description_html: |
-          Во время деактивации:
-          <ul>
-            <li>у бота удаляется веб-хук</li>
-            <li>связанные с ботом аккаунты Telegram деактивируются.</li>
-          </ul>
-          При добавлении нового бота, его придётся инициализировать.
-        button_text: Деактивировать бота
+        instruction: Пожалуйста, выберите способ двухфакторной аутентификации
+        disable: "Не использовать"
+      next_button_html: Далее &#187;
+      google_auth:
+        instruction_html: |
+          <p>Установите приложение Google Authenticator следуя инструкции по
+            <a href="https://support.google.com/accounts/answer/1066447" target="_blank">ссылке</a>.</p>
+          <p>Используйте предложенный ниже QR-код в приложении.</p>
+        next_step_instruction: После настройки приложения, нажмите "Далее".
+      telegram:
+        instruction_html: |
+          Бот "%{bot_name}" будет отправлять вам коды авторизации. Пожалуйста, активируйте бота.<br>
+          Для этого перейдите по <a href="https://telegram.me/%{bot_name}" target="_blank">ссылке</a> и напишите ему
+          "/start". Выполните инструкции.<br>
+          После выполнения инструкций нажмите "Далее".
+      sms:
+        instruction: Пожалуйста, подтвердите номер, на который вы будете получать SMS.
+        mobile_phone_hint_html: 'введите все цифры номера, <br>включая код страны. <br>Например: 79256879854'
+        mobile_phone_submit: "Получить код"
+        confirm_hint: введите код, полученный по SMS
+        confirm_submit: "Подтвердить"
+
     otp_bot:
       init:
         success: Бот успешно инициализирован
         error:
           wrong_token: Ошибка иницализации. Неверно указан токен
           api_error: Telegram Bot API сейчас недоступна
-      deactivate:
+      reset:
         success: Бот успешно деактивирован
       start:
         instruction_html: |
@@ -41,11 +71,6 @@ ru:
       create:
         success: Аккаунты успешно связаны
         error: Связать аккаунты не удалось
-    new_connection:
-      title: Настройка 2FA
-      instruction_html: |
-        Бот "%{bot_name}" будет отправлять вам коды авторизации. Пожалуйста, активируйте бота.<br>
-        Для этого перейдите по <a href="https://telegram.me/%{bot_name}" target="_blank">ссылке</a> и напишите ему "/start" и выполните инструкции.
 
     telegram_auth:
       message: 'Код Redmine "%{app_title}": %{code}. Действителен до %{expiration_time}.'

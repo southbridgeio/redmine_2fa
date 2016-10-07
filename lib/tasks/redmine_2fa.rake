@@ -1,12 +1,10 @@
-# TODO: remove it after release
-
 namespace :redmine_2fa do
   namespace :telegram do
     # bundle exec rake redmine_2fa:telegram:bot PID_DIR='tmp/pids'
     task bot: :environment do
-      LOG   = Rails.env.production? ? Logger.new(Rails.root.join('log/redmine_2fa', 'bot.log')) : Logger.new(STDOUT)
+      LOG = Rails.env.production? ? Logger.new(Rails.root.join('log/redmine_2fa', 'bot.log')) : Logger.new(STDOUT)
 
-      token = Setting.plugin_redmine_2fa['bot_token']
+      token = Redmine2FA.bot_token
 
       unless token.present?
         LOG.error 'Telegram Bot Token not found. Please set it in the plugin config web-interface.'
@@ -14,7 +12,8 @@ namespace :redmine_2fa do
       end
 
       LOG.info 'Telegram Bot: Connecting to telegram...'
-      bot      = Telegrammer::Bot.new(token)
+      bot = Telegrammer::Bot.new(token)
+      bot.set_webhook('') # reset webhook
       bot_name = bot.me.username
 
       until bot_name.present?
@@ -38,29 +37,15 @@ namespace :redmine_2fa do
       LOG.info "#{bot_name}: connected"
       LOG.info "#{bot_name}: waiting for new messages..."
 
-      bot_service = Redmine2FA::TelegramBotService.new
-
       bot.get_updates(fail_silently: false) do |message|
         begin
-          next unless message.is_a?(Telegrammer::DataTypes::Message) # Update for telegrammer gem 0.8.0
-          message_text = message.text
-          if message_text == '/start'
-            bot_service.start(message)
-          elsif message_text.include?('/connect')
-            email = message_text.scan(/([^@\s]+@(?:[-a-z0-9]+\.)+[a-z]{2,})/i)&.flatten&.first
-            user = EmailAddress.find_by(address: email)&.user
+          next unless message.is_a?(Telegrammer::DataTypes::Message)
+          Redmine2FA::Telegram::BotService.new(message).call
 
-            telegram_account = Redmine2FA::TelegramAccount.where(telegram_id: message.from.id).first
-
-            Redmine2FA::Mailer.telegram_connect(user, telegram_account).deliver
-          end
-        rescue Exception => e
+        rescue StandardError => e
           LOG.error "UPDATE ERROR #{e.class}: #{e.message}\n#{e.backtrace.join("\n")}"
         end
       end
-
-
     end
   end
-
 end

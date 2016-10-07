@@ -3,6 +3,22 @@ module Redmine2FA
     'redmine_2fa_'
   end
 
+  def self.set_locale
+    I18n.locale = Setting['default_language']
+  end
+
+  def self.switched_on
+    Setting.plugin_redmine_2fa['required']
+  end
+
+  def self.switched_off
+    !switched_on
+  end
+
+  def self.bot_token
+    Setting.plugin_redmine_2fa['bot_token']
+  end
+
   module Configuration
     def self.configuration
       Redmine::Configuration['redmine_2fa']
@@ -10,11 +26,6 @@ module Redmine2FA
 
     def self.sms_command
       configuration && configuration['sms_command'] ? configuration['sms_command'] : 'echo %{phone} %{password}'
-    end
-
-    def self.password_length
-      configuration && configuration['password_length'] && configuration['password_length'].to_i > 0 ?
-          configuration['password_length'].to_i : 4
     end
   end
 end

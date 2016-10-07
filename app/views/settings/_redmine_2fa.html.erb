@@ -1,29 +1,35 @@
+<h4><%= t 'redmine_2fa.settings.common.title' %></h4>
+<p>
+  <label for="settings_required"><%= t 'redmine_2fa.settings.common.required' %></label>
+  <%= check_box_tag 'settings[required]', '1', @settings['required'] %>
+</p>
+<h4>Telegram</h4>
 <p>
   <label for="settings_bot_token">Bot Token</label>
   <%= text_field_tag 'settings[bot_token]', @settings['bot_token'], size: 50 %>
 </p>
 <table style="width: 100%">
   <tr>
-    <td style="width: 50%"><h3><%= t('redmine_2fa.settings.init.header') %></h3></td>
-    <td style="width: 50%"><h3><%= t('redmine_2fa.settings.deactivate.header') %></h3></td>
+    <td style="width: 50%"><h3><%= t('redmine_2fa.settings.telegram.init.header') %></h3></td>
+    <td style="width: 50%"><h3><%= t('redmine_2fa.settings.telegram.reset.header') %></h3></td>
   </tr>
   <tr>
     <td>
-      <%= t('redmine_2fa.settings.init.description_html') %>
+      <%= t('redmine_2fa.settings.telegram.init.description_html') %>
     </td>
     <td>
-      <%= t('redmine_2fa.settings.deactivate.description_html') %>
+      <%= t('redmine_2fa.settings.telegram.reset.description_html') %>
     </td>
   </tr>
   <tr>
     <td>
-      <%= link_to redmine_2fa_bot_init_path do %>
-        <button type="button"><%= t('redmine_2fa.settings.init.button_text') %></button>
+      <%= link_to otp_bot_init_path, method: 'post' do %>
+        <button type="button"><%= t('redmine_2fa.settings.telegram.init.button_text') %></button>
       <% end %>
     </td>
     <td>
-      <%= link_to redmine_2fa_bot_deactivate_path do %>
-        <button type="button"><%= t('redmine_2fa.settings.deactivate.button_text') %></button>
+      <%= link_to otp_bot_reset_path, method: 'delete' do %>
+        <button type="button"><%= t('redmine_2fa.settings.telegram.reset.button_text') %></button>
       <% end %>
     </td>
   </tr>

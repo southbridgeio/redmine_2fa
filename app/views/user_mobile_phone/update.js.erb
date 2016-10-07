@@ -1,0 +1,6 @@
+<% if @user.errors.empty? %>
+$('#mobilePhoneError').text('');
+$('#smsConfirm').show();
+<% else %>
+$('#mobilePhoneError').text('<%= j @user.errors.full_messages_for(:mobile_phone).join(', ') %>');
+<% end %>

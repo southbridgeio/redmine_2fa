@@ -1,0 +1,43 @@
+<div id="login-form">
+  <%= form_tag(confirm_otp_path) do %>
+    <%= render 'account/autologin' %>
+
+    <table style="width: 350px;">
+
+      <tr>
+        <td align="right"><label for="otp_code"><%= t 'redmine_2fa.auth_code' %>:</label></td>
+        <td align="right"><%= text_field_tag :otp_code, nil, autocomplete: 'off', autofocus: true %></td>
+      </tr>
+
+
+      <tr id="otpCodeResentInstruction" style="display: none">
+        <td align="center" colspan="2">
+          <%= t('redmine_2fa.resend.instruction_html', timeout: 30) %>
+        </td>
+      </tr>
+
+      <tr>
+        <td align="left">
+          <% unless @user.google_authenticable? %>
+            <%= link_to t('redmine_2fa.resend.link'), resend_otp_path, method: 'post', remote: true,
+                        id: 'otpCodeResendLink' %>
+          <% end %>
+        </td>
+        <td align="right" colspan="1">
+          <input type="submit" name="login" value="<%= l(:button_login) %> &#187;"/>
+        </td>
+      </tr>
+
+    </table>
+  <% end %>
+</div>
+
+<% content_for :header_tags do %>
+  <%= javascript_include_tag 'redmine_2fa', plugin: 'redmine_2fa' %>
+  <%= stylesheet_link_tag 'redmine_2fa', plugin: 'redmine_2fa' %>
+<% end %>
+
+
+<% unless @hide_countdown or @user.google_authenticable? %>
+  <%= javascript_tag 'window.onload = function () {startOtpTimer();};' %>
+<% end %>

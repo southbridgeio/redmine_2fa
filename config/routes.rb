@@ -1,8 +1,27 @@
-post :otp_code_confirm, to: 'account#otp_code_confirm', as: :otp_code_confirm
-get :otp_code_resend, to: 'account#otp_code_resend', as: :otp_code_resend
+scope 'redmine_2fa' do
+  # Plugin settings
 
-get 'redmine_2fa/telegram_connect' => 'redmine_telegram_connections#create', as: 'redmine_2fa_telegram_connect'
+  post 'bot/init' => 'otp_bot#create', as: 'otp_bot_init'
+  delete 'bot/reset' => 'otp_bot#destroy', as: 'otp_bot_reset'
 
-get 'redmine_2fa/bot_init' => 'otp_bot#init', as: 'redmine_2fa_bot_init'
-get 'redmine_2fa/bot_deactivate' => 'otp_bot#deactivate', as: 'redmine_2fa_bot_deactivate'
-post 'redmine_2fa/update' => 'otp_bot#update'
+  # 2FA init
+  get 'telegram_connect' => 'redmine_telegram_connections#create', as: 'redmine_2fa_telegram_connect'
+
+  put 'mobile_phone/update', to: 'user_mobile_phone#update', as: 'user_mobile_phone_update'
+  post 'mobile_phone/confirm', to: 'user_mobile_phone#confirm', as: 'user_mobile_phone_confirm'
+
+  post 'confirm', to: 'account#confirm_2fa', as: 'confirm_2fa'
+
+  # 2FA management
+
+  delete 'reset', to: 'second_authentications#destroy', as: 'second_authentication_reset'
+
+  # 2FA step
+
+  post 'otp_code/resend', to: 'otp_codes#create', as: 'resend_otp'
+  post 'otp_code/confirm', to: 'account#confirm_otp', as: 'confirm_otp'
+
+  # Telegram bot webhook
+
+  post 'bot/:token/update' => 'otp_bot_webhook#update'
+end

@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/centosadmin/redmine_2fa.svg?branch=master)](https://travis-ci.org/centosadmin/redmine_2fa)
+[![Code Climate](https://codeclimate.com/github/centosadmin/redmine_2fa/badges/gpa.svg)](https://codeclimate.com/github/centosadmin/redmine_2fa)
 # Redmine 2FA
 
 Two-factor authorization plugin for Redmine.
@@ -5,7 +7,7 @@ Two-factor authorization plugin for Redmine.
 Supports:
 * Telegram
 * SMS
-* Google Auth (coming soon)
+* Google Auth
 
 Developed by [Centos-admin.ru](https://centos-admin.ru/)
 
@@ -21,7 +23,9 @@ Ruby 2.3+
 
 Бот может работать либо через web-hook либо через периодический опрос.
 
-Если в разных плгинах один и тот же бот использует разные механизмы, приоретет отдаётся web-hook.
+В этом плагине используется механизм web-hook, поэтому использование протокола HTTPS обязательно.
+
+Если в разных плагинах один и тот же бот использует разные механизмы, приоретет отдаётся web-hook.
 
 Инструкция по созданию бота: https://core.telegram.org/bots#3-how-do-i-create-a-bot
 
@@ -32,6 +36,8 @@ Ruby 2.3+
 bundle
 bin/rake redmine:plugins:migrate
 ```
+
+# Авторизация через Telegram
 
 ## Первый запуск
 
@@ -44,9 +50,9 @@ bin/rake redmine:plugins:migrate
 
 ## Настройки для пользователя
 
-В режиме редактирования профиля пользователя нужно указать протокол авторизации Telegram.
-
-При следующем входе пользователю будет предложено добавить себе бота, чтобы получать от него одноразовые пароли.
+При первом входе пользователю будет предложено выбрать способ для второго шага аутентификцаии.
+ 
+При выборе Telegram пользвателю нужно будет добавить себе бота, чтобы получать от него одноразовые пароли.
 
 При добавлении бота, он предложит ввести команду `/connect e@mail.com` для получения ссылки на связывание аккаунтов Telegram и Redmine.
 
@@ -55,21 +61,36 @@ bin/rake redmine:plugins:migrate
 
 # Авторизация через SMS
 
-## Some notes
+## Общая информация
 
-When you use SMS-authentication user should pass two steps: standard password checking and sms-password confirmation.
+При первом входе пользователю будет предложено выбрать способ для второго шага аутентификцаии.
+ 
+При выборе SMS пользвателю нужно ввести номер телефона, на который он будет получать СМС и подтвердить его.
 
-If user's mobile phone is blank, plugin authenticates him with password checking only.
+## Конфигурация
 
-When you create new user you should set user's password with 'Internal' authentication mode, save, change authentication mode to 'SMS'. Otherwise user will be created without password. You can use same way for user's password changing. User can change his password by himself too.
+В связи с тем, что различные СМС-шлюзы используют различные API, в плагине испольуется отправка СМС через системную 
+команду. Например
 
-Because there are many sms-gateways with different API, the responsibility on sending sms-message falls to external command. It can be any shell script or command like `curl`, e.g.
 ```
-curl http://my-sms-gateway.net?phone=%{phone}&message=%{password}
+curl http://my-sms-gateway.net?phone=%{phone}&message=%{password}%20ExpiredAt:%{expired_at}
 ```
-`%{phone}` and `%{password}` are placeholders. They will be replaced with actual data during runtime. Default command is `echo %{phone} %{password}`.
+`%{phone}`, `%{password}` и `%{expired_at}` системные переменные, которые будут замещены соответствующими значениями. 
 
-Default password length is 4.
+* phone - номер телефона в формате 7894561230 (только цифры, начинается с кода страны)
+* password - одноразовай пароль, который необходимо ввести на втором шаге аутентификации
+* expired_at - время после которого пароль перестаёт быть действительным (2 минуты от момента отправки сообщения)
+
+Команда по-умолчанию: `echo %{phone} %{password}`.
+
+Команда для отправки СМС указывается в файле `config/configuration.yml` в секции `production`:
+```yaml
+# specific configuration options for production environment
+# that overrides the default ones
+production:
+  redmine_2fa:
+    sms_command: 'echo %{phone} %{password}'
+```
 
 ## Миграция с плагина redmine_sms_auth
 
@@ -92,10 +113,11 @@ Default password length is 4.
     production:
       redmine_2fa:
         sms_command: 'echo %{phone} %{password}'
-        password_length: 5
     ```
 
 * перезапустите Redmine
+
+Параметр password_length больше не используется, так как в Google Auth используется фиксированная длинна кода - 6 цифр.
 
 В плагине redmine_sms_auth к польвателям было добавлено поле "Мобильный телефон", значение которого используется для 
 отправки СМС.
@@ -103,6 +125,23 @@ Default password length is 4.
 При миграции в соотвествии с этой инструкцией поле будет сохранено и данные с номерами телефонов будут доступны в 
 плагине redmine_2fa.
 
+# Google Authenticator
+
+При первом входе пользователю будет предложено выбрать способ для второго шага аутентификцаии.
+ 
+При выборе Google Auth пользвателю будет показан QR-код, который нужно сосканировать в приложении [Google 
+Authenticator](https://support.google.com/accounts/answer/1066447).
+
+# Сброс способа аутентификации
+
+Пользователь может сбросить способ двухфакторной аутентификации на странице "Моя учётная запись".
+
+# Игнорирование второго шага аутентификации
+
+В настройка пользователя администратор может указать "Игнорировать 2FA".
+
+Если в настройка плагина снята галка "Обязательно требовать выбрать один из способов аутентификации 2FA", то 
+пользователь может выбрать "Не использовать" при первом входе в систему.
 
 # Автор плагина
 

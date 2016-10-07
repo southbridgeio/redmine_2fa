@@ -1,0 +1,6 @@
+<% if @user.errors.empty? %>
+$('#mobilePhoneConfirmationError').text('');
+$('#init2FAForm').submit();
+<% else %>
+$('#mobilePhoneConfirmationError').text('<%= j @user.errors.full_messages_for(:base).join(', ') %>');
+<% end %>

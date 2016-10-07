@@ -22,3 +22,19 @@ function startOtpTimer() {
     }
   }, 1000);
 }
+
+$(document).ready(function () {
+  $('input:radio[name="auth_source_id"]').change(
+      function () {
+        if ($(this).is(':checked')) {
+          var protocol = $(this).data('protocol');
+          $('.instruction2FA').hide();
+          $('.' + protocol + 'Instruction').show();
+        }
+      });
+
+  $('.next2FAStep input[type=submit]').on("click", function () {
+    $('#init2FAForm').submit();
+  });
+});
+

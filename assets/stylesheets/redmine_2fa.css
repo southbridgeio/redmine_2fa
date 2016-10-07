@@ -1,0 +1,52 @@
+
+#init2FA {
+    width: 500px;
+    margin-top: 5em;
+    padding: 1em;
+    margin-left: auto;
+    margin-right: auto;
+    border: 2px solid #FDBF3B;
+    background-color: #FFEBC1;
+}
+
+#init2FAFormAuthSources {
+    margin: 1em 0;
+    text-align: center;
+}
+
+#init2FAFormAuthSources .authSource {
+    display: inline-block;
+    list-style-type: none;
+
+    text-align: center;
+
+    padding: 0 0.3em;
+}
+
+#init2FAFormSubmitRow {
+    text-align: right;
+}
+
+table .qr {
+    border: 0 none #0000ff;
+    border-collapse: collapse;
+    margin: 25px auto;
+}
+
+table .qr td {
+    border: 0 none #0000ff;
+    border-collapse: collapse;
+    padding: 0;
+    margin: 0;
+    width: 5px;
+    height: 5px;
+}
+
+table .qr td.black {
+    background-color: #000;
+}
+
+table .qr td.white {
+    background-color: #fff;
+}
+
