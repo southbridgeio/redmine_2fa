@@ -1,7 +1,13 @@
 engines:
   rubocop:
     enabled: true
+  csslint:
+    enabled: true
+  eslint:
+    enabled: true
 
 ratings:
-   paths:
-   - "**.rb"
+  paths:
+    - "**.rb"
+    - "**.css"
+    - "**.js"
