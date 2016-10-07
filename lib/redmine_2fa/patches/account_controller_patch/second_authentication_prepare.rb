@@ -7,7 +7,7 @@ module Redmine2FA
         def password_authentication
           @user = User.find_by_login(params[:username])
 
-          if User.try_to_login(params[:username], params[:password]) == @user
+          if @user && User.try_to_login(params[:username], params[:password]) == @user
             set_otp_session
             super
           else
