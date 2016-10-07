@@ -24,23 +24,9 @@ function startOtpTimer() {
 }
 
 $(document).ready(function () {
-  $('#ignore_2fa').change(
-      function () {
-        if ($(this).is(':checked')) {
-          $('.instruction2FA').hide();
-          $('input:radio[name="auth_source_id"]').prop('checked', false);
-          $('#init2FAFormAuthSources').hide();
-          $('#init2FAFormSubmitRow').show();
-        } else {
-          $('#init2FAFormAuthSources').show();
-          $('#init2FAFormSubmitRow').hide();
-        }
-      });
-
   $('input:radio[name="auth_source_id"]').change(
       function () {
         if ($(this).is(':checked')) {
-          console.log($(this));
           var protocol = $(this).data('protocol');
           $('.instruction2FA').hide();
           $('.' + protocol + 'Instruction').show();
