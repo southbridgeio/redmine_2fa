@@ -1,21 +1,21 @@
 [![Build Status](https://travis-ci.org/centosadmin/redmine_2fa.svg?branch=master)](https://travis-ci.org/centosadmin/redmine_2fa)
 [![Code Climate](https://codeclimate.com/github/centosadmin/redmine_2fa/badges/gpa.svg)](https://codeclimate.com/github/centosadmin/redmine_2fa)
+
 # Redmine 2FA
 
-Two-factor authorization plugin for Redmine.
+Двухфакторная аутентификация для Redmine.
 
-Supports:
+Поддерживает:
 * Telegram
 * SMS
-* Google Auth
+* Google Authenticator
 
-Developed by [Centos-admin.ru](https://centos-admin.ru/)
+Плагин разработан [Centos-admin.ru](https://centos-admin.ru/)
 
-## Requirements
+## Требования
 
-This plugin works only on HTTPS host, because of Telegram Bot Webhook needs to POST on HTTPS hosts.
-
-Ruby 2.3+
+* HTTPS
+* Ruby 2.3+
 
 ### Важно!!!
 
