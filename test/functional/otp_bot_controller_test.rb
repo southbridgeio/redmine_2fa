@@ -18,7 +18,7 @@ class OtpBotControllerTest < ActionController::TestCase
 
       should 'set webhook' do
         Telegrammer::Bot.any_instance.expects(:set_webhook)
-                        .with('https://redmine.test/redmine_2fa/' + @bot_token + '/update')
+                        .with('https://redmine.test/redmine_2fa/bot/' + @bot_token + '/update')
 
         VCR.use_cassette('init') { post :create }
       end
