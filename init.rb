@@ -13,7 +13,6 @@ ActionDispatch::Callbacks.to_prepare do
       require_dependency file
     end
   end
-
 end
 
 Redmine::Plugin.register :redmine_2fa do

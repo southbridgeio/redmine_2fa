@@ -3,7 +3,6 @@ require 'telegrammer'
 module Redmine2FA
   module Telegram
     class BotService
-
       EMAIL_REGEXP = /([^@\s]+@(?:[-a-z0-9]+\.)+[a-z]{2,})/i
 
       attr_reader :bot, :logger, :command
@@ -52,7 +51,6 @@ module Redmine2FA
         end
 
         send_message(command.chat.id, message)
-
       end
 
       private
@@ -80,11 +78,13 @@ module Redmine2FA
                                   last_name:  user.last_name,
                                   active:     true
 
-        if account.new_record?
-          logger.info "New telegram_user #{user.first_name} #{user.last_name} @#{user.username} added!"
-        end
+        write_log_about_new_user if account.new_record?
 
         account.save!
+      end
+
+      def write_log_about_new_user
+        logger.info "New telegram_user #{user.first_name} #{user.last_name} @#{user.username} added!"
       end
 
       def send_message(chat_id, message)

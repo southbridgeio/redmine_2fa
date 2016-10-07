@@ -21,6 +21,5 @@ module Redmine2FA
     rescue Telegrammer::Errors::BadRequestError => e
       errors << "Telegram Bot API: #{e.message}"
     end
-
   end
 end

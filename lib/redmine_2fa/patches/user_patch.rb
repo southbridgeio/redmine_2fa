@@ -19,45 +19,44 @@ module Redmine2FA
 
       module InstanceMethods
         def update_hashed_password_with_otp_auth
-          if has_otp_auth?
+          if two_factor_authenticable?
             salt_password(password) if password
           else
             update_hashed_password_without_otp_auth
           end
         end
 
-        def has_otp_auth?
-          has_telegram_auth? || has_sms_auth? || has_google_auth?
+        def two_factor_authenticable?
+          telegram_authenticable? || sms_authenticable? || google_authenticable?
         end
 
-        def has_sms_auth?
+        def sms_authenticable?
           auth_source&.auth_method_name == 'SMS'
         end
 
-        def has_telegram_auth?
+        def telegram_authenticable?
           auth_source&.auth_method_name == 'Telegram'
         end
 
-        def has_google_auth?
+        def google_authenticable?
           auth_source&.auth_method_name == 'Google Auth'
         end
 
         def reset_second_auth
-          self.otp_regenerate_secret
+          otp_regenerate_secret
           self.auth_source_id = nil
           self.ignore_2fa = false
-          self.save!
+          save!
         end
 
         def confirm_mobile_phone(code)
           if mobile_phone.present? && authenticate_otp(code, drift: 120)
             self.mobile_phone_confirmed = true
-            self.save!
+            save!
           else
-            self.errors[:base] << I18n.t('redmine_2fa.notice.auth_code.invalid')
+            errors[:base] << I18n.t('redmine_2fa.notice.auth_code.invalid')
           end
         end
-
       end
     end
   end

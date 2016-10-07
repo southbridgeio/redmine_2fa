@@ -11,10 +11,6 @@ class SecondAuthenticationsControllerTest < ActionController::TestCase
     @auth_source = auth_sources(:google_auth)
   end
 
-
-
   context 'reset' do
-
   end
-
 end

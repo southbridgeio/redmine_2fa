@@ -85,7 +85,6 @@ class Redmine2FA::TelegramBotServiceTest < ActiveSupport::TestCase
     end
   end
 
-
   # /connect e@mail.com
 
   def test_user_not_found_message

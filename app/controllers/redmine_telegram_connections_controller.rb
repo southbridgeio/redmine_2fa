@@ -8,17 +8,21 @@ class RedmineTelegramConnectionsController < ApplicationController
 
     @telegram_account = Redmine2FA::TelegramAccount.find_by(telegram_id: params[:telegram_id])
 
+    notice = connect_telegram_account_to_user
+
+    redirect_to home_path, notice: notice
+  end
+
+  def connect_telegram_account_to_user
     if @user.mail == params[:user_email] && params[:token] == @telegram_account.token
       @user.telegram_account = @telegram_account
       @user.save
     end
 
-    notice = if @user.telegram_account.present?
-               t('redmine_2fa.redmine_telegram_connections.create.success')
-             else
-               t('redmine_2fa.redmine_telegram_connections.create.error')
-             end
-
-    redirect_to home_path, notice: notice
+    if @user.telegram_account.present?
+      t('redmine_2fa.redmine_telegram_connections.create.success')
+    else
+      t('redmine_2fa.redmine_telegram_connections.create.error')
+    end
   end
 end

@@ -18,7 +18,7 @@
 
       <tr>
         <td align="left">
-          <% unless @user.has_google_auth? %>
+          <% unless @user.google_authenticable? %>
             <%= link_to t('redmine_2fa.resend.link'), resend_otp_path, method: 'post', remote: true,
                         id: 'otpCodeResendLink' %>
           <% end %>
@@ -38,6 +38,6 @@
 <% end %>
 
 
-<% unless @hide_countdown or @user.has_google_auth? %>
+<% unless @hide_countdown or @user.google_authenticable? %>
   <%= javascript_tag 'window.onload = function () {startOtpTimer();};' %>
 <% end %>

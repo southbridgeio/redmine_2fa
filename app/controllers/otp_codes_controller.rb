@@ -24,5 +24,4 @@ class OtpCodesController < ApplicationController
   def send_code(user)
     Redmine2FA::CodeSender.new(user).send_code
   end
-
 end

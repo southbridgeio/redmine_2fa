@@ -39,11 +39,8 @@ namespace :redmine_2fa do
 
       bot.get_updates(fail_silently: false) do |message|
         begin
-          if message.is_a?(Telegrammer::DataTypes::Message)
-            Redmine2FA::Telegram::BotService.new(message).call
-          else
-            next
-          end
+          next unless message.is_a?(Telegrammer::DataTypes::Message)
+          Redmine2FA::Telegram::BotService.new(message).call
 
         rescue StandardError => e
           LOG.error "UPDATE ERROR #{e.class}: #{e.message}\n#{e.backtrace.join("\n")}"

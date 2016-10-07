@@ -30,5 +30,4 @@ class Redmine2FA::CodeSender::TelegramSenderTest < ActiveSupport::TestCase
   #
   #
   # end
-
 end

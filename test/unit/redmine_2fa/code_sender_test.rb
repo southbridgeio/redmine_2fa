@@ -61,5 +61,4 @@ class Redmine2FA::CodeSenderTest < ActiveSupport::TestCase
       assert_equal ['some errors'], sender.errors
     end
   end
-
 end

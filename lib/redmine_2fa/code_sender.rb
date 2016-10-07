@@ -1,6 +1,5 @@
 module Redmine2FA
   class CodeSender
-
     attr_reader :user, :errors, :sender
 
     def initialize(user)
@@ -18,12 +17,12 @@ module Redmine2FA
 
     def define_sender
       case user&.auth_source&.auth_method_name
-        when 'Telegram'
-          CodeSender::TelegramSender.new(user)
-        when 'SMS'
-          CodeSender::SMSSender.new(user)
-        else
-          CodeSender::NullSender.new
+      when 'Telegram'
+        CodeSender::TelegramSender.new(user)
+      when 'SMS'
+        CodeSender::SMSSender.new(user)
+      else
+        CodeSender::NullSender.new
       end
     end
 
@@ -34,7 +33,5 @@ module Redmine2FA
     def timestamp
       2.minutes.from_now.strftime('%H:%M:%S')
     end
-
   end
-
 end

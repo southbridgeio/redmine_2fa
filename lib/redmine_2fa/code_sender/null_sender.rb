@@ -7,9 +7,6 @@ module Redmine2FA
     end
 
     def send_message
-
     end
   end
 end
-
-
