@@ -40,7 +40,7 @@ class OtpBotController < ApplicationController
 
   def set_bot_webhook
     webhook_url = URI::HTTPS.build(host: Setting['host_name'],
-                                   path: "/redmine_2fa/#{@token}/update").to_s
+                                   path: "/redmine_2fa/bot/#{@token}/update").to_s
 
     @bot.set_webhook(webhook_url)
   end
