@@ -40,9 +40,8 @@ en:
         next_step_instruction: After app setup click "Next".
       telegram:
         instruction_html: |
-          %{bot_name} will send you aouthorization codes. Pleas activate it.<br>
-          Follow the <a href="https://telegram.me/%{bot_name}" target="_blank">link</a> and say "/start" to bot. Then follow the bot instruction.<br>
-          After done with bot instructions click "Next".
+          %{bot_name} will send you authorization codes. Pleas activate it.<br>
+          Follow the <a href="https://telegram.me/%{bot_name}" target="_blank">link</a> and say "/start" to bot. Then follow the bot instruction.
       sms:
         instruction: Please enter mobile phone number for SMS.
         mobile_phone_hint_html: 'enter all digits <br>includes country code. <br>Example for Russia: 79256879854'
