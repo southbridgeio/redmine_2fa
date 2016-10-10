@@ -19,7 +19,8 @@ module Redmine2FA
               reset_otp_session
               successful_authentication(@user)
             else
-              @user.update!(auth_source_id: params[:auth_source_id]) if AuthSource.exists?(params[:auth_source_id])
+              @user.update_columns(auth_source_id: params[:auth_source_id]) if AuthSource.exists?
+              (params[:auth_source_id])
               Redmine2FA::CodeSender.new(@user).send_code
               render 'account/otp'
             end
