@@ -29,10 +29,22 @@ class AccountControllerPatchTest < ActionController::TestCase
       end
     end
 
-    context 'with invalid login data' do
+    context 'with invalid password' do
       setup do
         AccountController.any_instance.expects(:invalid_credentials)
         post :login, username: 'jsmith', password: 'wrong', back_url: 'http://test.host/'
+      end
+
+      context 'prepare' do
+        should_not set_session[:otp_user_id].to(2)
+        should_not set_session[:otp_back_url].to('http://test.host/')
+      end
+    end
+
+    context 'with invalid login' do
+      setup do
+        AccountController.any_instance.expects(:invalid_credentials)
+        post :login, username: 'invalid', password: 'wrong', back_url: 'http://test.host/'
       end
 
       context 'prepare' do
