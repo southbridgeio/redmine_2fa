@@ -26,6 +26,8 @@ module Redmine2FA
       def start
         update_account
 
+        update_auth_source if account.user.present? && account.user.auth_source.nil?
+
         message = if account.user.present?
                     I18n.t('redmine_2fa.redmine_telegram_connections.create.success')
                   else
@@ -81,6 +83,10 @@ module Redmine2FA
         write_log_about_new_user if account.new_record?
 
         account.save!
+      end
+
+      def update_auth_source
+        account.user.update auth_source_id: Redmine2FA::AuthSource::Telegram.first&.id
       end
 
       def write_log_about_new_user
