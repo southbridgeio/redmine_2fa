@@ -61,8 +61,8 @@ ru:
         success: Бот успешно деактивирован
       start:
         instruction_html: |
-          Чтобы связать аккаунты Redmine и Telegram, пожалуйста, введите комманду "/connect your_redmine_account@email.com",
-          где your_redmine_account@email.com - ваш E-Mail в Redmine.
+          Чтобы связать аккаунты Redmine и Telegram, пожалуйста, введите команду "/connect login@redmine.com",
+          где login@redmine.com - ваш E-Mail в Redmine.
       connect:
         already_connected: Ваши аккаунты уже связаны
         wait_for_email: Мы отправили подтверждение на адрес "%{email}". Пожалуйста, следуйте инструкциям из письма.

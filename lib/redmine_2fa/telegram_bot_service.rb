@@ -14,6 +14,8 @@ module Redmine2FA
       end
 
       def call
+        Redmine2FA.set_locale
+
         command_text = command.text
 
         if command_text&.include?('start')

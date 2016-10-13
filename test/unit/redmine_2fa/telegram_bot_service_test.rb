@@ -6,20 +6,22 @@ class Redmine2FA::TelegramBotServiceTest < ActiveSupport::TestCase
   setup do
     Redmine2FA.stubs(:bot_token)
     Telegrammer::Bot.any_instance.stubs(:get_me)
-
-    @telegram_message = ActionController::Parameters.new(
-      from: { id:         123,
-              username:   'dhh',
-              first_name: 'David',
-              last_name:  'Haselman' },
-      chat: { id: 123 },
-      text: '/start'
-    )
-
-    @bot_service = Redmine2FA::Telegram::BotService.new(@telegram_message)
   end
 
   context '/start' do
+    setup do
+      @telegram_message = ActionController::Parameters.new(
+        from: { id:         123,
+                username:   'dhh',
+                first_name: 'David',
+                last_name:  'Haselman' },
+        chat: { id: 123 },
+        text: '/start'
+      )
+
+      @bot_service = Redmine2FA::Telegram::BotService.new(@telegram_message)
+    end
+
     context 'without user' do
       setup do
         Redmine2FA::Telegram::BotService.any_instance
@@ -86,21 +88,35 @@ class Redmine2FA::TelegramBotServiceTest < ActiveSupport::TestCase
     end
   end
 
-  # /connect e@mail.com
+  context '/connect e@mail.com' do
+    setup do
+      @telegram_account = Redmine2FA::TelegramAccount.create(telegram_id: 123)
+      @telegram_message = ActionController::Parameters.new(
+        from: { id:         123,
+                username:   'dhh',
+                first_name: 'David',
+                last_name:  'Haselman' },
+        chat: { id: 123 },
+        text: '/connect e@mail.com'
+      )
 
-  def test_user_not_found_message
-    skip 'need to write test'
-  end
+      @bot_service = Redmine2FA::Telegram::BotService.new(@telegram_message)
+    end
 
-  def test_block_telegram_account_after_three_wrong_trials
-    skip 'need to write test'
-  end
+    should 'send user not found' do
+      # User.
+    end
 
-  def test_already_connected
-    skip 'need to write test'
-  end
+    def test_block_telegram_account_after_three_wrong_trials
+      skip 'need to write test'
+    end
 
-  def test_send_connect_instructions
-    skip 'need to write test'
+    def test_already_connected
+      skip 'need to write test'
+    end
+
+    def test_send_connect_instructions
+      skip 'need to write test'
+    end
   end
 end
