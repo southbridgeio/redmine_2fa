@@ -1,6 +1,8 @@
 [![Build Status](https://travis-ci.org/centosadmin/redmine_2fa.svg?branch=master)](https://travis-ci.org/centosadmin/redmine_2fa)
 [![Code Climate](https://codeclimate.com/github/centosadmin/redmine_2fa/badges/gpa.svg)](https://codeclimate.com/github/centosadmin/redmine_2fa)
 
+[English version](https://github.com/centosadmin/redmine_2fa/blob/master/README.md)
+
 # Redmine 2FA
 
 Двухфакторная аутентификация для Redmine.

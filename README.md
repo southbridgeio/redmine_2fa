@@ -1,6 +1,9 @@
 [![Build Status](https://travis-ci.org/centosadmin/redmine_2fa.svg?branch=master)](https://travis-ci.org/centosadmin/redmine_2fa)
 [![Code Climate](https://codeclimate.com/github/centosadmin/redmine_2fa/badges/gpa.svg)](https://codeclimate.com/github/centosadmin/redmine_2fa)
 
+[Русская версия](https://github.com/centosadmin/redmine_2fa/blob/master/README.ru.md)
+
+
 # Redmine 2FA
 
 Two-factor authorization plugin for Redmine.
@@ -31,7 +34,7 @@ If a different plug-ins the same bot uses different mechanisms priority given to
 
 Instructions for creating a bot: https://core.telegram.org/bots#3-how-do-i-create-a-bot
 
-## Instalation
+## Installation
 
 After clone repo to `plugins` directory run this commands
 
