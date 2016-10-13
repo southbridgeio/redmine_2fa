@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/centosadmin/redmine_2fa.svg?branch=master)](https://travis-ci.org/centosadmin/redmine_2fa)
 [![Code Climate](https://codeclimate.com/github/centosadmin/redmine_2fa/badges/gpa.svg)](https://codeclimate.com/github/centosadmin/redmine_2fa)
+
 # Redmine 2FA
 
 Two-factor authorization plugin for Redmine.
@@ -17,133 +18,126 @@ This plugin works only on HTTPS host, because of Telegram Bot Webhook needs to P
 
 Ruby 2.3+
 
-### Важно!!!
+### Important!!!
 
-Бот для этого плагина должен быть уникальным. Иначе могут быть конфликты, если тот же бот используется в другом плагине в режиме опроса обновлений.
+Bot for this plugin must be unique. 
+Otherwise, there may be conflicts if the same bot used in another plug-in with polling mode updates.
 
-Бот может работать либо через web-hook либо через периодический опрос.
+Bot can be operated either via the web-hook, or through periodic polling.
 
-В этом плагине используется механизм web-hook, поэтому использование протокола HTTPS обязательно.
+This plugin uses web-hook mechanism, so be sure to use the HTTPS protocol.
 
-Если в разных плагинах один и тот же бот использует разные механизмы, приоретет отдаётся web-hook.
+If a different plug-ins the same bot uses different mechanisms priority given to web-hook.
 
-Инструкция по созданию бота: https://core.telegram.org/bots#3-how-do-i-create-a-bot
+Instructions for creating a bot: https://core.telegram.org/bots#3-how-do-i-create-a-bot
 
-## Установка плагина
+## Instalation
 
-После добавления плагина в пупку `plugins` выполните следующие команды
+After clone repo to `plugins` directory run this commands
+
 ```
 bundle
 bin/rake redmine:plugins:migrate
 ```
 
-# Авторизация через Telegram
+# Telegram authentication
 
-## Первый запуск
+## Plugin settings
 
-При первом запуске нужно: 
-* ввести токен бота в настройках плагина
-* сохранить настройки
-* инициализировать бота по ссылке в настройках
+After install you need to setup plugin settings: 
+* enter bot token
+* save settings
+* initialize bot
 
-Во время иницализации будут сохранены id и username бота и установлен web-hook, который будет обрабатывать команды направляемые боту.
+Initialization will be save bot id and username and setup web-hook, which will process the command sent by the bot.
 
-## Настройки для пользователя
+## User init
 
-При первом входе пользователю будет предложено выбрать способ для второго шага аутентификцаии.
- 
-При выборе Telegram пользвателю нужно будет добавить себе бота, чтобы получать от него одноразовые пароли.
+On first login user will be asked to choose an authentication method.
+ 
+After selecting Telegram users need to add the bot with `/start` command.
 
-При добавлении бота, он предложит ввести команду `/connect e@mail.com` для получения ссылки на связывание аккаунтов Telegram и Redmine.
+After this it prompts you to enter the command `/connect account@redmine.com`.
 
-После выполнения команды пользователь получит письмо со ссылкой.
-Переход по ссылке свяжет аккаунты пользователя и он сможет получать одноразовые пароли от бота
+After the command, the user will receive an email with a link.
+Following by link will connect the user's account and he will be able to receive one-time passwords from bot/
 
-# Авторизация через SMS
+# SMS authentication
 
-## Общая информация
+## Common info
 
-При первом входе пользователю будет предложено выбрать способ для второго шага аутентификцаии.
- 
-При выборе SMS пользвателю нужно ввести номер телефона, на который он будет получать СМС и подтвердить его.
+If user select SMS he need to enter the phone number to which it will receive SMS and confirm it.
 
-## Конфигурация
+## Configuration
 
-В связи с тем, что различные СМС-шлюзы используют различные API, в плагине испольуется отправка СМС через системную 
-команду. Например
+Because there are many sms-gateways with different API, the responsibility on sending sms-message falls to external command. It can be any shell script or command like `curl`, e.g.
 
 ```
-curl http://my-sms-gateway.net?phone=%{phone}&message=%{password}%20ExpiredAt:%{expired_at}
+curl "http://my-sms-gateway.net?phone=%{phone}&message=Code: %{password} Expired at: %{expired_at}"
 ```
-`%{phone}`, `%{password}` и `%{expired_at}` системные переменные, которые будут замещены соответствующими значениями. 
+`%{phone}`, `%{password}` and `%{expired_at}` are placeholders. They will be replaced with actual data during runtime. 
 
-* phone - номер телефона в формате 7894561230 (только цифры, начинается с кода страны)
-* password - одноразовай пароль, который необходимо ввести на втором шаге аутентификации
-* expired_at - время после которого пароль перестаёт быть действительным (2 минуты от момента отправки сообщения)
+* phone - phone number in format 7894561230 (digits only, starts with country code)
+* password - one-time password
+* expired_at - password expiration time (2 minutes after message sent)
 
-Команда по-умолчанию: `echo %{phone} %{password}`.
-
-Команда для отправки СМС указывается в файле `config/configuration.yml` в секции `production`:
+Set SMS command in `config/configuration.yml` in `production` section:
 ```yaml
 # specific configuration options for production environment
 # that overrides the default ones
 production:
   redmine_2fa:
-    sms_command: 'echo %{phone} %{password}'
+    sms_command: 'curl "http://my-sms-gateway.net?phone=%{phone}&message=Code: %{password} Expired at: %{expired_at}"'
 ```
 
-## Миграция с плагина redmine_sms_auth
+## Migration from redmine_sms_auth plugin
 
-* обновите плагин redmine_sms_auth до последней версии
-* обновите плагин redmine_2fa до последней версии
-* выполните команду `bundle install`
-* выполните команду `bundle exec rake redmine:plugins:migrate`
-* выполните команду `bundle exec rake redmine:plugins:migrate VERSION=0 NAME=redmine_sms_auth`
-* удалите каталог с плагином redmine_sms_auth
-* обновите настройки в файле `configuration.yml`
-  * было
+* update redmine_sms_auth to latest version from (repo)[https://github.com/centosadmin/redmine_sms_auth] 
+* update redmine_2fa to latest version
+* run `bundle install`
+* run `bundle exec rake redmine:plugins:migrate`
+* run `bundle exec rake redmine:plugins:migrate VERSION=0 NAME=redmine_sms_auth`
+* remove plugin folder `redmine_sms_auth`
+* update sms command settings in `configuration.yml`
+  * before
     ```yaml
     production:
       sms_auth:
         command: 'echo %{phone} %{password}'
         password_length: 5
     ```
-  * стало
+  * after
     ```yaml
     production:
       redmine_2fa:
         sms_command: 'echo %{phone} %{password}'
     ```
 
-* перезапустите Redmine
+* restart Redmine
 
-Параметр password_length больше не используется, так как в Google Auth используется фиксированная длинна кода - 6 цифр.
+`password_length` parameter is no longer used, since Google Auth uses fixed-length code - 6 digits.
 
-В плагине redmine_sms_auth к польвателям было добавлено поле "Мобильный телефон", значение которого используется для 
-отправки СМС.
+The plugin redmine_sms_auth added to the "mobile phone" field to users.
 
-При миграции в соотвествии с этой инструкцией поле будет сохранено и данные с номерами телефонов будут доступны в 
-плагине redmine_2fa.
+Migration by this instruction will save phone data and it will be available in the plugin redmine_2fa.
 
 # Google Authenticator
 
-При первом входе пользователю будет предложено выбрать способ для второго шага аутентификцаии.
- 
-При выборе Google Auth пользвателю будет показан QR-код, который нужно сосканировать в приложении [Google 
+If user choose Google Auth he need to scan QR-code in [Google 
 Authenticator](https://support.google.com/accounts/answer/1066447).
 
-# Сброс способа аутентификации
+# Authentication reset
 
-Пользователь может сбросить способ двухфакторной аутентификации на странице "Моя учётная запись".
+User can reset two-factor authentication on the "My Account" page.
 
-# Игнорирование второго шага аутентификации
+# Ignore 2FA
 
-В настройка пользователя администратор может указать "Игнорировать 2FA".
+Administrator can specify "Ignore 2FA" on the user setting page.
 
-Если в настройка плагина снята галка "Обязательно требовать выбрать один из способов аутентификации 2FA", то 
-пользователь может выбрать "Не использовать" при первом входе в систему.
+If plugin settings option "Require 2FA for each user" is switched off, 
+user can select "Do not use" on first login.
 
-# Автор плагина
+# Author
 
-Плагин разработан [Centos-admin.ru](http://centos-admin.ru/).
+Developed by [Centos-admin.ru](https://centos-admin.ru/).
 
