@@ -18,7 +18,7 @@ class RedmineTelegramConnectionsController < ApplicationController
   def connect_telegram_account_to_user
     if @user.mail == params[:user_email] && params[:token] == @telegram_account.token
       @user.telegram_account = @telegram_account
-      @user.auth_source = Redmine2FA::AuthSource::Telegram.first unless @user.auth_source
+      @user.auth_source = Redmine2FA::AuthSource::Telegram.first
       @user.save
     end
 
