@@ -17,26 +17,26 @@ Developed by [Centos-admin.ru](https://centos-admin.ru/)
 
 ## Requirements
 
-This plugin works only on HTTPS host, because of Telegram Bot Webhook needs to POST on HTTPS hosts.
+This plugin works only on HTTPS host, because Telegram Bot Webhook needs to POST on HTTPS hosts.
 
 Ruby 2.3+
 
 ### Important!!!
 
-Bot for this plugin must be unique. 
-Otherwise, there may be conflicts if the same bot used in another plug-in with polling mode updates.
+A bot for this plugin must be unique. 
+Otherwise, there may be conflicts if the same bot is used in other plug-in with update polling mode.
 
-Bot can be operated either via the web-hook, or through periodic polling.
+A bot can operate either via the web-hook, or through periodic polling.
 
 This plugin uses web-hook mechanism, so be sure to use the HTTPS protocol.
 
-If a different plug-ins the same bot uses different mechanisms priority given to web-hook.
+If one and the same bot uses different mechanisms in different plug-ins, priority is given to web-hook.
 
 Instructions for creating a bot: https://core.telegram.org/bots#3-how-do-i-create-a-bot
 
 ## Installation
 
-After clone repo to `plugins` directory run this commands
+After cloning repo to `plugins` directory run these commands
 
 ```
 bundle
@@ -47,33 +47,33 @@ bin/rake redmine:plugins:migrate
 
 ## Plugin settings
 
-After install you need to setup plugin settings: 
+After installation you need to setup plugin settings: 
 * enter bot token
 * save settings
 * initialize bot
 
-Initialization will be save bot id and username and setup web-hook, which will process the command sent by the bot.
+During initialization bot id and username will be saved and web-hook, which will process commands sent by the bot, will be setup.
 
 ## User init
 
-On first login user will be asked to choose an authentication method.
+On first login the user will be asked to choose an authentication method.
  
-After selecting Telegram users need to add the bot with `/start` command.
+After selecting Telegram the user needs to add a bot with `/start` command.
 
-After this it prompts you to enter the command `/connect account@redmine.com`.
+After that the bot prompts to enter the command `/connect account@redmine.com`.
 
 After the command, the user will receive an email with a link.
-Following by link will connect the user's account and he will be able to receive one-time passwords from bot/
+Following the link will connect the user's accounts and he will be able to receive one-time passwords from the bot/
 
 # SMS authentication
 
 ## Common info
 
-If user select SMS he need to enter the phone number to which it will receive SMS and confirm it.
+If the user selects SMS he needs to enter the phone number to which he will receive SMS to confirm the number.
 
 ## Configuration
 
-Because there are many sms-gateways with different API, the responsibility on sending sms-message falls to external command. It can be any shell script or command like `curl`, e.g.
+The responsibility of sending sms-message falls to external command, because there are many sms-gateways with different API. It can be any shell script or command like `curl`, e.g.
 
 ```
 curl "http://my-sms-gateway.net?phone=%{phone}&message=Code: %{password} Expired at: %{expired_at}"
@@ -120,22 +120,22 @@ production:
 
 `password_length` parameter is no longer used, since Google Auth uses fixed-length code - 6 digits.
 
-The plugin redmine_sms_auth added to the "mobile phone" field to users.
+The plugin redmine_sms_auth added the "mobile phone" field to users.
 
 Migration by this instruction will save phone data and it will be available in the plugin redmine_2fa.
 
 # Google Authenticator
 
-If user choose Google Auth he need to scan QR-code in [Google 
+If the user chooses Google Auth he needs to scan QR-code in [Google 
 Authenticator](https://support.google.com/accounts/answer/1066447).
 
 # Authentication reset
 
-User can reset two-factor authentication on the "My Account" page.
+The user can reset two-factor authentication on the "My Account" page.
 
 # Ignore 2FA
 
-Administrator can specify "Ignore 2FA" on the user setting page.
+The administrator can specify "Ignore 2FA" on the user setting page.
 
 If plugin settings option "Require 2FA for each user" is switched off, 
 user can select "Do not use" on first login.
