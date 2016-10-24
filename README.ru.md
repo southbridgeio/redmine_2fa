@@ -14,6 +14,8 @@
 
 Плагин разработан [Centos-admin.ru](https://centos-admin.ru/)
 
+[Описание плагина на habrahabr.ru](https://habrahabr.ru/company/centosadmin/blog/312656/)
+
 ## Требования
 
 * HTTPS - нужен для того, чтобы принимать сообщение от Telegram Bot API ([веб-хук](https://tlgrm.ru/docs/bots/api#setwebhook))
