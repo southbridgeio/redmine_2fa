@@ -2,10 +2,10 @@ language: ruby
 rvm:
   - 2.3.0
 
-branches:
-  only:
-    - master
-    - develop
+#branches:
+#  only:
+#    - master
+#    - develop
 
 addons:
   postgresql: "9.4"
