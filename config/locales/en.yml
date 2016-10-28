@@ -24,7 +24,7 @@ en:
             Bot deactivation:
             <ul>
               <li>reset bot web-hook</li>
-              <li>deactivate users telegram accounts connected to bot</li>
+              <li>reset 2FA for users who use Telegram authentication</li>
             </ul>
           button_text: Deactivate bot
     second_authentications:

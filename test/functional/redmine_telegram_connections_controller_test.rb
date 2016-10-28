@@ -16,7 +16,8 @@ class RedmineTelegramConnectionsControllerTest < ActionController::TestCase
     end
 
     should 'set telegram account to user' do
-      assert_equal @telegram_account, @user.telegram_account
+      @telegram_account.reload
+      assert_equal @user, @telegram_account.user
     end
 
     should 'set telegram auth source to user' do

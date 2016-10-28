@@ -1,13 +1,13 @@
 require File.expand_path('../../test_helper', __FILE__)
 
 class OtpBotControllerTest < ActionController::TestCase
-  fixtures :users, :email_addresses, :roles
+  fixtures :users, :email_addresses, :roles, :auth_sources
 
   setup do
     @bot_token = '12345678:botSecretToken'
     Setting.create name: 'plugin_redmine_2fa', value: { 'bot_token' => @bot_token }
     Setting['host_name'] = 'redmine.test'
-    @request             = ActionController::TestRequest.new
+    @request = ActionController::TestRequest.new
   end
 
   context 'init' do
@@ -18,13 +18,13 @@ class OtpBotControllerTest < ActionController::TestCase
 
       should 'set webhook' do
         Telegrammer::Bot.any_instance.expects(:set_webhook)
-                        .with('https://redmine.test/redmine_2fa/bot/' + @bot_token + '/update')
+          .with('https://redmine.test/redmine_2fa/bot/' + @bot_token + '/update')
 
         VCR.use_cassette('init') { post :create }
       end
 
       should 'set bot name and bot id' do
-        plugin_settings      = Setting.find_by(name: 'plugin_redmine_2fa')
+        plugin_settings = Setting.find_by(name: 'plugin_redmine_2fa')
         plugin_settings_hash = plugin_settings.value
 
         assert plugin_settings_hash['bot_name'].nil?
@@ -62,13 +62,15 @@ class OtpBotControllerTest < ActionController::TestCase
       end
 
       should 'reset auth source for telegram auth users' do
-        telegram_account = Telegram::Account.create active: true
+        user = User.find(2)
+        user.auth_source = auth_sources(:telegram)
+        user.save
 
         delete :destroy
 
-        telegram_account.reload
+        user.reload
 
-        assert !telegram_account.active
+        assert_nil user.auth_source
       end
 
       should 'redirect to plugin_settings_path' do
