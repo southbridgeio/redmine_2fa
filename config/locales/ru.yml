@@ -66,10 +66,6 @@ ru:
       connect:
         already_connected: Ваши аккаунты уже связаны
         wait_for_email: Мы отправили подтверждение на адрес "%{email}". Пожалуйста, следуйте инструкциям из письма.
-    redmine_telegram_connections:
-      create:
-        success: Аккаунты успешно связаны
-        error: Связать аккаунты не удалось
 
     telegram_auth:
       message: 'Код Redmine "%{app_title}": %{code}. Действителен до %{expiration_time}.'

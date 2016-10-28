@@ -73,7 +73,7 @@ module Redmine2FA
       end
 
       def fetch_account
-        Redmine2FA::TelegramAccount.where(telegram_id: user.id).first_or_initialize
+        Telegram::Account.where(telegram_id: user.id).first_or_initialize
       end
 
       def update_account

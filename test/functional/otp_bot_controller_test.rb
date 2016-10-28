@@ -61,8 +61,8 @@ class OtpBotControllerTest < ActionController::TestCase
         @request.session[:user_id] = 1
       end
 
-      should 'deactivate telegram accounts' do
-        telegram_account = Redmine2FA::TelegramAccount.create active: true
+      should 'reset auth source for telegram auth users' do
+        telegram_account = Telegram::Account.create active: true
 
         delete :destroy
 
