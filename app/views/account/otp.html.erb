@@ -2,11 +2,13 @@
   <%= form_tag(confirm_otp_path) do %>
     <%= render 'account/autologin' %>
 
-    <table style="width: 350px;">
+    <table style="width: 300px;">
 
       <tr>
         <td align="right"><label for="otp_code"><%= t 'redmine_2fa.auth_code' %>:</label></td>
-        <td align="right"><%= text_field_tag :otp_code, nil, autocomplete: 'off', autofocus: true %></td>
+        <td align="right" style="width: 140px;">
+          <%= text_field_tag :otp_code, nil, autocomplete: 'off', autofocus: true %>
+        </td>
       </tr>
 
 
