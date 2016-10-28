@@ -25,7 +25,7 @@ module Redmine2FA
     end
 
     def self.sms_command
-      configuration && configuration['sms_command'] ? configuration['sms_command'] : 'echo %{phone} %{password}'
+      configuration && configuration['sms_command'] ? configuration['sms_command'] : 'echo %{phone} %{password} %{expired_at}'
     end
   end
 end
