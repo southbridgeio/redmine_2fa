@@ -21,6 +21,15 @@ This plugin works only on HTTPS host, because Telegram Bot Webhook needs to POST
 
 Ruby 2.3+
 
+### Upgrade form 1.1.3 to 1.2.0
+
+Since version 1.2.0 this plugin uses [redmine_telegram_common](https://github.com/centosadmin/redmine_telegram_common) plugin.
+
+Before upgrade install [this](https://github.com/centosadmin/redmine_telegram_common) plugin.
+
+Then upgrade and run `bundle exec rake redmine_2fa:common:migrate` for migrate data to new table. 
+Since 2.0 version, model `Redmine2FA::TelegramAccount` will be removed, also table `redmine_2fa_telegram_accounts` will be removed.
+
 ### Important!!!
 
 A bot for this plugin must be unique. 

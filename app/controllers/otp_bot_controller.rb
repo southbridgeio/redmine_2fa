@@ -12,7 +12,7 @@ class OtpBotController < ApplicationController
 
   def destroy # reset
     reset_bot_webhook
-    deactivate_telegram_accounts
+    reset_telegram_authentications
     redirect_to plugin_settings_path('redmine_2fa'), notice: t('redmine_2fa.otp_bot.reset.success')
   end
 
@@ -49,7 +49,8 @@ class OtpBotController < ApplicationController
     @bot.set_webhook('')
   end
 
-  def deactivate_telegram_accounts
-    Redmine2FA::TelegramAccount.update_all(active: false)
+  def reset_telegram_authentications
+    auth_source = Redmine2FA::AuthSource::Telegram.first
+    User.where(auth_source_id: auth_source.id).update_all(auth_source_id: nil)
   end
 end

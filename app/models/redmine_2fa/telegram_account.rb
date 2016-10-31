@@ -1,3 +1,5 @@
+# DEPRECATION: This model will be removed since 2.0 version
+
 class Redmine2FA::TelegramAccount < ActiveRecord::Base
   unloadable
 

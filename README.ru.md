@@ -21,6 +21,18 @@
 * HTTPS - нужен для того, чтобы принимать сообщение от Telegram Bot API ([веб-хук](https://tlgrm.ru/docs/bots/api#setwebhook))
 * Ruby 2.3+
 
+### Обновление с 1.1.3 на 1.2.0
+
+Начиная с версии 1.2.0 это плагин использует [redmine_telegram_common](https://github
+.com/centosadmin/redmine_telegram_common).
+
+Перед обновлением установите [этот](https://github.com/centosadmin/redmine_telegram_common) плагин.
+
+После обновления запустите `bundle exec rake redmine_2fa:common:migrate` для миграции пользоватльских данных в новую 
+таблицу. В версии 2.0 модель `Redmine2FA::TelegramAccount` будет упразднена, в месте с ней будет удалена старая 
+таблица `redmine_2fa_telegram_accounts`.
+
+
 ### Важно!!!
 
 Бот для этого плагина должен быть уникальным. Иначе могут быть конфликты, если тот же бот используется в другом плагине в режиме опроса обновлений.

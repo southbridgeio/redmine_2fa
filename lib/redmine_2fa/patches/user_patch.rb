@@ -9,8 +9,6 @@ module Redmine2FA
         base.class_eval do
           unloadable
 
-          has_one :telegram_account, dependent: :destroy, class_name: 'Redmine2FA::TelegramAccount'
-
           has_one_time_password length: 6
 
           alias_method_chain :update_hashed_password, :otp_auth

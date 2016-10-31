@@ -38,6 +38,10 @@ fi
 mv $TESTSPACE/database.yml.travis config/database.yml
 mv $TESTSPACE/additional_environment.rb config/
 
+# add telegram_common plugin
+
+git clone git://github.com/centosadmin/redmine_telegram_common.git $PATH_TO_REDMINE/plugins/redmine_telegram_common
+
 # create a link to the backlogs plugin
 ln -sf $PATH_TO_PLUGIN plugins/$NAME_OF_PLUGIN
 
@@ -58,4 +62,3 @@ bundle exec rake db:structure:dump
 # run tests
 # bundle exec rake TEST=test/unit/role_test.rb
 bundle exec rake redmine:plugins:test NAME=$NAME_OF_PLUGIN
-

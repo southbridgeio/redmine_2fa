@@ -24,7 +24,7 @@ en:
             Bot deactivation:
             <ul>
               <li>reset bot web-hook</li>
-              <li>deactivate users telegram accounts connected to bot</li>
+              <li>reset 2FA for users who use Telegram authentication</li>
             </ul>
           button_text: Deactivate bot
     second_authentications:
@@ -64,10 +64,6 @@ en:
       connect:
         already_connected: Your accounts already connected
         wait_for_email: We sent email to address "%{email}". Please follow instructions from it.
-    redmine_telegram_connections:
-      create:
-        success: Accounts successfully connected
-        error: Accounts connection error
 
     telegram_auth:
       message: 'Redmine "%{app_title}" auth code: %{code}. Expired at %{expiration_time}.'
