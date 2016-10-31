@@ -27,7 +27,8 @@ Since version 1.2.0 this plugin uses [redmine_telegram_common](https://github.co
 
 Before upgrade install [this](https://github.com/centosadmin/redmine_telegram_common) plugin.
 
-Then upgrade and run `bundle exec rake redmine_2fa:common:migrate`
+Then upgrade and run `bundle exec rake redmine_2fa:common:migrate` for migrate data to new table. 
+Since 2.0 version, model `Redmine2FA::TelegramAccount` will be removed, also table `redmine_2fa_telegram_accounts` will be removed.
 
 ### Important!!!
 
