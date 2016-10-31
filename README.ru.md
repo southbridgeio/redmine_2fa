@@ -18,10 +18,11 @@
 
 ## Требования
 
+* [redmine_telegram_common](https://github.com/centosadmin/redmine_telegram_common)
 * HTTPS - нужен для того, чтобы принимать сообщение от Telegram Bot API ([веб-хук](https://tlgrm.ru/docs/bots/api#setwebhook))
 * Ruby 2.3+
 
-### Обновление с 1.1.3 на 1.2.0
+### Обновление с 1.1.3 на 1.2.0+
 
 Начиная с версии 1.2.0 это плагин использует [redmine_telegram_common](https://github
 .com/centosadmin/redmine_telegram_common).
