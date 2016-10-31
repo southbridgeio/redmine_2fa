@@ -17,11 +17,11 @@ Developed by [Centos-admin.ru](https://centos-admin.ru/)
 
 ## Requirements
 
-This plugin works only on HTTPS host, because Telegram Bot Webhook needs to POST on HTTPS hosts.
+* [redmine_telegram_common](https://github.com/centosadmin/redmine_telegram_common)
+* HTTPS host - Telegram Bot Webhook needs to POST on HTTPS hosts.
+* Ruby 2.3+
 
-Ruby 2.3+
-
-### Upgrade form 1.1.3 to 1.2.0
+### Upgrade form 1.1.3 to 1.2.0+
 
 Since version 1.2.0 this plugin uses [redmine_telegram_common](https://github.com/centosadmin/redmine_telegram_common) plugin.
 

@@ -1,3 +1,8 @@
+# 1.2.1
+
+* add `requires_redmine_plugin :redmine_telegram_common`, 
+* add defer plugin dependency check patch for load `redmine_telegram_common` before `redmine_2fa` loaded. Extracted from [here](https://github.com/michaelkrupp-redmine/redmine_pluginloader). [Redmine issue](http://www.redmine.org/issues/6324#change-73605).
+
 # 1.2.0
 
 Migrate to [redmine_telegram_common](https://github.com/centosadmin/redmine_telegram_common) plugin.
