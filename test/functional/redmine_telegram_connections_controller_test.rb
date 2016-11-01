@@ -5,7 +5,7 @@ class RedmineTelegramConnectionsControllerTest < ActionController::TestCase
 
   setup do
     @user = User.find(2)
-    @telegram_account = Telegram::Account.create(telegram_id: 123)
+    @telegram_account = TelegramCommon::Account.create(telegram_id: 123)
   end
 
   context 'connect with valid data' do
