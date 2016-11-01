@@ -1,3 +1,7 @@
+# 1.2.2
+
+* extract mailer to `redmine_telegram_common`
+
 # 1.2.1
 
 * add `requires_redmine_plugin :redmine_telegram_common`, 
