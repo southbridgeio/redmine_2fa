@@ -51,7 +51,7 @@ module Redmine2FA
         else
           message = I18n.t('redmine_2fa.otp_bot.connect.wait_for_email', email: email)
 
-          Redmine2FA::Mailer.telegram_connect(redmine_user, account).deliver
+          TelegramCommon::Mailer.telegram_connect(redmine_user, account).deliver
         end
 
         send_message(command.chat.id, message)
@@ -73,7 +73,7 @@ module Redmine2FA
       end
 
       def fetch_account
-        ::Telegram::Account.where(telegram_id: user.id).first_or_initialize
+        ::TelegramCommon::Account.where(telegram_id: user.id).first_or_initialize
       end
 
       def update_account
