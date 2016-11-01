@@ -79,7 +79,3 @@ ru:
         invalid: 'Неверный код подтверждения'
         resent_again: 'Код подтверждения выслан повторно'
         limit_exceeded_failed_attempts: 'Превышен предел неудачных попыток. Сгенерирован и выслан новый код подтверждения'
-    mailer:
-      telegram_connect:
-        subject: "Связывание аккаунтов Redmine и Telegram"
-        body: "Для привязки аккаунта %{telegram_account} пройдите по ссылке:"

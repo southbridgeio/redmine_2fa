@@ -30,11 +30,11 @@ class Redmine2FA::TelegramBotServiceTest < ActiveSupport::TestCase
       end
 
       should 'create telegram account' do
-        assert_difference('Telegram::Account.count') do
+        assert_difference('TelegramCommon::Account.count') do
           @bot_service.start
         end
 
-        telegram_account = Telegram::Account.last
+        telegram_account = TelegramCommon::Account.last
         assert_equal 123, telegram_account.telegram_id
         assert_equal 'dhh', telegram_account.username
         assert_equal 'David', telegram_account.first_name
@@ -43,9 +43,9 @@ class Redmine2FA::TelegramBotServiceTest < ActiveSupport::TestCase
       end
 
       should 'update telegram account' do
-        telegram_account = Telegram::Account.create(telegram_id: 123, username: 'test', first_name: 'f', last_name: 'l')
+        telegram_account = TelegramCommon::Account.create(telegram_id: 123, username: 'test', first_name: 'f', last_name: 'l')
 
-        assert_no_difference('Telegram::Account.count') do
+        assert_no_difference('TelegramCommon::Account.count') do
           @bot_service.start
         end
 
@@ -57,9 +57,9 @@ class Redmine2FA::TelegramBotServiceTest < ActiveSupport::TestCase
       end
 
       should 'activate telegram account' do
-        actual = Telegram::Account.create(telegram_id: 123, active: false)
+        actual = TelegramCommon::Account.create(telegram_id: 123, active: false)
 
-        assert_no_difference('Telegram::Account.count') do
+        assert_no_difference('TelegramCommon::Account.count') do
           @bot_service.start
         end
 
@@ -76,7 +76,7 @@ class Redmine2FA::TelegramBotServiceTest < ActiveSupport::TestCase
             .with(123, I18n.t('redmine_2fa.redmine_telegram_connections.create.success'))
 
         @user = User.find(2)
-        @telegram_account = Telegram::Account.create(telegram_id: 123, user_id: @user.id)
+        @telegram_account = TelegramCommon::Account.create(telegram_id: 123, user_id: @user.id)
 
         @bot_service.start
       end
@@ -90,33 +90,43 @@ class Redmine2FA::TelegramBotServiceTest < ActiveSupport::TestCase
 
   context '/connect e@mail.com' do
     setup do
-      @telegram_account = Telegram::Account.create(telegram_id: 123)
+      @user = User.find(2)
+
+      Redmine2FA::Telegram::BotService.any_instance
+        .expects(:send_message)
+        .with(123, I18n.t('redmine_2fa.otp_bot.connect.wait_for_email', email: @user.mail))
+
+      @telegram_account = TelegramCommon::Account.create(telegram_id: 123)
       @telegram_message = ActionController::Parameters.new(
         from: { id:         123,
                 username:   'dhh',
                 first_name: 'David',
                 last_name:  'Haselman' },
         chat: { id: 123 },
-        text: '/connect e@mail.com'
+        text: "/connect #{@user.mail}"
       )
 
       @bot_service = Redmine2FA::Telegram::BotService.new(@telegram_message)
     end
 
-    should 'send user not found' do
-      # User.
+    should 'send connect instruction by email' do
+      TelegramCommon::Mailer.any_instance
+        .expects(:telegram_connect)
+        .with(@user, @telegram_account)
+
+      @bot_service.connect
     end
 
-    def test_block_telegram_account_after_three_wrong_trials
-      skip 'need to write test'
-    end
-
-    def test_already_connected
-      skip 'need to write test'
-    end
-
-    def test_send_connect_instructions
-      skip 'need to write test'
-    end
+    # should 'send user not found' do
+    #   # User.
+    # end
+    #
+    # def test_block_telegram_account_after_three_wrong_trials
+    #   skip 'need to write test'
+    # end
+    #
+    # def test_already_connected
+    #   skip 'need to write test'
+    # end
   end
 end
