@@ -57,13 +57,6 @@ en:
           api_error: Telegram Bot API service anavailable
         reset:
           success: Bot successfully deactivated
-      start:
-        instruction_html: |
-          Now we need to connect your Redmine & Telegram account.
-          Use the command for it: <b>/connect login@redmine.com</b> (where <b>login@redmine.com</b> - is your Redmine account email)
-      connect:
-        already_connected: Your accounts already connected
-        wait_for_email: We sent email to address "%{email}". Please follow instructions from it.
 
     telegram_auth:
       message: 'Redmine "%{app_title}" auth code: %{code}. Expired at %{expiration_time}.'

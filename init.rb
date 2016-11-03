@@ -1,12 +1,8 @@
-# This patch need for fix requires_redmine_plugin :redmine_telegram_common
-# http://www.redmine.org/issues/6324
-require 'redmine_pluginloader/patches/defer_plugin_dependency_check_patch'
-
 FileUtils.mkdir_p(Rails.root.join('log/redmine_2fa')) unless Dir.exist?(Rails.root.join('log/redmine_2fa'))
 
 Redmine::Plugin.register :redmine_2fa do
   name 'Redmine 2FA'
-  version '1.2.2'
+  version '1.2.4'
   url 'https://github.com/centosadmin/redmine_2fa'
   description 'Two-factor authorization for Redmine'
   author 'Centos-admin.ru'
@@ -15,7 +11,7 @@ Redmine::Plugin.register :redmine_2fa do
   requires_redmine version_or_higher: '3.0'
 
   begin
-    requires_redmine_plugin :redmine_telegram_common, version_or_higher: '0.0.2'
+    requires_redmine_plugin :redmine_telegram_common, version_or_higher: '0.0.3'
   rescue Redmine::PluginNotFound => e
     raise <<~TEXT
       \n=============== PLUGIN REQUIRED ===============
