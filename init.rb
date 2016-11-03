@@ -2,24 +2,13 @@ FileUtils.mkdir_p(Rails.root.join('log/redmine_2fa')) unless Dir.exist?(Rails.ro
 
 Redmine::Plugin.register :redmine_2fa do
   name 'Redmine 2FA'
-  version '1.2.4'
+  version '1.2.5'
   url 'https://github.com/centosadmin/redmine_2fa'
   description 'Two-factor authorization for Redmine'
   author 'Centos-admin.ru'
   author_url 'https://centos-admin.ru'
 
   requires_redmine version_or_higher: '3.0'
-
-  begin
-    requires_redmine_plugin :redmine_telegram_common, version_or_higher: '0.0.3'
-  rescue Redmine::PluginNotFound => e
-    raise <<~TEXT
-      \n=============== PLUGIN REQUIRED ===============
-      Please install redmine_telegram_common plugin. https://github.com/centosadmin/redmine_telegram_common
-      Upgrade form 1.1.3 to 1.2.0+ notes: https://git.io/vXqk3
-      ===============================================
-    TEXT
-  end
 
   settings(default: { 'bot_token' => '',
                       'required' => false },

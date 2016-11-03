@@ -1,3 +1,7 @@
+# 1.2.5
+
+Remove dependency code
+
 # 1.2.4
 
 * remove defer plugin dependency check patch
