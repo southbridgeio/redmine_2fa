@@ -1,3 +1,11 @@
+# 1.2.4
+
+* remove defer plugin dependency check patch
+
+# 1.2.3
+
+* extract bot to `redmine_telegram_common`
+
 # 1.2.2
 
 * extract mailer to `redmine_telegram_common`

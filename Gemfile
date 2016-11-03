@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 
 gem 'active_model_otp'
 gem 'rqrcode'
-gem 'telegrammer'
 
 group :test do
   gem 'timecop'

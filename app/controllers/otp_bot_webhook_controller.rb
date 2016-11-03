@@ -8,7 +8,7 @@ class OtpBotWebhookController < ActionController::Base
     logger = Logger.new(Rails.root.join('log/redmine_2fa', 'bot-update.log'))
     logger.debug params
 
-    Redmine2FA::Telegram::BotService.new(params[:message]).call if params[:message].present?
+    TelegramCommon::Bot.new(Redmine2FA.bot_token, params[:message], logger).call if params[:message].present?
 
     head :ok
   end
