@@ -1,6 +1,8 @@
+# 1.2.6
+* Add requirement notification to plugin settings page
 # 1.2.5
 
-Remove dependency code
+* Remove dependency code
 
 # 1.2.4
 

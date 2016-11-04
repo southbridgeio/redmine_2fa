@@ -1,3 +1,10 @@
+<% unless Redmine::Plugin.installed?('redmine_telegram_common') %>
+  <h1 style="text-align: center">
+    !!! <a href="https://github.com/centosadmin/redmine_telegram_common" target="_blank">redmine_telegram_common</a>
+    <%= t('redmine_2fa.settings.required') %> !!!
+  </h1>
+<% end %>
+
 <h4><%= t 'redmine_2fa.settings.common.title' %></h4>
 <p>
   <label for="settings_required"><%= t 'redmine_2fa.settings.common.required' %></label>

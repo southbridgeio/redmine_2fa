@@ -27,6 +27,7 @@ en:
               <li>reset 2FA for users who use Telegram authentication</li>
             </ul>
           button_text: Deactivate bot
+      required: "required for this plugin"
     second_authentications:
       init:
         instruction: Plase choose type of two-factor authentication
