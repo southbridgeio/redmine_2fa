@@ -40,6 +40,4 @@ class TelegramCommon::BotTest < ActiveSupport::TestCase
       end
     end
   end
-
-
 end

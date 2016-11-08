@@ -4,9 +4,14 @@ ru:
   link_2fa_reset: Сбросить 2FA
   notice_2fa_reset: При следующей аутентификации мы попросим заново выбрать настройки 2FA.
   redmine_2fa:
+    protocols:
+      telegram: Telegram
+      sms: SMS
+      google_auth: Google Auth
+      none: Без 2FA
     settings:
       common:
-        title: Общие настройки
+        title: Способы аутентификации
         required: Обязательно требовать выбрать один из способов аутентификации 2FA
       telegram:
         init:

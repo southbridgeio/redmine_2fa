@@ -7,36 +7,33 @@
     </center>
 
     <div id="init2FAFormAuthSources">
-      <% Redmine2FA::AuthSource.all.each do |auth_source| %>
+      <% Redmine2FA.active_protocols.each do |protocol| %>
         <div class="authSource">
-          <%= radio_button_tag 'auth_source_id', auth_source.id, false, data: { protocol: auth_source.protocol } %>
-          <%= label_tag "auth_source_id_#{auth_source.id}", auth_source.auth_method_name %>
-        </div>
-      <% end %>
-      <% if Redmine2FA.switched_off %>
-        <div class="authSource">
-          <%= radio_button_tag 'auth_source_id', 'disabled', false, data: { protocol: 'disabled' } %>
-          <%= label_tag 'auth_source_id_disabled', t('redmine_2fa.second_authentications.init.disable') %>
+          <%= radio_button_tag 'protocol', protocol, false, data: { protocol: protocol } %>
+          <%= label_tag "protocol_#{protocol}", t("redmine_2fa.protocols.#{protocol}") %>
         </div>
       <% end %>
     </div>
 
-    <% if Redmine2FA.switched_off %>
-      <div id="init2FAFormSubmitRow" class="instruction2FA disabledInstruction" style="display: none">
-        <%= submit_tag t('redmine_2fa.second_authentications.next_button_html') %>
-      </div>
-    <% end %>
-
   <% end %>
   <table>
-    <%= render 'account/init_2fa/sms' %>
-    <%= render 'account/init_2fa/telegram' %>
-    <%= render 'account/init_2fa/google_auth' %>
+    <% Redmine2FA.active_protocols.each do |protocol| %>
+      <%= render "account/init_2fa/#{protocol}" %>
+    <% end %>
   </table>
 </div>
+
+<script>
+  $('input:radio[name="protocol"]').change(function () {
+    if ($(this).is(':checked')) {
+      var protocol = $(this).data('protocol');
+      $('.instruction2FA').hide();
+      $('.' + protocol + 'Instruction').show();
+    }
+  });
+</script>
 
 <% content_for :header_tags do %>
   <%= javascript_include_tag 'redmine_2fa', plugin: 'redmine_2fa' %>
   <%= stylesheet_link_tag 'redmine_2fa', plugin: 'redmine_2fa' %>
 <% end %>
-

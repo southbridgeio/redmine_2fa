@@ -1,4 +1,6 @@
 module Redmine2FA
+  AVAILABLE_PROTOCOLS = %w(telegram sms google_auth none)
+
   def self.table_name_prefix
     'redmine_2fa_'
   end
@@ -7,12 +9,16 @@ module Redmine2FA
     I18n.locale = Setting['default_language']
   end
 
+  def self.active_protocols
+    Setting.plugin_redmine_2fa['active_protocols']
+  end
+
   def self.switched_on
-    Setting.plugin_redmine_2fa['required']
+    !switched_off
   end
 
   def self.switched_off
-    !switched_on
+    active_protocols.include?('none')
   end
 
   def self.bot_token
