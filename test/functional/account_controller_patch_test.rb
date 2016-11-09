@@ -7,6 +7,7 @@ class AccountControllerPatchTest < ActionController::TestCase
 
   setup do
     @user = User.find(2) # jsmith
+    Redmine2FA.stubs(:active_protocols).returns(Redmine2FA::AVAILABLE_PROTOCOLS)
   end
 
   context 'user without 2fa' do
@@ -90,7 +91,7 @@ class AccountControllerPatchTest < ActionController::TestCase
 
       Redmine2FA::CodeSender.any_instance.expects(:send_code)
 
-      post :confirm_2fa, auth_source_id: @auth_source.id
+      post :confirm_2fa, protocol: @auth_source.protocol
 
       assert_template 'account/otp'
 
@@ -103,7 +104,7 @@ class AccountControllerPatchTest < ActionController::TestCase
       should 'not update auth source' do
         @request.session[:otp_user_id] = nil
 
-        post :confirm_2fa, auth_source_id: @auth_source.id
+        post :confirm_2fa, protocol: @auth_source.protocol
 
         @user.reload
 

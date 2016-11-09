@@ -1,3 +1,7 @@
+# 1.3.0
+
+* Add ability to select available protocols for 2FA - [Issue #3](https://github.com/centosadmin/redmine_2fa/issues/3)
+
 # 1.2.6
 * Add requirement notification to plugin settings page
 # 1.2.5

@@ -4,6 +4,6 @@ class Redmine2FA::AuthSource::GoogleAuth < Redmine2FA::AuthSource
   end
 
   def protocol
-    'google'
+    'google_auth'
   end
 end
