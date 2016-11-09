@@ -13,12 +13,12 @@ module Redmine2FA
     Setting.plugin_redmine_2fa['active_protocols']
   end
 
-  def self.switched_on
-    !switched_off
+  def self.switched_on?
+    !switched_off?
   end
 
-  def self.switched_off
-    active_protocols.include?('none')
+  def self.switched_off?
+    active_protocols.size.zero? || active_protocols.size == 1 && active_protocols.include?('none')
   end
 
   def self.bot_token

@@ -1,26 +1,37 @@
 <div id="init2FA">
-  <%= form_tag(confirm_2fa_path, id: 'init2FAForm') do %>
-    <%= render 'account/autologin' %>
 
+  <% if Redmine2FA.active_protocols.size > 1 %>
     <center>
       <strong><%= t('redmine_2fa.second_authentications.init.instruction') %>:</strong>
     </center>
+    <%= form_tag(confirm_2fa_path, id: 'init2FAForm') do %>
+      <%= render 'account/autologin' %>
 
-    <div id="init2FAFormAuthSources">
-      <% Redmine2FA.active_protocols.each do |protocol| %>
-        <div class="authSource">
-          <%= radio_button_tag 'protocol', protocol, false, data: { protocol: protocol } %>
-          <%= label_tag "protocol_#{protocol}", t("redmine_2fa.protocols.#{protocol}") %>
-        </div>
-      <% end %>
-    </div>
-
-  <% end %>
-  <table>
-    <% Redmine2FA.active_protocols.each do |protocol| %>
-      <%= render "account/init_2fa/#{protocol}" %>
+      <div id="init2FAFormAuthSources">
+        <% Redmine2FA.active_protocols.each do |protocol| %>
+          <div class="authSource">
+            <%= radio_button_tag 'protocol', protocol, false, data: { protocol: protocol } %>
+            <%= label_tag "protocol_#{protocol}", t("redmine_2fa.protocols.#{protocol}") %>
+          </div>
+        <% end %>
+      </div>
     <% end %>
-  </table>
+    <table>
+      <% Redmine2FA.active_protocols.each do |protocol| %>
+        <%= render "account/init_2fa/#{protocol}", style: 'display: none' %>
+      <% end %>
+    </table>
+  <% else %>
+    <% protocol = Redmine2FA.active_protocols.first %>
+
+    <%= form_tag(confirm_2fa_path, id: 'init2FAForm') do %>
+      <%= render 'account/autologin' %>
+      <%= hidden_field_tag 'protocol', protocol %>
+    <% end %>
+    <table>
+      <%= render "account/init_2fa/#{protocol}", style: '' %>
+    </table>
+  <% end %>
 </div>
 
 <script>
