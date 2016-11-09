@@ -4,9 +4,14 @@ en:
   link_2fa_reset: Reset 2FA
   notice_2fa_reset: Your 2FA settings was reset.
   redmine_2fa:
+    protocols:
+      telegram: Telegram
+      sms: SMS
+      google_auth: Google Auth
+      none: Without 2FA
     settings:
       common:
-        title: Common settings
+        title: Authentication types
         required: Require 2FA for each user
       telegram:
         init:
@@ -41,7 +46,7 @@ en:
         next_step_instruction: After app setup click "Next".
       telegram:
         instruction_html: |
-          %{bot_name} will send you authorization codes. Pleas activate it.<br>
+          %{bot_name} will send you authentication codes. Pleas activate it.<br>
           Follow the <a href="https://telegram.me/%{bot_name}" target="_blank">link</a> and say "/start" to bot. Then follow the bot instruction.
       sms:
         instruction: Please enter mobile phone number for SMS.

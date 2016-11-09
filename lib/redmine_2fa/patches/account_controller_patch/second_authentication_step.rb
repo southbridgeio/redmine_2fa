@@ -5,7 +5,7 @@ module Redmine2FA
         private
 
         def password_authentication
-          if !@user.ignore_2fa? && @user.two_factor_authenticable?
+          if Redmine2FA.switched_on? && !@user.ignore_2fa? && @user.two_factor_authenticable?
             send_code
             flash[:error] = sender.errors.join(', ') if sender.errors.present?
             render 'account/otp'

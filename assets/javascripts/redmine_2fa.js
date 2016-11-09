@@ -8,7 +8,7 @@ function startOtpTimer() {
   $('#otpCodeResendLink').hide();
   $('#otpCodeResentInstruction').show();
 
-  nIntervId = setInterval(function () {
+  nIntervId = setInterval(function() {
 
     seconds = parseInt(timer, 10);
 
@@ -22,19 +22,3 @@ function startOtpTimer() {
     }
   }, 1000);
 }
-
-$(document).ready(function () {
-  $('input:radio[name="auth_source_id"]').change(
-      function () {
-        if ($(this).is(':checked')) {
-          var protocol = $(this).data('protocol');
-          $('.instruction2FA').hide();
-          $('.' + protocol + 'Instruction').show();
-        }
-      });
-
-  $('.next2FAStep input[type=submit]').on("click", function () {
-    $('#init2FAForm').submit();
-  });
-});
-

@@ -14,13 +14,12 @@ module Redmine2FA
 
         module InstanceMethods
           def confirm_2fa
-            if params[:auth_source_id] == 'disabled'
+            if protocol == 'none'
               @user.update!(ignore_2fa: true)
               reset_otp_session
               successful_authentication(@user)
             else
-              @user.update_columns(auth_source_id: params[:auth_source_id]) if AuthSource.exists?
-              (params[:auth_source_id])
+              update_auth_source
               Redmine2FA::CodeSender.new(@user).send_code
               render 'account/otp'
             end
@@ -51,6 +50,25 @@ module Redmine2FA
             else
               deny_access
             end
+          end
+
+          def update_auth_source
+            @user.update_columns(auth_source_id: auth_source.id) if auth_source
+          end
+
+          def auth_source
+            return unless Redmine2FA.active_protocols.include?(protocol)
+            @auth_source ||= "Redmine2FA::AuthSource::#{auth_source_class}".constantize.first
+          end
+
+          def auth_source_class
+            { 'sms' => 'SMS',
+              'telegram' => 'Telegram',
+              'google_auth' => 'GoogleAuth' }[protocol]
+          end
+
+          def protocol
+            @protocol ||= params[:protocol]
           end
 
           def send_code

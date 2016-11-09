@@ -5,12 +5,13 @@
     <table style="width: 300px;">
 
       <tr>
-        <td align="right"><label for="otp_code"><%= t 'redmine_2fa.auth_code' %>:</label></td>
+        <td align="right">
+          <label for="otp_code"><%= t 'redmine_2fa.auth_code' %>:</label>
+        </td>
         <td align="right" style="width: 140px;">
           <%= text_field_tag :otp_code, nil, autocomplete: 'off', autofocus: true %>
         </td>
       </tr>
-
 
       <tr id="otpCodeResentInstruction" style="display: none">
         <td align="center" colspan="2">
@@ -38,7 +39,6 @@
   <%= javascript_include_tag 'redmine_2fa', plugin: 'redmine_2fa' %>
   <%= stylesheet_link_tag 'redmine_2fa', plugin: 'redmine_2fa' %>
 <% end %>
-
 
 <% unless @hide_countdown or @user.google_authenticable? %>
   <%= javascript_tag 'window.onload = function () {startOtpTimer();};' %>
