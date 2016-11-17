@@ -26,12 +26,12 @@ class TelegramCommon::BotTest < ActiveSupport::TestCase
       setup do
         TelegramCommon::Bot.any_instance
             .expects(:send_message)
-            .with(123, I18n.t('telegram_common.redmine_telegram_connections.create.success'))
+            .with(123, I18n.t('telegram_common.bot.start.hello'))
 
         @user = User.find(2)
         @telegram_account = TelegramCommon::Account.create(telegram_id: 123, user_id: @user.id)
 
-        @bot_service.start
+        @bot_service.call
       end
 
       should 'set telegram auth source' do
