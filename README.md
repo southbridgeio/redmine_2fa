@@ -44,6 +44,16 @@ If one and the same bot uses different mechanisms in different plug-ins, priorit
 
 Instructions for creating a bot: <https://core.telegram.org/bots#3-how-do-i-create-a-bot>
 
+#### Hints for bot commands
+
+Use command `/setcommands` with [@BotFather](https://telegram.me/botfather). Send this list for setup hints:
+
+```
+start - Start work with bot
+connect - Connect Redmine and Telegram account
+help - Help about commands
+```
+
 ## Installation
 
 After cloning repo to `plugins` directory run these commands
