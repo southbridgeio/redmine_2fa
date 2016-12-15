@@ -11,11 +11,16 @@ class TelegramCommon::BotTest < ActiveSupport::TestCase
   context '/start' do
     setup do
       @telegram_message = ActionController::Parameters.new(
-        from: { id:         123,
-                username:   'dhh',
-                first_name: 'David',
-                last_name:  'Haselman' },
-        chat: { id: 123 },
+        from: {
+          id: 123,
+          username: 'dhh',
+          first_name: 'David',
+          last_name: 'Haselman'
+        },
+        chat: {
+          id: 123,
+          type: 'private'
+        },
         text: '/start'
       )
 
@@ -25,8 +30,8 @@ class TelegramCommon::BotTest < ActiveSupport::TestCase
     context 'with user' do
       setup do
         TelegramCommon::Bot.any_instance
-            .expects(:send_message)
-            .with(123, I18n.t('telegram_common.bot.start.hello'))
+          .expects(:send_message)
+          .with(I18n.t('telegram_common.bot.start.hello'))
 
         @user = User.find(2)
         @telegram_account = TelegramCommon::Account.create(telegram_id: 123, user_id: @user.id)

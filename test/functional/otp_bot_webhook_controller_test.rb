@@ -23,7 +23,7 @@ class OtpBotWebhookControllerTest < ActionController::TestCase
   def test_connect_command
     TelegramCommon::Bot.any_instance.expects(:connect)
 
-    message        = message_hash
+    message = message_hash
     message[:text] = '/connect user@email.com'
 
     post :update, message: message, token: @valid_token
@@ -34,6 +34,17 @@ class OtpBotWebhookControllerTest < ActionController::TestCase
   private
 
   def message_hash
-    { text: '/start', from: { id: 123, first_name: 'John', last_name: 'Smith' } }
+    {
+      text: '/start',
+      from: {
+        id: 123,
+        first_name: 'John',
+        last_name: 'Smith'
+      },
+      chat: {
+        id: 123,
+        type: 'private'
+      },
+    }
   end
 end
