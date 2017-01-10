@@ -1,3 +1,3 @@
 <% if user.two_factor_authenticable? or user.ignore_2fa? %>
-  <%= link_to l(:link_2fa_reset), second_authentication_reset_path, method: :delete, class: 'icon icon-not-ok' %>
+  <%= link_to l(:link_2fa_reset), second_authentication_reset_path(user), method: :delete, class: 'icon icon-not-ok' %>
 <% end %>

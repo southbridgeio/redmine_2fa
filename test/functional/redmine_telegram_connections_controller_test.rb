@@ -12,7 +12,8 @@ class RedmineTelegramConnectionsControllerTest < ActionController::TestCase
     setup do
       post :create,
            user_id: 2, user_email: @user.mail,
-           telegram_id: 123, token: @telegram_account.token
+           telegram_id: 123, token: @telegram_account.token,
+           plugin: 'plugin_redmine_2fa'
     end
 
     should 'set telegram account to user' do
