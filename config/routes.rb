@@ -12,7 +12,7 @@ scope 'redmine_2fa' do
 
   # 2FA management
 
-  delete 'reset', to: 'second_authentications#destroy', as: 'second_authentication_reset'
+  delete 'users/:id/reset', to: 'second_authentications#destroy', as: 'second_authentication_reset'
 
   # 2FA step
 
