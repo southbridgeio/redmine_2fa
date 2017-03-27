@@ -46,7 +46,7 @@ en:
         next_step_instruction: After app setup click "Next".
       telegram:
         instruction_html: |
-          %{bot_name} will send you authentication codes. Pleas activate it.<br>
+          %{bot_name} will send you authentication codes. Please activate it.<br>
           Follow the <a href="https://telegram.me/%{bot_name}" target="_blank">link</a> and say "/start" to bot. Then follow the bot instruction.
       sms:
         instruction: Please enter mobile phone number for SMS.
