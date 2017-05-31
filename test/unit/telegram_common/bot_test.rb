@@ -5,7 +5,7 @@ class TelegramCommon::BotTest < ActiveSupport::TestCase
 
   setup do
     Redmine2FA.stubs(:bot_token)
-    Telegrammer::Bot.any_instance.stubs(:get_me)
+    Telegram::Bot::Api.any_instance.stubs(:get_me)
   end
 
   context '/start' do
