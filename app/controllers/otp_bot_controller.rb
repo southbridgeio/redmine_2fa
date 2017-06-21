@@ -31,10 +31,10 @@ class OtpBotController < ApplicationController
 
   def set_bot
     @token = Redmine2FA.bot_token
-    @bot = Telegrammer::Bot.new(@token)
+    @bot = Telegram::Bot::Client.new(@token)
   rescue MultiJson::ParseError
     render_error message: t('redmine_2fa.otp_bot.init.error.wrong_token'), status: 406
-  rescue Telegrammer::Errors::ServiceUnavailableError
+  rescue
     render_error message: t('redmine_2fa.otp_bot.init.error.api_error'), status: 503
   end
 
@@ -42,11 +42,11 @@ class OtpBotController < ApplicationController
     webhook_url = URI::HTTPS.build(host: Setting['host_name'],
                                    path: "/redmine_2fa/bot/#{@token}/update").to_s
 
-    @bot.set_webhook(webhook_url)
+    @bot.api.set_webhook(webhook_url)
   end
 
   def reset_bot_webhook
-    @bot.set_webhook('')
+    @bot.api.set_webhook('')
   end
 
   def reset_telegram_authentications
