@@ -1,3 +1,7 @@
+# 1.3.3
+
+* Remove Telegrammer dependency
+
 # 1.3.2
 
 * Add reset 2fa for admin.
