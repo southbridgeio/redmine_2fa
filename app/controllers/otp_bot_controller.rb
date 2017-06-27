@@ -42,11 +42,11 @@ class OtpBotController < ApplicationController
     webhook_url = URI::HTTPS.build(host: Setting['host_name'],
                                    path: "/redmine_2fa/bot/#{@token}/update").to_s
 
-    @bot.api.set_webhook(webhook_url)
+    @bot.api.setWebhook(url: webhook_url)
   end
 
   def reset_bot_webhook
-    @bot.api.set_webhook('')
+    @bot.api.setWebhook(url: '')
   end
 
   def reset_telegram_authentications
