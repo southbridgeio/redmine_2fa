@@ -1,0 +1,7 @@
+<script type="text/javascript">
+  $(document).ready(function($) {
+    if($(".controller-users.action-edit").length > 0) {
+      $($("#content .contextual")[0]).append('<%= j render 'second_authentications/reset', user: @user %>');
+    }
+  });
+</script>
