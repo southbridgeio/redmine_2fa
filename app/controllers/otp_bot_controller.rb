@@ -6,7 +6,7 @@ class OtpBotController < ApplicationController
 
   def create # init
     set_bot_webhook
-    update_plugin_settings(@bot.me)
+    update_plugin_settings(@bot.api.get_me['result'])
     redirect_to plugin_settings_path('redmine_2fa'), notice: t('redmine_2fa.otp_bot.init.success')
   end
 
@@ -22,8 +22,8 @@ class OtpBotController < ApplicationController
     plugin_settings = Setting.find_by(name: 'plugin_redmine_2fa')
 
     plugin_settings_hash             = plugin_settings.value
-    plugin_settings_hash['bot_name'] = bot_info.username
-    plugin_settings_hash['bot_id']   = bot_info.id
+    plugin_settings_hash['bot_name'] = bot_info['username']
+    plugin_settings_hash['bot_id']   = bot_info['id']
     plugin_settings.value            = plugin_settings_hash
 
     plugin_settings.save
