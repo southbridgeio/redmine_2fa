@@ -1,5 +1,6 @@
 # 1.3.3-dev
 
+* Remove old reference to MultiJSON
 * Remove Telegrammer dependency
 
 # 1.3.2

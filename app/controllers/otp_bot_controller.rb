@@ -32,8 +32,6 @@ class OtpBotController < ApplicationController
   def set_bot
     @token = Redmine2FA.bot_token
     @bot = Telegram::Bot::Client.new(@token)
-  rescue MultiJson::ParseError
-    render_error message: t('redmine_2fa.otp_bot.init.error.wrong_token'), status: 406
   rescue
     render_error message: t('redmine_2fa.otp_bot.init.error.api_error'), status: 503
   end
