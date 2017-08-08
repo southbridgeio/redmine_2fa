@@ -32,7 +32,10 @@ class OtpBotController < ApplicationController
   def set_bot
     @token = Redmine2FA.bot_token
     @bot = Telegram::Bot::Client.new(@token)
-  rescue
+  rescue => e
+    logger.error e.message
+    e.backtrace.each { |line| logger.error line }
+
     render_error message: t('redmine_2fa.otp_bot.init.error.api_error'), status: 503
   end
 
@@ -50,5 +53,11 @@ class OtpBotController < ApplicationController
   def reset_telegram_authentications
     auth_source = Redmine2FA::AuthSource::Telegram.first
     User.where(auth_source_id: auth_source.id).update_all(auth_source_id: nil)
+  end
+
+  private
+
+  def logger
+    @logger ||= Redmine2FA.logger
   end
 end

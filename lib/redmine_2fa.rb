@@ -25,6 +25,10 @@ module Redmine2FA
     Setting.plugin_redmine_2fa['bot_token']
   end
 
+  def self.logger
+    Logger.new(Rails.root.join('log', 'redmine_2fa', 'bot-update.log'))
+  end
+
   module Configuration
     def self.configuration
       Redmine::Configuration['redmine_2fa']
