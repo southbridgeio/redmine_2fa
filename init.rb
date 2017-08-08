@@ -1,6 +1,8 @@
 FileUtils.mkdir_p(Rails.root.join('log/redmine_2fa')) unless Dir.exist?(Rails.root.join('log/redmine_2fa'))
 
 require 'redmine_2fa'
+require 'telegram/bot'
+
 ActionDispatch::Callbacks.to_prepare do
   %w( /app/models/redmine_2fa/*.rb
       /app/models/redmine_2fa/auth_source/*.rb
