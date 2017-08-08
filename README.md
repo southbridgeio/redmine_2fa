@@ -60,7 +60,7 @@ After cloning repo to `plugins` directory run these commands
 
 ```
 bundle
-bin/rake redmine:plugins:migrate
+bundle exec rake redmine:plugins:migrate RAILS_ENV=production
 ```
 
 # Telegram authentication
