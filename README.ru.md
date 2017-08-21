@@ -12,8 +12,6 @@
 - SMS
 - Google Authenticator
 
-Плагин разработан [Centos-admin.ru](https://centos-admin.ru/)
-
 [Описание плагина на habrahabr.ru](https://habrahabr.ru/company/centosadmin/blog/312656/)
 
 ## Требования
@@ -168,4 +166,4 @@ production:
 
 # Автор плагина
 
-Плагин разработан [Centos-admin.ru](http://centos-admin.ru/).
+Плагин разработан [Southbridge](https://southbridge.io).

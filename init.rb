@@ -21,8 +21,8 @@ Redmine::Plugin.register :redmine_2fa do
   version '1.3.3-dev'
   url 'https://github.com/centosadmin/redmine_2fa'
   description 'Two-factor authorization for Redmine'
-  author 'Centos-admin.ru'
-  author_url 'https://centos-admin.ru'
+  author 'Southbridge'
+  author_url 'https://github.com/centosadmin/redmine_2fa'
 
   requires_redmine version_or_higher: '3.0'
 

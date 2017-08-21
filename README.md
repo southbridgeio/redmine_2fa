@@ -12,8 +12,6 @@ Supports:
 - SMS
 - Google Auth
 
-Developed by [Centos-admin.ru](https://centos-admin.ru/)
-
 ## Requirements
 
 - [redmine_telegram_common](https://github.com/centosadmin/redmine_telegram_common)
@@ -170,4 +168,4 @@ If plugin settings option "Require 2FA for each user" is switched off, user can 
 
 # Author
 
-Developed by [Centos-admin.ru](https://centos-admin.ru/).
+Developed by [Southbridge](https://southbridge.io).
