@@ -56,6 +56,7 @@ ru:
         mobile_phone_submit: "Получить код"
         confirm_hint: введите код, полученный по SMS
         confirm_submit: "Подтвердить"
+        error: Не получилось отправить смс-код, повторите, пожалуйста, попытку позднее
 
     otp_bot:
       init:
