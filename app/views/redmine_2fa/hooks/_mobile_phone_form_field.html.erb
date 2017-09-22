@@ -1,1 +1,5 @@
 <p><%= form.text_field :mobile_phone %></p>
+<% sources = @auth_sources.select{|a| ['SMS', 'Telegram', 'Google Auth'].include?(a.auth_method_name)} %>
+<% if sources.any? %>
+<p><%= form.select :two_fa_id, ([[l(:label_internal), ""]] + sources.collect { |a| [a.name, a.id] }), {} %></p>
+<% end %>
