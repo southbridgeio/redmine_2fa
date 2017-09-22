@@ -7,5 +7,11 @@ namespace :redmine_2fa do
           .first_or_create(telegram_account.slice(:user_id, :first_name, :last_name, :username, :active))
       end
     end
+
+    desc 'Remove old behavior 2fa'
+    task remove_auth_source: :environment do
+      auth_sources = AuthSource.where(type: %w(Redmine2FA::AuthSource::Telegram Redmine2FA::AuthSource::SMS Redmine2FA::AuthSource::GoogleAuth))
+      User.where(auth_source_id: auth_sources.pluck(:id)).update_all(auth_source_id: nil)
+    end
   end
 end
