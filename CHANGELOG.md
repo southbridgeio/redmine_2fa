@@ -1,5 +1,6 @@
 # 1.3.3-dev
 
+* Add another auth sources support (like LDAP)
 * Remove old reference to MultiJSON
 * Remove Telegrammer dependency
 
