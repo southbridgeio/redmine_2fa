@@ -8,10 +8,20 @@ namespace :redmine_2fa do
       end
     end
 
-    desc 'Remove old behavior 2fa'
-    task remove_auth_source: :environment do
-      auth_sources = AuthSource.where(type: %w(Redmine2FA::AuthSource::Telegram Redmine2FA::AuthSource::SMS Redmine2FA::AuthSource::GoogleAuth))
-      User.where(auth_source_id: auth_sources.pluck(:id)).update_all(auth_source_id: nil)
+    desc 'Migrate behavior 2fa'
+    task migrate_auth_source: :environment do
+      types = %w(Redmine2FA::AuthSource::Telegram Redmine2FA::AuthSource::SMS Redmine2FA::AuthSource::GoogleAuth)
+      auth_sources = AuthSource.where(type: types)
+      User.where(auth_source_id: auth_sources.pluck(:id)).each do |user|
+        user.two_fa_id = user.auth_source_id
+        user.auth_source_id = nil
+        if user.save
+          print '.'
+        else
+          puts "\nUser ##{user.id} save failed: #{user.errors.messages.to_json}"
+        end
+        puts ''
+      end
     end
   end
 end
