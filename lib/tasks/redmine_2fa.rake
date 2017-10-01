@@ -20,8 +20,8 @@ namespace :redmine_2fa do
         else
           puts "\nUser ##{user.id} save failed: #{user.errors.messages.to_json}"
         end
-        puts ''
       end
+      puts ''
     end
   end
 end
