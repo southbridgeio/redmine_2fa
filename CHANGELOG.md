@@ -1,3 +1,11 @@
+# 1.3.3
+
+* Fix missing locale 2fa
+* Fix "account not found" issue with /connect bug
+* Add another auth sources support (like LDAP)
+* Remove old reference to MultiJSON
+* Remove Telegrammer dependency
+
 # 1.3.2
 
 * Add reset 2fa for admin.

@@ -15,11 +15,11 @@ module Redmine2FA
         module InstanceMethods
           def confirm_2fa
             if protocol == 'none'
-              @user.update!(ignore_2fa: true)
+              @user.update!(ignore_2fa: true, two_fa: nil)
               reset_otp_session
               successful_authentication(@user)
             else
-              update_auth_source
+              update_two_fa
               Redmine2FA::CodeSender.new(@user).send_code
               render 'account/otp'
             end
@@ -52,13 +52,13 @@ module Redmine2FA
             end
           end
 
-          def update_auth_source
-            @user.update_columns(auth_source_id: auth_source.id) if auth_source
+          def update_two_fa
+            @user.update_columns(two_fa_id: two_fa.id) if two_fa
           end
 
-          def auth_source
+          def two_fa
             return unless Redmine2FA.active_protocols.include?(protocol)
-            @auth_source ||= "Redmine2FA::AuthSource::#{auth_source_class}".constantize.first
+            @two_fa ||= "Redmine2FA::AuthSource::#{auth_source_class}".constantize.first
           end
 
           def auth_source_class

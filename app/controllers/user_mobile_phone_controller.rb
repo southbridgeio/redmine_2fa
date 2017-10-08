@@ -21,6 +21,11 @@ class UserMobilePhoneController < ApplicationController
     command = Redmine2FA::Configuration.sms_command
     command = command.sub('%{phone}', phone).sub('%{password}', user.otp_code)
     system command
+  rescue => e
+    logger.error e.message
+    e.backtrace.each { |line| logger.error line }
+
+    render_error message: t('redmine_2fa.second_authentications.sms.error'), status: 503
   end
 
   def set_user_from_session
@@ -29,5 +34,11 @@ class UserMobilePhoneController < ApplicationController
     else
       deny_access
     end
+  end
+
+  private
+
+  def logger
+    @logger ||= Redmine2FA.logger
   end
 end

@@ -6,7 +6,7 @@ class OtpBotController < ApplicationController
 
   def create # init
     set_bot_webhook
-    update_plugin_settings(@bot.me)
+    update_plugin_settings(@bot.api.get_me['result'])
     redirect_to plugin_settings_path('redmine_2fa'), notice: t('redmine_2fa.otp_bot.init.success')
   end
 
@@ -22,8 +22,8 @@ class OtpBotController < ApplicationController
     plugin_settings = Setting.find_by(name: 'plugin_redmine_2fa')
 
     plugin_settings_hash             = plugin_settings.value
-    plugin_settings_hash['bot_name'] = bot_info.username
-    plugin_settings_hash['bot_id']   = bot_info.id
+    plugin_settings_hash['bot_name'] = bot_info['username']
+    plugin_settings_hash['bot_id']   = bot_info['id']
     plugin_settings.value            = plugin_settings_hash
 
     plugin_settings.save
@@ -31,10 +31,11 @@ class OtpBotController < ApplicationController
 
   def set_bot
     @token = Redmine2FA.bot_token
-    @bot = Telegrammer::Bot.new(@token)
-  rescue MultiJson::ParseError
-    render_error message: t('redmine_2fa.otp_bot.init.error.wrong_token'), status: 406
-  rescue Telegrammer::Errors::ServiceUnavailableError
+    @bot = Telegram::Bot::Client.new(@token)
+  rescue => e
+    logger.error e.message
+    e.backtrace.each { |line| logger.error line }
+
     render_error message: t('redmine_2fa.otp_bot.init.error.api_error'), status: 503
   end
 
@@ -42,15 +43,21 @@ class OtpBotController < ApplicationController
     webhook_url = URI::HTTPS.build(host: Setting['host_name'],
                                    path: "/redmine_2fa/bot/#{@token}/update").to_s
 
-    @bot.set_webhook(webhook_url)
+    @bot.api.setWebhook(url: webhook_url)
   end
 
   def reset_bot_webhook
-    @bot.set_webhook('')
+    @bot.api.setWebhook(url: '')
   end
 
   def reset_telegram_authentications
     auth_source = Redmine2FA::AuthSource::Telegram.first
-    User.where(auth_source_id: auth_source.id).update_all(auth_source_id: nil)
+    User.where(two_fa_id: auth_source.id).update_all(two_fa_id: nil)
+  end
+
+  private
+
+  def logger
+    @logger ||= Redmine2FA.logger
   end
 end

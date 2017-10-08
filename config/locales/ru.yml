@@ -1,4 +1,5 @@
 ru:
+  field_two_fa: 2FA
   field_mobile_phone: 'Мобильный телефон'
   field_ignore_2fa: 'Игнорировать 2FA'
   link_2fa_reset: Сбросить 2FA
@@ -56,6 +57,7 @@ ru:
         mobile_phone_submit: "Получить код"
         confirm_hint: введите код, полученный по SMS
         confirm_submit: "Подтвердить"
+        error: Не получилось отправить смс-код, повторите, пожалуйста, попытку позднее
 
     otp_bot:
       init:

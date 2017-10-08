@@ -1,4 +1,5 @@
 en:
+  field_two_fa: 2FA
   field_mobile_phone: 'Mobile phone'
   field_ignore_2fa: 'Ignore 2FA'
   link_2fa_reset: Reset 2FA
@@ -54,6 +55,7 @@ en:
         mobile_phone_submit: "Get code"
         confirm_hint: enter code gotten by SMS
         confirm_submit: Confirm
+        error: We can't send sms right now. Please, try later.
 
     otp_bot:
       init:

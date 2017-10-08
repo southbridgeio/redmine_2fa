@@ -25,13 +25,22 @@ module Redmine2FA
     Setting.plugin_redmine_2fa['bot_token']
   end
 
+  def self.logger
+    Logger.new(Rails.root.join('log', 'redmine_2fa', 'bot-update.log'))
+  end
+
   module Configuration
     def self.configuration
       Redmine::Configuration['redmine_2fa']
     end
 
     def self.sms_command
-      configuration && configuration['sms_command'] ? configuration['sms_command'] : 'echo %{phone} %{password} %{expired_at}'
+      sms_command = configuration && configuration['sms_command']
+      if sms_command
+        configuration['sms_command']
+      else
+        (Rails.env.test?) ? '' : 'echo %{phone} %{password} %{expired_at}'
+      end
     end
   end
 end

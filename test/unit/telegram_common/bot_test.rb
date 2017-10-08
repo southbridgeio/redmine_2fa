@@ -1,4 +1,5 @@
 require File.expand_path('../../../test_helper', __FILE__)
+require 'telegram/bot'
 
 class TelegramCommon::BotTest < ActiveSupport::TestCase
   fixtures :users, :email_addresses, :roles, :auth_sources
@@ -41,7 +42,7 @@ class TelegramCommon::BotTest < ActiveSupport::TestCase
 
       should 'set telegram auth source' do
         @user.reload
-        assert_equal auth_sources(:telegram), @user.auth_source
+        assert_equal auth_sources(:telegram), @user.two_fa
       end
     end
   end

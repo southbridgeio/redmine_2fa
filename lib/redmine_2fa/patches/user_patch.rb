@@ -3,7 +3,7 @@ module Redmine2FA
     module UserPatch
       def self.included(base)
         base.send(:include, InstanceMethods)
-        base.safe_attributes 'mobile_phone', 'ignore_2fa'
+        base.safe_attributes 'mobile_phone', 'ignore_2fa', 'two_fa_id'
         base.validates_format_of :mobile_phone, with: /\A\d*\z/, allow_blank: true
 
         base.class_eval do
@@ -12,6 +12,8 @@ module Redmine2FA
           has_one_time_password length: 6
 
           alias_method_chain :update_hashed_password, :otp_auth
+
+          belongs_to :two_fa, class_name: 'AuthSource'
         end
       end
 
@@ -25,24 +27,24 @@ module Redmine2FA
         end
 
         def two_factor_authenticable?
-          telegram_authenticable? || sms_authenticable? || google_authenticable?
+          two_fa
         end
 
         def sms_authenticable?
-          auth_source&.auth_method_name == 'SMS'
+          two_fa&.auth_method_name == 'SMS'
         end
 
         def telegram_authenticable?
-          auth_source&.auth_method_name == 'Telegram'
+          two_fa&.auth_method_name == 'Telegram'
         end
 
         def google_authenticable?
-          auth_source&.auth_method_name == 'Google Auth'
+          two_fa&.auth_method_name == 'Google Auth'
         end
 
         def reset_second_auth
           otp_regenerate_secret
-          self.auth_source_id = nil
+          self.two_fa_id = nil
           self.ignore_2fa = false
           save!
         end
