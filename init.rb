@@ -18,7 +18,7 @@ end
 
 Redmine::Plugin.register :redmine_2fa do
   name 'Redmine 2FA'
-  version '1.3.3-dev'
+  version '1.3.3'
   url 'https://github.com/centosadmin/redmine_2fa'
   description 'Two-factor authorization for Redmine'
   author 'Southbridge'

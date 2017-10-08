@@ -1,4 +1,4 @@
-# 1.3.3-dev
+# 1.3.3
 
 * Fix missing locale 2fa
 * Fix "account not found" issue with /connect bug
