@@ -1,4 +1,5 @@
 en:
+  field_two_fa: 2FA
   field_mobile_phone: 'Mobile phone'
   field_ignore_2fa: 'Ignore 2FA'
   link_2fa_reset: Reset 2FA

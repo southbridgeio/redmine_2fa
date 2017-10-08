@@ -1,4 +1,5 @@
 ru:
+  field_two_fa: 2FA
   field_mobile_phone: 'Мобильный телефон'
   field_ignore_2fa: 'Игнорировать 2FA'
   link_2fa_reset: Сбросить 2FA
