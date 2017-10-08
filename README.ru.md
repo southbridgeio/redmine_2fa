@@ -166,4 +166,4 @@ production:
 
 # Автор плагина
 
-Плагин разработан [Southbridge](https://southbridge.io).
+Плагин разработан [Southbridge](https://southbridge.io)

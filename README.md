@@ -168,4 +168,4 @@ If plugin settings option "Require 2FA for each user" is switched off, user can 
 
 # Author
 
-Developed by [Southbridge](https://southbridge.io).
+Developed by [Southbridge](https://southbridge.io)

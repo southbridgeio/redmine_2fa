@@ -35,7 +35,12 @@ module Redmine2FA
     end
 
     def self.sms_command
-      configuration && configuration['sms_command'] ? configuration['sms_command'] : 'echo %{phone} %{password} %{expired_at}'
+      sms_command = configuration && configuration['sms_command']
+      if sms_command
+        configuration['sms_command']
+      else
+        (Rails.env.test?) ? '' : 'echo %{phone} %{password} %{expired_at}'
+      end
     end
   end
 end

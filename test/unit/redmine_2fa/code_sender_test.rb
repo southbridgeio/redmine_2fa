@@ -15,26 +15,26 @@ class Redmine2FA::CodeSenderTest < ActiveSupport::TestCase
 
     context 'define sender' do
       should 'be TelegramSender' do
-        @user.auth_source = auth_sources(:telegram)
+        @user.two_fa = auth_sources(:telegram)
         @sender = Redmine2FA::CodeSender.new(@user)
         assert @sender.sender.is_a?(Redmine2FA::CodeSender::TelegramSender)
       end
 
       should 'be SMSSender' do
-        @user.auth_source = auth_sources(:sms)
+        @user.two_fa = auth_sources(:sms)
         @sender           = Redmine2FA::CodeSender.new(@user)
         assert @sender.sender.is_a?(Redmine2FA::CodeSender::SMSSender)
       end
 
       should 'be Null sender for google auth' do
-        @user.auth_source = auth_sources(:google_auth)
+        @user.two_fa = auth_sources(:google_auth)
 
         @sender = Redmine2FA::CodeSender.new(@user)
         assert @sender.sender.is_a?(Redmine2FA::CodeSender::NullSender)
       end
 
       should 'be Null sender by default' do
-        @user.auth_source = nil
+        @user.two_fa = nil
 
         @sender = Redmine2FA::CodeSender.new(@user)
         assert @sender.sender.is_a?(Redmine2FA::CodeSender::NullSender)

@@ -58,7 +58,7 @@ class AccountControllerPatchTest < ActionController::TestCase
   context 'user with 2fa' do
     context 'google auth' do
       setup do
-        User.any_instance.stubs(:auth_source).returns(auth_sources(:google_auth))
+        User.any_instance.stubs(:two_fa).returns(auth_sources(:google_auth))
         post :login, username: 'jsmith', password: 'jsmith'
       end
       should render_template('account/otp')
@@ -70,7 +70,7 @@ class AccountControllerPatchTest < ActionController::TestCase
     context 'sms'
 
     setup do
-      @user.auth_source = auth_sources(:google_auth)
+      @user.two_fa = auth_sources(:google_auth)
 
       # Redmine2FA::CodeSender.any_instance.expects(:send_code)
     end
@@ -97,7 +97,7 @@ class AccountControllerPatchTest < ActionController::TestCase
 
       @user.reload
 
-      assert_equal @auth_source.id, @user.auth_source_id
+      assert_equal @auth_source.id, @user.two_fa_id
     end
 
     context 'unauthorized' do
@@ -108,7 +108,7 @@ class AccountControllerPatchTest < ActionController::TestCase
 
         @user.reload
 
-        assert_not_equal @auth_source.id, @user.auth_source_id
+        assert_not_equal @auth_source.id, @user.two_fa_id
       end
     end
   end

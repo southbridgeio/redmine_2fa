@@ -42,7 +42,7 @@ class TelegramCommon::BotTest < ActiveSupport::TestCase
 
       should 'set telegram auth source' do
         @user.reload
-        assert_equal auth_sources(:telegram), @user.auth_source
+        assert_equal auth_sources(:telegram), @user.two_fa
       end
     end
   end
