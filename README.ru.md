@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/centosadmin/redmine_2fa.svg?branch=master)](https://travis-ci.org/centosadmin/redmine_2fa) [![Code Climate](https://codeclimate.com/github/centosadmin/redmine_2fa/badges/gpa.svg)](https://codeclimate.com/github/centosadmin/redmine_2fa)
+[![Rate at redmine.org](http://img.shields.io/badge/rate%20at-redmine.org-blue.svg?style=flat)](http://www.redmine.org/plugins/redmine_2fa)
 
 [English version](https://github.com/centosadmin/redmine_2fa/blob/master/README.md)
 
@@ -43,7 +44,7 @@
 
 #### Подсказки для команд бота
 
-Чтобы добавить подсказки команд для бота, используйте команду `/setcommands` в беседе с [@BotFather](https://telegram.me/botfather). Нужно написать боту список команд с 
+Чтобы добавить подсказки команд для бота, используйте команду `/setcommands` в беседе с [@BotFather](https://telegram.me/botfather). Нужно написать боту список команд с
 описанием:
 
 ```
