@@ -1,3 +1,7 @@
+# 1.3.4
+
+* Add bot collision check
+
 # 1.3.3
 
 * Fix missing locale 2fa
