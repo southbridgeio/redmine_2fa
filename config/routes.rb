@@ -18,8 +18,4 @@ scope 'redmine_2fa' do
 
   post 'otp_code/resend', to: 'otp_codes#create', as: 'resend_otp'
   post 'otp_code/confirm', to: 'account#confirm_otp', as: 'confirm_otp'
-
-  # Telegram bot webhook
-
-  post 'bot/:token/update' => 'otp_bot_webhook#update'
 end
