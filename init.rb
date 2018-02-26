@@ -3,7 +3,10 @@ FileUtils.mkdir_p(Rails.root.join('log/redmine_2fa')) unless Dir.exist?(Rails.ro
 require 'redmine_2fa'
 require 'telegram/bot'
 
-ActionDispatch::Callbacks.to_prepare do
+# Rails 5.1/Rails 4
+reloader = defined?(ActiveSupport::Reloader) ? ActiveSupport::Reloader : ActionDispatch::Reloader
+
+reloader.to_prepare do
   %w( /app/models/redmine_2fa/*.rb
       /app/models/redmine_2fa/auth_source/*.rb
       /lib/redmine_2fa/patches/account_controller_patch/*.rb
