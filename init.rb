@@ -17,9 +17,6 @@ reloader.to_prepare do
       require_dependency file
     end
   end
-
-  require_dependency 'telegram_common'
-  TelegramCommon.update_manager.add_handler(->(message) { Redmine2FA.handle_message(message) } )
 end
 
 Redmine::Plugin.register :redmine_2fa do
