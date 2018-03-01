@@ -36,7 +36,7 @@ en:
       required: "required for this plugin"
     second_authentications:
       init:
-        instruction: Plase choose type of two-factor authentication
+        instruction: Please choose type of two-factor authentication
         disable: "Do not use"
       next_button_html: Next &#187;
       google_auth:
