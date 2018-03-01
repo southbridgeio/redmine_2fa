@@ -74,7 +74,7 @@ ru:
     auth_code: 'Код подтверждения'
     resend:
       link: 'Отправить повторно'
-      instruction_html: 'Код отправлен. Повторная отправка кода возможна через <span id="otpCodeResendTimer">%{timeout}</span> секунд.'
+      instruction_html: 'Код отправлен ботом <a href="https://telegram.me/%{bot_name}" target="_blank">%{bot_name}</a> (необходимо добавить в контакты).<br><br>Повторная отправка кода возможна через <span id="otpCodeResendTimer">%{timeout}</span> секунд.'
     notice:
       auth_code:
         invalid: 'Неверный код подтверждения'

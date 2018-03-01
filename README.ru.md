@@ -21,6 +21,16 @@
 - HTTPS - нужен для того, чтобы принимать сообщение от Telegram Bot API ([веб-хук](https://tlgrm.ru/docs/bots/api#setwebhook))
 - Ruby 2.3+
 
+### Обновление с 1.3.4 до 1.4.0+
+
+Начиная с версии 1.4.0 redmine_2fa (так же, как и другие telegram-плагины от Southbridge) использует бота из redmine_telegram_common.
+Чтобы произвести миграцию для использования единого бота, нужно выполнить команду `bundle exec rake telegram_common:migrate_to_single_bot`.
+Token бота будет взят из одного из установленных плагинов от Southbridge в следующем приоритете:
+
+* redmine_chat_telegram
+* redmine_intouch
+* redmine_2fa
+
 ### Обновление с 1.1.3 на 1.2.0+
 
 Начиная с версии 1.2.0 это плагин использует [redmine_telegram_common](https://github
@@ -31,8 +41,6 @@
 После обновления запустите `bundle exec rake redmine_2fa:common:migrate` для миграции пользоватльских данных в новую таблицу. В версии 2.0 модель `Redmine2FA::TelegramAccount` будет упразднена, в месте с ней будет удалена старая таблица `redmine_2fa_telegram_accounts`.
 
 ### Важно!!!
-
-Бот для этого плагина должен быть уникальным. Иначе могут быть конфликты, если тот же бот используется в другом плагине в режиме опроса обновлений.
 
 Бот может работать либо через web-hook либо через периодический опрос.
 

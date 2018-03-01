@@ -72,7 +72,7 @@ en:
     auth_code: 'Authorization code'
     resend:
       link: 'Resend code'
-      instruction_html: 'Code sent. Code resending possible after <span id="otpCodeResendTimer">%{timeout}</span> seconds.'
+      instruction_html: 'Code sent by <a href="https://telegram.me/%{bot_name}" target="_blank">%{bot_name}</a> (need to be in your contacts list).<br><br>Code resending is possible after 5 seconds <span id="otpCodeResendTimer">%{timeout}</span> секунд.'
     notice:
       auth_code:
         invalid: 'Wrong authorization code'

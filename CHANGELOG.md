@@ -1,3 +1,9 @@
+# 1.4.0
+
+* Update telegram-bot-ruby
+* Use bot from redmine_telegram_common
+* Add link to bot in code instruction
+
 # 1.3.4
 
 * Add bot collision check

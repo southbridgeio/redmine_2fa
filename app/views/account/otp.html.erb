@@ -15,7 +15,7 @@
 
       <tr id="otpCodeResentInstruction" style="display: none">
         <td align="center" colspan="2">
-          <%= t('redmine_2fa.resend.instruction_html', timeout: 30) %>
+          <%= t('redmine_2fa.resend.instruction_html', timeout: 30, bot_name: Setting.plugin_redmine_telegram_common['bot_name']) %>
         </td>
       </tr>
 
