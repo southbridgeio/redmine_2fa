@@ -18,6 +18,18 @@ Supports:
 - HTTPS host - Telegram Bot Webhook needs to POST on HTTPS hosts.
 - Ruby 2.3+
 
+### Upgrade from 1.3.4 to 1.4.0+
+
+From 1.4.0 redmine_2fa (as well as other Southbridge telegram plugins) is using bot from redmine_telegram_common.
+In order to perform migration to single bot you should run `bundle exec rake telegram_common:migrate_to_single_bot`.
+Bot token will be taken from one of installed Southbridge plugins in the following priority:
+
+* redmine_chat_telegram
+* redmine_intouch
+* redmine_2fa
+
+Also you should re-initialize bot on redmine_telegram_common settings page.
+
 ### Upgrade form 1.1.3 to 1.2.0+
 
 Since version 1.2.0 this plugin uses [redmine_telegram_common](https://github.com/centosadmin/redmine_telegram_common) plugin.
@@ -29,10 +41,6 @@ Then upgrade and run `bundle exec rake redmine_2fa:common:migrate` for migrate d
 Since 2.0 version, model `Redmine2FA::TelegramAccount` will be removed, also table `redmine_2fa_telegram_accounts` will be removed.
 
 ### Important!!!
-
-A bot for this plugin must be unique.
-
-Otherwise, there may be conflicts if the same bot is used in other plug-in with update polling mode.
 
 A bot can operate either via the web-hook, or through periodic polling.
 
