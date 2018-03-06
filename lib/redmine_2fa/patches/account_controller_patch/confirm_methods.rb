@@ -57,8 +57,8 @@ module Redmine2FA
           end
 
           def two_fa
-            return unless Redmine2FA.active_protocols.include?(protocol)
-            @two_fa ||= "Redmine2FA::AuthSource::#{auth_source_class}".constantize.first
+            return unless Redmine2FA.active_protocols.include?(protocol) || @user.two_fa
+            @two_fa ||= "Redmine2FA::AuthSource::#{auth_source_class}".constantize.first || @user.two_fa
           end
 
           def auth_source_class

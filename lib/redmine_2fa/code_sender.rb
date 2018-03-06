@@ -17,8 +17,6 @@ module Redmine2FA
 
     def define_sender
       case user&.two_fa&.auth_method_name
-      when 'Telegram'
-        CodeSender::TelegramSender.new(user)
       when 'SMS'
         CodeSender::SMSSender.new(user)
       else

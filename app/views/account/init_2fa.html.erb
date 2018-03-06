@@ -17,7 +17,11 @@
       </div>
     <% end %>
     <table>
-      <% Redmine2FA.active_protocols.each do |protocol| %>
+      <% if Redmine2FA.active_protocols.include?('telegram') %>
+        <%= render "account/init_2fa/telegram" %>
+        <%= @user %>
+      <% end %>
+      <% (Redmine2FA.active_protocols - ['telegram']).each do |protocol| %>
         <%= render "account/init_2fa/#{protocol}", style: 'display: none' %>
       <% end %>
     </table>
