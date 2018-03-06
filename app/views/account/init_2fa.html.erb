@@ -10,14 +10,17 @@
       <div id="init2FAFormAuthSources">
         <% Redmine2FA.active_protocols.each do |protocol| %>
           <div class="authSource">
-            <%= radio_button_tag 'protocol', protocol, false, data: { protocol: protocol } %>
+            <%= radio_button_tag 'protocol', protocol, (protocol == 'telegram' ? true : false), data: { protocol: protocol } %>
             <%= label_tag "protocol_#{protocol}", t("redmine_2fa.protocols.#{protocol}") %>
           </div>
         <% end %>
       </div>
     <% end %>
     <table>
-      <% Redmine2FA.active_protocols.each do |protocol| %>
+      <% if Redmine2FA.active_protocols.include?('telegram') %>
+        <%= render "account/init_2fa/telegram" %>
+      <% end %>
+      <% (Redmine2FA.active_protocols - ['telegram']).each do |protocol| %>
         <%= render "account/init_2fa/#{protocol}", style: 'display: none' %>
       <% end %>
     </table>

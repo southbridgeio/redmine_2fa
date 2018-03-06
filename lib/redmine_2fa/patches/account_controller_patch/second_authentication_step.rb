@@ -8,7 +8,7 @@ module Redmine2FA
           if Redmine2FA.switched_on? && !@user.ignore_2fa? && @user.two_factor_authenticable?
             send_code
             flash[:error] = sender.errors.join(', ') if sender.errors.present?
-            render 'account/otp'
+            @user.two_fa&.name == 'Telegram' ? redirect_to(telegram_login_path) : render('account/otp')
           else
             super
           end
