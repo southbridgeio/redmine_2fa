@@ -17,7 +17,7 @@ class Redmine2FA::CodeSenderTest < ActiveSupport::TestCase
       should 'be TelegramSender' do
         @user.two_fa = auth_sources(:telegram)
         @sender = Redmine2FA::CodeSender.new(@user)
-        assert @sender.sender.is_a?(Redmine2FA::CodeSender::TelegramSender)
+        assert @sender.sender.is_a?(Redmine2FA::CodeSender::NullSender)
       end
 
       should 'be SMSSender' do
