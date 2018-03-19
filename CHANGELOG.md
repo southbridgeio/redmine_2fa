@@ -1,3 +1,9 @@
+# 1.5.0
+
+* Use Telegram login
+* Fix "Code sent" message
+* Fix RQRCode::QRCodeRunTimeError
+
 # 1.4.0
 
 * Update telegram-bot-ruby
