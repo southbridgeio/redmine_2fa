@@ -1,5 +1,3 @@
-<tr class="instruction2FA telegramInstruction" style="<%= style %>">
-  <td colspan="3">
-    <%= t 'redmine_2fa.second_authentications.telegram.instruction_html', bot_name: Setting.plugin_redmine_telegram_common['bot_name'] %>
-  </td>
-</tr>
+<div align="center" class="instruction2FA telegramInstruction">
+  <%= render partial: 'telegram_login/widget' %>
+</div>

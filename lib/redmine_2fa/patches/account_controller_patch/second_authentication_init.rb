@@ -8,8 +8,14 @@ module Redmine2FA
           if Redmine2FA.switched_off? || @user.ignore_2fa? || @user.two_factor_authenticable?
             super
           else
-            @qr = RQRCode::QRCode.new(@user.provisioning_uri("#{@user.login}", issuer: "#{Setting.host_name}"), size: 10, level: :h)
-            render 'account/init_2fa'
+            begin
+              qr_size ||= 10
+              @qr = RQRCode::QRCode.new(@user.provisioning_uri("#{@user.login}", issuer: "#{Setting.host_name}"), size: qr_size, level: :h)
+              render 'account/init_2fa'
+            rescue RQRCode::QRCodeRunTimeError => e
+              retry unless (qr_size += 1) > 20
+              raise e
+            end
           end
         end
       end
