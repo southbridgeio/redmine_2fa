@@ -1,3 +1,7 @@
+# 1.5.1
+
+* Add redmine_telegram_common dependency to init.rb
+
 # 1.5.0
 
 * Use Telegram login
