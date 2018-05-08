@@ -21,16 +21,8 @@ module Redmine2FA
     active_protocols.size.zero? || active_protocols.size == 1 && active_protocols.include?('none')
   end
 
-  def self.bot_token
-    Setting.plugin_redmine_telegram_common['bot_token']
-  end
-
   def self.logger
     Logger.new(Rails.root.join('log', 'redmine_2fa', 'bot-update.log'))
-  end
-
-  def self.handle_message(message)
-    TelegramCommon::Bot.new(bot_token, message).call if message.is_a?(Telegram::Bot::Types::Message)
   end
 
   module Configuration

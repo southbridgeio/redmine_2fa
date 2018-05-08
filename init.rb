@@ -1,4 +1,4 @@
-require_dependency Rails.root.join('plugins','redmine_telegram_common', 'init')
+require_dependency Rails.root.join('plugins','redmine_bots', 'init')
 
 FileUtils.mkdir_p(Rails.root.join('log/redmine_2fa')) unless Dir.exist?(Rails.root.join('log/redmine_2fa'))
 
@@ -31,10 +31,9 @@ Redmine::Plugin.register :redmine_2fa do
 
   requires_redmine version_or_higher: '3.0'
 
-  requires_redmine_plugin :redmine_telegram_common, '0.7.0'
+  requires_redmine_plugin :redmine_bots, '0.1.0'
 
-  settings(default: { 'bot_token' => '',
-                      'required' => false,
+  settings(default: { 'required' => false,
                       'active_protocols' => Redmine2FA::AVAILABLE_PROTOCOLS
   },
            partial: 'settings/redmine_2fa')
