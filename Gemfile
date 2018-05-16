@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'active_model_otp'
 gem 'rqrcode'
+gem 'jwt'
 
 group :test do
   gem 'timecop'
