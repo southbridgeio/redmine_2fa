@@ -40,12 +40,13 @@ ru:
         instruction: Пожалуйста, выберите способ двухфакторной аутентификации
         disable: "Не использовать"
       next_button_html: Далее &#187;
+      next_input_html: Далее
       google_auth:
         instruction_html: |
           <p>Установите приложение Google Authenticator следуя инструкции по
             <a href="https://support.google.com/accounts/answer/1066447" target="_blank">ссылке</a>.</p>
           <p>Используйте предложенный ниже QR-код в приложении.</p>
-        next_step_instruction: После настройки приложения, нажмите "Далее".
+        next_step_instruction: После настройки приложения введите код подтверждения и нажмите "Далее".
       telegram:
         instruction_html: |
           Бот "%{bot_name}" будет отправлять вам коды авторизации.<br>
