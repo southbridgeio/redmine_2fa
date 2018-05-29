@@ -45,7 +45,7 @@ module Redmine2FA
         def reset_second_auth
           otp_regenerate_secret
           self.class.transaction do
-            self.telegram_account&.update!(user_id: nil) if telegram_authenticable?
+            self.telegram_account&.destroy! if telegram_authenticable?
             self.two_fa_id = nil
             self.ignore_2fa = false
             save!
