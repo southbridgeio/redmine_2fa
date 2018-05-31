@@ -14,6 +14,7 @@ module Redmine2FA
           alias_method_chain :update_hashed_password, :otp_auth
 
           belongs_to :two_fa, class_name: 'AuthSource'
+          has_one :telegram_connection, class_name: 'Redmine2FA::TelegramConnection'
         end
       end
 
@@ -45,7 +46,7 @@ module Redmine2FA
         def reset_second_auth
           otp_regenerate_secret
           self.class.transaction do
-            self.telegram_account&.destroy! if telegram_authenticable?
+            self.telegram_connection&.destroy!
             self.two_fa_id = nil
             self.ignore_2fa = false
             save!
