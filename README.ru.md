@@ -17,9 +17,14 @@
 
 ## Требования
 
-- [redmine_telegram_common](https://github.com/centosadmin/redmine_telegram_common)
+- [redmine_bots](https://github.com/centosadmin/redmine_bots)
 - HTTPS - нужен для того, чтобы принимать сообщение от Telegram Bot API ([веб-хук](https://tlgrm.ru/docs/bots/api#setwebhook))
 - Ruby 2.3+
+
+### Обновление до 1.6.0 и выше
+
+Начиная с версии 1.6.0 redmine_2fa зависит от [redmine_bots](https://github.com/centosadmin/redmine_bots) вместо redmine_telegram_common.
+Пожалуйста, установите redmine_bots и следуйте инструкциям по миграции данных в его README.
 
 ### Обновление с 1.3.4 до 1.4.0+
 
