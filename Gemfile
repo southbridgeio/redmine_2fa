@@ -7,5 +7,5 @@ group :test do
   gem 'timecop'
   gem 'vcr'
   gem 'webmock'
-  gem 'shoulda'
+  gem 'shoulda', '<= 3.5.0'
 end
