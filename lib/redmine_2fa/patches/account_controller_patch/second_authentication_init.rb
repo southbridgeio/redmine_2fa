@@ -5,7 +5,7 @@ module Redmine2FA
         private
 
         def password_authentication
-          if Redmine2FA.switched_off? || @user.ignore_2fa? || @user.two_factor_authenticable?
+          if Redmine2FA.switched_off? || @user.locked? || @user.ignore_2fa? || @user.two_factor_authenticable?
             super
           else
             begin

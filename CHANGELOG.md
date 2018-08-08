@@ -1,3 +1,10 @@
+# 1.6.0
+
+* Depend on redmine_bots instead of redmine_telegram_common
+* Google auth confirmation on first page
+* Telegram account connection/2fa connection segregation
+* Don't send code to locked users
+
 # 1.5.1
 
 * Add redmine_telegram_common dependency to init.rb

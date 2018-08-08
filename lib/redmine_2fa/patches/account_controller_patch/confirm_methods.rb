@@ -27,6 +27,7 @@ module Redmine2FA
 
           def confirm_otp
             if @user.authenticate_otp(params[:otp_code], drift: 120)
+              update_two_fa if @user.two_fa.nil?
               reset_otp_session
               successful_authentication(@user)
             else

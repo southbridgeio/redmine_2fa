@@ -39,12 +39,13 @@ en:
         instruction: Please choose type of two-factor authentication
         disable: "Do not use"
       next_button_html: Next &#187;
+      next_input_html: Next;
       google_auth:
         instruction_html: |
           <p>Please setup Google Authenticator follow
             <a href="https://support.google.com/accounts/answer/1066447" target="_blank">the instruction</a>.</p>
           <p>Use this QR-code in application.</p>
-        next_step_instruction: After app setup click "Next".
+        next_step_instruction: After app setup, enter the confirmation code and click "Next".
       telegram:
         instruction_html: |
           %{bot_name} will send you authentication codes. Please activate it.<br>

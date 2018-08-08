@@ -6,8 +6,16 @@
   </td>
 </tr>
 <tr class="instruction2FA google_authInstruction" style="<%= style %>">
-  <td align="left" colspan="2"></td>
-  <td align="right" colspan="1" class="next2FAStep">
-    <%= submit_tag t('redmine_2fa.second_authentications.next_button_html'), onclick: "$('#init2FAForm').submit();" %>
-  </td>
+  <%= form_tag(confirm_otp_path) do %>
+    <td align="right">
+      <label for="otp_code"><%= t 'redmine_2fa.auth_code' %>:</label>
+    </td>
+    <td align="right" style="width: 140px;">
+      <%= text_field_tag :otp_code, nil, autocomplete: 'off', autofocus: true %>
+    </td>
+    <%= hidden_field_tag :protocol, 'google_auth' %>
+    <td colspan="1">
+      <input type="submit" name="login" value="<%= l('redmine_2fa.second_authentications.next_input_html') %>"/>
+    </td>
+  <% end %>
 </tr>

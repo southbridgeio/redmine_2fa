@@ -15,9 +15,14 @@ Supports:
 
 ## Requirements
 
-- [redmine_telegram_common](https://github.com/centosadmin/redmine_telegram_common)
+- [redmine_bots](https://github.com/centosadmin/redmine_bots)
 - HTTPS host - Telegram Bot Webhook needs to POST on HTTPS hosts.
 - Ruby 2.3+
+
+### Upgrade to 1.6.0+
+
+From 1.6.0 redmine_2fa depends on [redmine_bots](https://github.com/centosadmin/redmine_bots) instead of redmine_telegram_common.
+Please, install it and follow migration instructions from README of redmine_bots.
 
 ### Upgrade from 1.3.4 to 1.4.0+
 
