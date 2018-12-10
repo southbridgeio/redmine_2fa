@@ -1,9 +1,9 @@
 class UserMobilePhoneController < ApplicationController
   unloadable
 
-  skip_before_filter :check_if_login_required
+  skip_before_action :check_if_login_required
 
-  before_filter :set_user_from_session
+  before_action :set_user_from_session
 
   def update
     @user.mobile_phone = params[:user][:mobile_phone]

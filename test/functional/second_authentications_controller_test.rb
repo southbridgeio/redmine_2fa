@@ -11,13 +11,13 @@ class SecondAuthenticationsControllerTest < ActionController::TestCase
     @auth_source = auth_sources(:google_auth)
   end
 
-  context 'reset' do
+  describe 'reset' do
     setup do
       @user_self.two_fa = @auth_source
       @user_self.save
     end
 
-    should 'current user is self' do
+    it 'current user is self' do
       User.current = @user_self
       @request.session[:user_id] = @user_self.id
       @request.env["HTTP_REFERER"] = 'test'
@@ -31,7 +31,7 @@ class SecondAuthenticationsControllerTest < ActionController::TestCase
       assert_equal @user_self.two_fa_id, nil
     end
 
-    should 'current user is admin' do
+    it 'current user is admin' do
       User.current = @user_admin
       @request.session[:user_id] = @user_admin.id
       @request.env["HTTP_REFERER"] = 'test'
@@ -45,7 +45,7 @@ class SecondAuthenticationsControllerTest < ActionController::TestCase
       assert_equal @user_self.two_fa_id, nil
     end
 
-    should 'current user is not admin' do
+    it 'current user is not admin' do
       User.current = @user_other
       @request.session[:user_id] = @user_other.id
       assert_equal @user_self.two_fa, @auth_source

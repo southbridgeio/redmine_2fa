@@ -48,45 +48,45 @@ class UserPatchTest < ActiveSupport::TestCase
     assert !@user.mobile_phone_confirmed?
   end
 
-  context 'mobile phone' do
-    context 'validation' do
-      should 'contain only numbers' do
+  describe 'mobile phone' do
+    describe 'validation' do
+      it 'contain only numbers' do
         user = User.new mobile_phone: '7894561230'
         user.valid?
         assert user.errors[:mobile_phone].empty?
       end
 
-      should 'can be empty' do
+      it 'can be empty' do
         user = User.new mobile_phone: ''
         user.valid?
         assert user.errors[:mobile_phone].empty?
       end
 
-      should 'can be nil' do
+      it 'can be nil' do
         user = User.new mobile_phone: nil
         user.valid?
         assert user.errors[:mobile_phone].empty?
       end
 
-      should 'not contain + symbol' do
+      it 'not contain + symbol' do
         user = User.new mobile_phone: '+7894561230'
         user.valid?
         assert user.errors[:mobile_phone].present?
       end
 
-      should 'not contain - symbol' do
+      it 'not contain - symbol' do
         user = User.new mobile_phone: '7894-561-230'
         user.valid?
         assert user.errors[:mobile_phone].present?
       end
     end
 
-    context 'confirmation' do
+    describe 'confirmation' do
       setup do
         User.any_instance.stubs(:mobile_phone).returns('79243216547')
       end
 
-      should 'confirm mobile phone with valid code' do
+      it 'confirm mobile phone with valid code' do
         User.any_instance.expects(:authenticate_otp).returns(true)
 
         @user.confirm_mobile_phone('valid')
@@ -94,7 +94,7 @@ class UserPatchTest < ActiveSupport::TestCase
         assert @user.mobile_phone_confirmed?
       end
 
-      should 'return errors with invalid code' do
+      it 'return errors with invalid code' do
         User.any_instance.expects(:authenticate_otp).returns(false)
         @user.confirm_mobile_phone('invalid')
         @user.reload
