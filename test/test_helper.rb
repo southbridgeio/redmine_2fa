@@ -11,7 +11,7 @@ require 'shoulda'
 require 'rails-controller-testing'
 require 'timecop'
 
-Rails::Controller::Testing.install
+Rails::Controller::Testing.install unless Rails.version < '5.0'
 
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
