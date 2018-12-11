@@ -7,6 +7,18 @@ require File.expand_path(File.dirname(__FILE__) + '/../../../test/test_helper')
 
 require 'minitest/autorun'
 require 'minitest/reporters'
+require 'shoulda'
+require 'rails-controller-testing'
+require 'timecop'
+
+Rails::Controller::Testing.install
+
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :minitest
+    with.library :rails
+  end
+end
 
 ActiveRecord::FixtureSet.create_fixtures(File.dirname(__FILE__) + '/fixtures/', [:auth_sources])
 
@@ -15,6 +27,3 @@ VCR.configure do |config|
   config.hook_into :webmock
 end
 
-class ActiveSupport::TestCase
-  extend Minitest::Spec::DSL
-end

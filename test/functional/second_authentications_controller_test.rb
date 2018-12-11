@@ -11,45 +11,59 @@ class SecondAuthenticationsControllerTest < ActionController::TestCase
     @auth_source = auth_sources(:google_auth)
   end
 
-  describe 'reset' do
+  context 'reset' do
     setup do
       @user_self.two_fa = @auth_source
       @user_self.save
     end
 
-    it 'current user is self' do
+    should 'current user is self' do
       User.current = @user_self
       @request.session[:user_id] = @user_self.id
       @request.env["HTTP_REFERER"] = 'test'
 
       assert_equal @user_self.two_fa, @auth_source
 
-      delete :destroy, id: @user_self.id
+      if Rails.version < '5.0'
+        delete :destroy, id: @user_self.id
+      else
+        delete :destroy, params: { id: @user_self.id }
+      end
+
       assert_response 302
 
       @user_self.reload
       assert_equal @user_self.two_fa_id, nil
     end
 
-    it 'current user is admin' do
+    should 'current user is admin' do
       User.current = @user_admin
       @request.session[:user_id] = @user_admin.id
       @request.env["HTTP_REFERER"] = 'test'
 
       assert_equal @user_self.two_fa, @auth_source
 
-      delete :destroy, id: @user_self.id
+      if Rails.version < '5.0'
+        delete :destroy, id: @user_self.id
+      else
+        delete :destroy, params: { id: @user_self.id }
+      end
+
       assert_response 302
 
       @user_self.reload
       assert_equal @user_self.two_fa_id, nil
     end
 
-    it 'current user is not admin' do
+    should 'current user is not admin' do
       User.current = @user_other
       @request.session[:user_id] = @user_other.id
       assert_equal @user_self.two_fa, @auth_source
-      delete :destroy, id: @user_self.id
+      if Rails.version < '5.0'
+        delete :destroy, id: @user_self.id
+      else
+        delete :destroy, params: { id: @user_self.id }
+      end
       assert_response 403
 
       @user_self.reload

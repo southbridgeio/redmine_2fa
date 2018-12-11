@@ -7,6 +7,6 @@ group :test do
   gem 'timecop'
   gem 'vcr'
   gem 'webmock'
-  gem 'shoulda', '<= 3.5.0'
-  gem 'shoulda-matchers'
+  gem 'shoulda', '~> 3.6'
+  gem 'rails-controller-testing'
 end
