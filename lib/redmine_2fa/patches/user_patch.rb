@@ -2,7 +2,7 @@ module Redmine2FA
   module Patches
     module UserPatch
       def self.included(base)
-        base.send(:include, InstanceMethods)
+        base.prepend InstanceMethods
         base.safe_attributes 'mobile_phone', 'ignore_2fa', 'two_fa_id'
         base.validates_format_of :mobile_phone, with: /\A\d*\z/, allow_blank: true
 
@@ -11,19 +11,17 @@ module Redmine2FA
 
           has_one_time_password length: 6
 
-          alias_method_chain :update_hashed_password, :otp_auth
-
           belongs_to :two_fa, class_name: 'AuthSource'
           has_one :telegram_connection, class_name: 'Redmine2FA::TelegramConnection'
         end
       end
 
       module InstanceMethods
-        def update_hashed_password_with_otp_auth
+        def update_hashed_password
           if two_factor_authenticable?
             salt_password(password) if password
           else
-            update_hashed_password_without_otp_auth
+            super
           end
         end
 

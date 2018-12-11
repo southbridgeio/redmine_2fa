@@ -1,12 +1,14 @@
 language: ruby
 rvm:
-  - 2.3.0
+  - 2.3.6
+  - 2.5.1
 
 addons:
   postgresql: "9.4"
 
 env:
-  - REDMINE_VER=3.3-stable
+  - REDMINE_VER=3.4-stable
+  - REDMINE_VER=4.0-stable
 
 install: "echo skip bundle install"
 

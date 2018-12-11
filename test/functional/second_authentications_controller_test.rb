@@ -24,7 +24,12 @@ class SecondAuthenticationsControllerTest < ActionController::TestCase
 
       assert_equal @user_self.two_fa, @auth_source
 
-      delete :destroy, id: @user_self.id
+      if Rails.version < '5.0'
+        delete :destroy, id: @user_self.id
+      else
+        delete :destroy, params: { id: @user_self.id }
+      end
+
       assert_response 302
 
       @user_self.reload
@@ -38,7 +43,12 @@ class SecondAuthenticationsControllerTest < ActionController::TestCase
 
       assert_equal @user_self.two_fa, @auth_source
 
-      delete :destroy, id: @user_self.id
+      if Rails.version < '5.0'
+        delete :destroy, id: @user_self.id
+      else
+        delete :destroy, params: { id: @user_self.id }
+      end
+
       assert_response 302
 
       @user_self.reload
@@ -49,7 +59,11 @@ class SecondAuthenticationsControllerTest < ActionController::TestCase
       User.current = @user_other
       @request.session[:user_id] = @user_other.id
       assert_equal @user_self.two_fa, @auth_source
-      delete :destroy, id: @user_self.id
+      if Rails.version < '5.0'
+        delete :destroy, id: @user_self.id
+      else
+        delete :destroy, params: { id: @user_self.id }
+      end
       assert_response 403
 
       @user_self.reload

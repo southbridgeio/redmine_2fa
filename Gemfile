@@ -1,11 +1,12 @@
 source 'https://rubygems.org'
 
 gem 'active_model_otp'
+gem 'rotp', '~> 3.3.0'
 gem 'rqrcode'
 
 group :test do
-  gem 'timecop'
   gem 'vcr'
   gem 'webmock'
-  gem 'shoulda', '<= 3.5.0'
+  gem 'shoulda', '~> 3.6'
+  gem 'rails-controller-testing'
 end

@@ -1,8 +1,8 @@
 class OtpCodesController < ApplicationController
   unloadable
 
-  skip_before_filter :check_if_login_required
-  before_filter :set_user_from_session
+  skip_before_action :check_if_login_required
+  before_action :set_user_from_session
 
   def create # resend
     send_code(@user)

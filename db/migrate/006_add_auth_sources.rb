@@ -1,4 +1,4 @@
-class AddAuthSources < ActiveRecord::Migration
+class AddAuthSources < Rails.version < '5.0' ? ActiveRecord::Migration : ActiveRecord::Migration[4.2]
   def up
     Redmine2FA::AuthSource::Telegram.create name: 'Telegram', onthefly_register: false, tls: false
     Redmine2FA::AuthSource::GoogleAuth.create name: 'Google Auth', onthefly_register: false, tls: false

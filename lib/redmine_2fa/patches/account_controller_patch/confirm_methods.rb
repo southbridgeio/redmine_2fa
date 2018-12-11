@@ -8,7 +8,7 @@ module Redmine2FA
           base.class_eval do
             unloadable
 
-            before_filter :set_user_from_session, only: [:confirm_otp, :confirm_2fa]
+            before_action :set_user_from_session, only: [:confirm_otp, :confirm_2fa]
           end
         end
 

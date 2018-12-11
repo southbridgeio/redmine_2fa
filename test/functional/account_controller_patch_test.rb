@@ -12,7 +12,13 @@ class AccountControllerPatchTest < ActionController::TestCase
 
   context 'user without 2fa' do
     context 'with valid login data' do
-      setup { post :login, username: 'jsmith', password: 'jsmith', back_url: 'http://test.host/' }
+      setup do
+        if Rails.version < '5.0'
+          post :login, username: 'jsmith', password: 'jsmith', back_url: 'http://test.host/'
+        else
+          post :login, params: { username: 'jsmith', password: 'jsmith', back_url: 'http://test.host/' }
+        end
+      end
 
       context 'prepare' do
         should set_session[:otp_user_id].to(2)
@@ -33,7 +39,11 @@ class AccountControllerPatchTest < ActionController::TestCase
     context 'with invalid password' do
       setup do
         AccountController.any_instance.expects(:invalid_credentials)
-        post :login, username: 'jsmith', password: 'wrong', back_url: 'http://test.host/'
+        if Rails.version < '5.0'
+          post :login, username: 'jsmith', password: 'wrong', back_url: 'http://test.host/'
+        else
+          post :login, params: { username: 'jsmith', password: 'wrong', back_url: 'http://test.host/' }
+        end
       end
 
       context 'prepare' do
@@ -45,7 +55,11 @@ class AccountControllerPatchTest < ActionController::TestCase
     context 'with invalid login' do
       setup do
         AccountController.any_instance.expects(:invalid_credentials)
-        post :login, username: 'invalid', password: 'wrong', back_url: 'http://test.host/'
+        if Rails.version < '5.0'
+          post :login, username: 'invalid', password: 'wrong', back_url: 'http://test.host/'
+        else
+          post :login, params: { username: 'invalid', password: 'wrong', back_url: 'http://test.host/' }
+        end
       end
 
       context 'prepare' do
@@ -59,7 +73,11 @@ class AccountControllerPatchTest < ActionController::TestCase
     context 'google auth' do
       setup do
         User.any_instance.stubs(:two_fa).returns(auth_sources(:google_auth))
-        post :login, username: 'jsmith', password: 'jsmith'
+        if Rails.version < '5.0'
+          post :login, username: 'jsmith', password: 'jsmith'
+        else
+          post :login, params: { username: 'jsmith', password: 'jsmith' }
+        end
       end
       should render_template('account/otp')
     end
@@ -91,7 +109,11 @@ class AccountControllerPatchTest < ActionController::TestCase
 
       Redmine2FA::CodeSender.any_instance.expects(:send_code)
 
-      post :confirm_2fa, protocol: @auth_source.protocol
+      if Rails.version < '5.0'
+        post :confirm_2fa, protocol: @auth_source.protocol
+      else
+        post :confirm_2fa, params: { protocol: @auth_source.protocol }
+      end
 
       assert_template 'account/otp'
 
@@ -104,7 +126,11 @@ class AccountControllerPatchTest < ActionController::TestCase
       should 'not update auth source' do
         @request.session[:otp_user_id] = nil
 
-        post :confirm_2fa, protocol: @auth_source.protocol
+        if Rails.version < '5.0'
+          post :confirm_2fa, protocol: @auth_source.protocol
+        else
+          post :confirm_2fa, params: { protocol: @auth_source.protocol }
+        end
 
         @user.reload
 

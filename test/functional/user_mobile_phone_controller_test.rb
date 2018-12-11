@@ -10,7 +10,11 @@ class UserMobilePhoneControllerTest < ActionController::TestCase
   def test_user_phone_update
     @request.session[:otp_user_id] = @user.id
     User.any_instance.expects(:otp_code).returns('123456')
-    post :update, user: { mobile_phone: '79241234567' }
+    if Rails.version < '5.0'
+      post :update, user: { mobile_phone: '79241234567' }, format: 'js'
+    else
+      post :update, params: { user: { mobile_phone: '79241234567' } }, format: 'js'
+    end
 
     assert_equal @user, assigns(:user)
 
@@ -20,7 +24,11 @@ class UserMobilePhoneControllerTest < ActionController::TestCase
   end
 
   def test_user_phone_update_unauthorized
-    post :update, user: { mobile_phone: '5555555' }
+    if Rails.version < '5.0'
+      post :update, user: { mobile_phone: '5555555' }
+    else
+      post :update, params: { user: { mobile_phone: '5555555' } }
+    end
 
     @user.reload
 
@@ -36,7 +44,11 @@ class UserMobilePhoneControllerTest < ActionController::TestCase
     User.any_instance.stubs(:mobile_phone).returns('7894561230')
     User.any_instance.expects(:authenticate_otp).returns(true)
 
-    post :confirm, code: '12345'
+    if Rails.version < '5.0'
+      post :confirm, code: '12345', format: 'js'
+    else
+      post :confirm,  params: { code: '12345' }, format: 'js'
+    end
 
     @user.reload
 
@@ -48,7 +60,11 @@ class UserMobilePhoneControllerTest < ActionController::TestCase
     User.any_instance.expects(:mobile_phone).returns('7894561230')
     User.any_instance.expects(:authenticate_otp).returns(false)
 
-    post :confirm, code: '12345'
+    if Rails.version < '5.0'
+      post :confirm, code: '12345', format: 'js'
+    else
+      post :confirm, params: { code: '12345' }, format: 'js'
+    end
 
     @user.reload
 
