@@ -1,4 +1,4 @@
-class AddMobilePhoneToUsers < ActiveRecord::Migration
+class AddMobilePhoneToUsers < Rails.version < '5.0' ? ActiveRecord::Migration : ActiveRecord::Migration[4.2]
   def up
     add_column :users, :mobile_phone, :string unless column_exists? :users, :mobile_phone
   end

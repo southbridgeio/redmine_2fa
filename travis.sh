@@ -38,7 +38,7 @@ fi
 mv $TESTSPACE/database.yml.travis config/database.yml
 mv $TESTSPACE/additional_environment.rb config/
 
-# add telegram_common plugin
+# add redmine_bots plugin
 
 git clone git://github.com/centosadmin/redmine_bots.git $PATH_TO_REDMINE/plugins/redmine_bots
 

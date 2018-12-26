@@ -1,3 +1,7 @@
+# 1.7.0
+
+* Redmine 4 support
+
 # 1.6.0
 
 * Depend on redmine_bots instead of redmine_telegram_common
