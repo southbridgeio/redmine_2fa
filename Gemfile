@@ -8,5 +8,5 @@ group :test do
   gem 'vcr'
   gem 'webmock'
   gem 'shoulda', '~> 3.6'
-  gem 'rails-controller-testing', require: false
+  gem 'rails-controller-testing'
 end
