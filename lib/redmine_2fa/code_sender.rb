@@ -29,8 +29,7 @@ module Redmine2FA
     end
 
     def timestamp
-      Time.zone = user.time_zone
-      2.minutes.from_now.strftime('%H:%M:%S')
+      Time.use_zone(user.time_zone) { 2.minutes.from_now.strftime('%H:%M:%S') }
     end
   end
 end
