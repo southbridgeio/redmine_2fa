@@ -1,3 +1,8 @@
+# 1.7.1
+
+* Add deprecation warning
+* Fix global timezone change
+
 # 1.7.0
 
 * Redmine 4 support
