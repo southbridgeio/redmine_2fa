@@ -1,5 +1,10 @@
 <%= render partial: 'settings/redmine_bots/deprecation_warning' %>
 
+<p>
+  <%= label_tag 'settings[restrict_api_access]', l('redmine_2fa.settings.restrict_api_access') %>
+  <%= check_box_tag 'settings[restrict_api_access]', '1', @settings['restrict_api_access'] %>
+</p>
+
 <h4><%= t 'redmine_2fa.settings.common.title' %></h4>
 <ul>
   <% Redmine2FA::AVAILABLE_PROTOCOLS.each do |protocol| %>
