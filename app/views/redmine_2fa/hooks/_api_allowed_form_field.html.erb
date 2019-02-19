@@ -1,1 +1,3 @@
-<p><%= form.check_box :api_allowed %></p>
+<% if @user.safe_attribute?('api_allowed', User.current) %>
+  <p><%= form.check_box :api_allowed %></p>
+<% end %>

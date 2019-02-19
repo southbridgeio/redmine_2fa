@@ -3,7 +3,8 @@ module Redmine2FA
     module UserPatch
       def self.included(base)
         base.prepend InstanceMethods
-        base.safe_attributes 'mobile_phone', 'ignore_2fa', 'two_fa_id', 'api_allowed'
+        base.safe_attributes 'mobile_phone', 'ignore_2fa', 'two_fa_id'
+        base.safe_attributes 'api_allowed', if: ->(_user, user) { user.admin? }
         base.validates_format_of :mobile_phone, with: /\A\d*\z/, allow_blank: true
 
         base.class_eval do
