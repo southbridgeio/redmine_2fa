@@ -1,6 +1,8 @@
 module TwoFaApplicationControllerPatch
-  def accept_api_auth?(*)
-    super && (!Setting.plugin_redmine_2fa['restrict_api_access'] || User.current.api_allowed?)
+  def find_current_user
+    user = super
+    return user unless Setting.rest_api_enabled? && Setting.plugin_redmine_2fa['restrict_api_access'] && accept_api_auth?
+    user&.api_allowed? ? user : nil
   end
 end
 
