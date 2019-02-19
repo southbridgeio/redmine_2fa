@@ -2,6 +2,7 @@ en:
   field_two_fa: 2FA
   field_mobile_phone: 'Mobile phone'
   field_ignore_2fa: 'Ignore 2FA'
+  field_api_allowed: Allow API
   link_2fa_reset: Reset 2FA
   notice_2fa_reset: Your 2FA settings was reset.
   redmine_2fa:
@@ -11,6 +12,7 @@ en:
       google_auth: Google Auth
       none: Without 2FA
     settings:
+      restrict_api_access: Ограничить доступ к API
       common:
         title: Authentication types
         required: Require 2FA for each user

@@ -2,6 +2,7 @@ ru:
   field_two_fa: 2FA
   field_mobile_phone: 'Мобильный телефон'
   field_ignore_2fa: 'Игнорировать 2FA'
+  field_api_allowed: Разрешить доступ к API
   link_2fa_reset: Сбросить 2FA
   notice_2fa_reset: При следующей аутентификации мы попросим заново выбрать настройки 2FA.
   redmine_2fa:
@@ -11,6 +12,7 @@ ru:
       google_auth: Google Auth
       none: Без 2FA
     settings:
+      restrict_api_access: Ограничить доступ к API
       common:
         title: Способы аутентификации
         required: Обязательно требовать выбрать один из способов аутентификации 2FA
