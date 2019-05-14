@@ -17,11 +17,8 @@
       </div>
     <% end %>
     <table>
-      <% if Redmine2FA.active_protocols.include?('telegram') %>
-        <%= render "account/init_2fa/telegram" %>
-      <% end %>
-      <% (Redmine2FA.active_protocols - ['telegram']).each do |protocol| %>
-        <%= render "account/init_2fa/#{protocol}", style: 'display: none' %>
+      <% Redmine2FA.active_protocols.each do |protocol| %>
+        <%= render protocol.initial_partial, style: 'display: none' %>
       <% end %>
     </table>
   <% else %>
@@ -29,10 +26,10 @@
 
     <%= form_tag(confirm_2fa_path, id: 'init2FAForm') do %>
       <%= render 'account/autologin' %>
-      <%= hidden_field_tag 'protocol', protocol %>
+      <%= hidden_field_tag 'protocol', protocol.id %>
     <% end %>
     <table>
-      <%= render "account/init_2fa/#{protocol}", style: '' %>
+      <%= render "account/init_2fa/#{protocol.id}", style: '' %>
     </table>
   <% end %>
 </div>
