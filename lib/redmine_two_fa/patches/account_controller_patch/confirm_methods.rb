@@ -1,4 +1,4 @@
-module Redmine2FA
+module RedmineTwoFa
   module Patches
     module AccountControllerPatch
       module ConfirmMethods
@@ -20,7 +20,7 @@ module Redmine2FA
               successful_authentication(@user)
             else
               update_two_fa
-              Redmine2FA::CodeSender.new(@user).send_code
+              RedmineTwoFa::CodeSender.new(@user).send_code
               render 'account/otp'
             end
           end
@@ -58,8 +58,8 @@ module Redmine2FA
           end
 
           def two_fa
-            return unless Redmine2FA.active_protocols.include?(protocol)
-            @two_fa ||= "Redmine2FA::AuthSource::#{auth_source_class}".constantize.first
+            return unless RedmineTwoFa.active_protocols.include?(protocol)
+            @two_fa ||= "RedmineTwoFa::AuthSource::#{auth_source_class}".constantize.first
           end
 
           def auth_source_class
@@ -77,7 +77,7 @@ module Redmine2FA
           end
 
           def sender
-            @sender ||= Redmine2FA::CodeSender.new(@user)
+            @sender ||= RedmineTwoFa::CodeSender.new(@user)
           end
 
           def reset_otp_session

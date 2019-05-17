@@ -7,7 +7,7 @@ class AccountControllerPatchTest < ActionController::TestCase
 
   setup do
     @user = User.find(2) # jsmith
-    Redmine2FA.stubs(:active_protocols).returns(Redmine2FA::AVAILABLE_PROTOCOLS)
+    RedmineTwoFa.stubs(:active_protocols).returns(RedmineTwoFa::AVAILABLE_PROTOCOLS)
   end
 
   context 'user without 2fa' do
@@ -90,7 +90,7 @@ class AccountControllerPatchTest < ActionController::TestCase
     setup do
       @user.two_fa = auth_sources(:google_auth)
 
-      # Redmine2FA::CodeSender.any_instance.expects(:send_code)
+      # RedmineTwoFa::CodeSender.any_instance.expects(:send_code)
     end
 
     context 'with errors' do
@@ -107,7 +107,7 @@ class AccountControllerPatchTest < ActionController::TestCase
     should 'update auth source' do
       @request.session[:otp_user_id] = @user.id
 
-      Redmine2FA::CodeSender.any_instance.expects(:send_code)
+      RedmineTwoFa::CodeSender.any_instance.expects(:send_code)
 
       if Rails.version < '5.0'
         post :confirm_2fa, protocol: @auth_source.protocol

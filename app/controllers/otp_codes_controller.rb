@@ -5,7 +5,7 @@ class OtpCodesController < ApplicationController
   before_action :set_user_from_session
 
   def create # resend
-    send_code(@user)
+    protocol&.send_code(@user)
     respond_to do |format|
       format.js
     end
@@ -21,7 +21,7 @@ class OtpCodesController < ApplicationController
     end
   end
 
-  def send_code(user)
-    Redmine2FA::CodeSender.new(user).send_code
+  def protocol
+    RedmineTwoFa::Protocols[user.two_fa]
   end
 end

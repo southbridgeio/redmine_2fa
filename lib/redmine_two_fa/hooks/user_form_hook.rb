@@ -1,4 +1,4 @@
-module Redmine2FA
+module RedmineTwoFa
   module Hooks
     class UserFormHook < Redmine::Hook::ViewListener
       render_on :view_users_form, partial: 'redmine_2fa/hooks/mobile_phone_form_field'

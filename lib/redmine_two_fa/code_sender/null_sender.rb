@@ -1,4 +1,4 @@
-module Redmine2FA
+module RedmineTwoFa
   class CodeSender::NullSender
     attr_reader :errors
 

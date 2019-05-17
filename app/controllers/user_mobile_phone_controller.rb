@@ -18,7 +18,7 @@ class UserMobilePhoneController < ApplicationController
 
   def send_confirmation_code(user)
     phone   = user.mobile_phone.gsub(/[^-+0-9]+/, '') # Additional phone sanitizing
-    command = Redmine2FA::Configuration.sms_command
+    command = RedmineTwoFa::Configuration.sms_command
     command = command.sub('%{phone}', phone).sub('%{password}', user.otp_code)
     system command
   rescue => e
@@ -39,6 +39,6 @@ class UserMobilePhoneController < ApplicationController
   private
 
   def logger
-    @logger ||= Redmine2FA.logger
+    @logger ||= RedmineTwoFa.logger
   end
 end

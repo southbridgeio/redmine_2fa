@@ -1,4 +1,4 @@
-module Redmine2FA
+module RedmineTwoFa
   module Patches
     module AccountControllerPatch
       module SecondAuthenticationPrepare

@@ -43,7 +43,7 @@ Token бота будет взят из одного из установленн
 
 Перед обновлением установите [этот](https://github.com/centosadmin/redmine_telegram_common) плагин.
 
-После обновления запустите `bundle exec rake redmine_2fa:common:migrate` для миграции пользоватльских данных в новую таблицу. В версии 2.0 модель `Redmine2FA::TelegramAccount` будет упразднена, в месте с ней будет удалена старая таблица `redmine_2fa_telegram_accounts`.
+После обновления запустите `bundle exec rake redmine_2fa:common:migrate` для миграции пользоватльских данных в новую таблицу. В версии 2.0 модель `RedmineTwoFa::TelegramAccount` будет упразднена, в месте с ней будет удалена старая таблица `redmine_2fa_telegram_accounts`.
 
 ### Важно!!!
 
