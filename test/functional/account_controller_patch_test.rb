@@ -7,7 +7,9 @@ class AccountControllerPatchTest < ActionController::TestCase
 
   setup do
     @user = User.find(2) # jsmith
-    RedmineTwoFa.stubs(:active_protocols).returns(RedmineTwoFa::AVAILABLE_PROTOCOLS)
+    RedmineTwoFa.stubs(:active_protocols).returns({ 'sms' => RedmineTwoFa::Protocols[:sms],
+                                                    'google_auth' => RedmineTwoFa::Protocols[:google_auth],
+                                                    'telegram' => RedmineTwoFa::Protocols[:telegram] })
   end
 
   context 'user without 2fa' do
@@ -72,7 +74,7 @@ class AccountControllerPatchTest < ActionController::TestCase
   context 'user with 2fa' do
     context 'google auth' do
       setup do
-        User.any_instance.stubs(:two_fa).returns(auth_sources(:google_auth))
+        User.any_instance.stubs(:two_fa).returns('google_auth')
         if Rails.version < '5.0'
           post :login, username: 'jsmith', password: 'jsmith'
         else
@@ -88,9 +90,7 @@ class AccountControllerPatchTest < ActionController::TestCase
     context 'sms'
 
     setup do
-      @user.two_fa = auth_sources(:google_auth)
-
-      # RedmineTwoFa::CodeSender.any_instance.expects(:send_code)
+      @user.two_fa = 'google_auth'
     end
 
     context 'with errors' do
@@ -101,7 +101,7 @@ class AccountControllerPatchTest < ActionController::TestCase
     setup do
       User.any_instance.stubs(:otp_code)
 
-      @auth_source = auth_sources(:google_auth)
+      @auth_source = 'google_auth'
     end
 
     should 'update auth source' do
