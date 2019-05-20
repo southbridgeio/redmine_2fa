@@ -5,6 +5,7 @@ class UserMobilePhoneControllerTest < ActionController::TestCase
 
   def setup
     @user = User.find(2)
+    RedmineTwoFa::Protocols::Sms.any_instance.expects(:send_code)
   end
 
   def test_user_phone_update

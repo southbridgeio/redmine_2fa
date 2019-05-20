@@ -100,7 +100,7 @@ class AccountControllerPatchTest < ActionController::TestCase
     should 'update auth source' do
       @request.session[:otp_user_id] = @user.id
 
-      RedmineTwoFa::Protocols::SMS.any_instance.expects(:send_code)
+      RedmineTwoFa::Protocols::Sms.any_instance.expects(:send_code)
 
       if Rails.version < '5.0'
         post :confirm_2fa, protocol: @auth_source
@@ -112,7 +112,7 @@ class AccountControllerPatchTest < ActionController::TestCase
 
       @user.reload
 
-      assert_equal @auth_source.id, @user.two_fa_id
+      assert_equal @auth_source, @user.two_fa
     end
 
     context 'unauthorized' do
@@ -127,7 +127,7 @@ class AccountControllerPatchTest < ActionController::TestCase
 
         @user.reload
 
-        assert_not_equal @auth_source.id, @user.two_fa_id
+        assert_not_equal @auth_source, @user.two_fa
       end
     end
   end
