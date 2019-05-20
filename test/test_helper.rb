@@ -19,11 +19,3 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
-
-ActiveRecord::FixtureSet.create_fixtures(File.dirname(__FILE__) + '/fixtures/', [:auth_sources])
-
-VCR.configure do |config|
-  config.cassette_library_dir = File.join(Rails.root, 'plugins/redmine_2fa/test/fixtures/vcr_cassettes')
-  config.hook_into :webmock
-end
-
