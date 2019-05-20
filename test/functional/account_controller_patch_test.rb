@@ -100,7 +100,7 @@ class AccountControllerPatchTest < ActionController::TestCase
     should 'update auth source' do
       @request.session[:otp_user_id] = @user.id
 
-      RedmineTwoFa::Protocols::Sms.any_instance.expects(:send_code)
+      RedmineTwoFa::Protocols::GoogleAuth.any_instance.expects(:send_code)
 
       if Rails.version < '5.0'
         post :confirm_2fa, protocol: @auth_source
