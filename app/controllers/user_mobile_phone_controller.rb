@@ -17,15 +17,8 @@ class UserMobilePhoneController < ApplicationController
   private
 
   def send_confirmation_code(user)
-    phone   = user.mobile_phone.gsub(/[^-+0-9]+/, '') # Additional phone sanitizing
-    command = RedmineTwoFa::Configuration.sms_command
-    command = command.sub('%{phone}', phone).sub('%{password}', user.otp_code)
-    system command
-  rescue => e
-    logger.error e.message
-    e.backtrace.each { |line| logger.error line }
-
-    render_error message: t('redmine_2fa.second_authentications.sms.error'), status: 503
+    protocol = RedmineTwoFa::Protocols[:sms]
+    protocol.send_code(user)
   end
 
   def set_user_from_session

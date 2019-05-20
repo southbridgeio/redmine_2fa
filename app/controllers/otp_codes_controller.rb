@@ -22,6 +22,6 @@ class OtpCodesController < ApplicationController
   end
 
   def protocol
-    RedmineTwoFa::Protocols[user.two_fa]
+    RedmineTwoFa::Protocols[@user.two_fa]
   end
 end

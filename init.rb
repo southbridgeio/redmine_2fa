@@ -9,10 +9,9 @@ require 'telegram/bot'
 reloader = defined?(ActiveSupport::Reloader) ? ActiveSupport::Reloader : ActionDispatch::Reloader
 
 reloader.to_prepare do
-  %w(/lib/redmine_2fa/{patches/*_patch,hooks/*_hook,*}.rb).each do |paths|
-    Dir.glob(File.dirname(__FILE__) + paths).each do |file|
-      require_dependency file
-    end
+  paths = '/lib/redmine_two_fa/{patches/*_patch,hooks/*_hook,*}.rb'
+  Dir.glob(File.dirname(__FILE__) + paths).each do |file|
+    require_dependency file
   end
 end
 

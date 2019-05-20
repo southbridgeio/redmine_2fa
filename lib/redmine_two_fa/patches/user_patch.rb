@@ -26,26 +26,18 @@ module RedmineTwoFa
         end
 
         def two_factor_authenticable?
-          two_fa
+          two_fa.present?
         end
 
-        def sms_authenticable?
-          two_fa&.auth_method_name == 'SMS'
-        end
-
-        def telegram_authenticable?
-          two_fa&.auth_method_name == 'Telegram'
-        end
-
-        def google_authenticable?
-          two_fa&.auth_method_name == 'Google Auth'
+        def two_fa_protocol
+          RedmineTwoFa::Protocols[two_fa]
         end
 
         def reset_second_auth
           otp_regenerate_secret
           self.class.transaction do
             self.telegram_connection&.destroy!
-            self.two_fa_id = nil
+            self.two_fa = nil
             self.ignore_2fa = false
             save!
           end

@@ -5,9 +5,17 @@ module RedmineTwoFa::Protocols
     end
 
     def initial_partial
-      "account/init_2fa/#{id}"
+      raise NotImplementedError
     end
 
     def send_code(_user); end
+
+    def bypass?
+      false
+    end
+
+    def resendable?
+      false
+    end
   end
 end
