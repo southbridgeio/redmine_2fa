@@ -1,5 +1,5 @@
-module Redmine2FA
-  AVAILABLE_PROTOCOLS = %w(telegram sms google_auth none)
+module RedmineTwoFa
+  AVAILABLE_PROTOCOLS = Protocols.keys
 
   def self.table_name_prefix
     'redmine_2fa_'
@@ -11,6 +11,9 @@ module Redmine2FA
 
   def self.active_protocols
     Setting.plugin_redmine_2fa['active_protocols']
+        .map { |identifier| { identifier => Protocols[identifier] } }
+        .reduce(:merge)
+        .compact
   end
 
   def self.switched_on?

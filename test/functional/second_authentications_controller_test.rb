@@ -8,7 +8,7 @@ class SecondAuthenticationsControllerTest < ActionController::TestCase
     @user_admin = User.find(1) #admin
     @user_other = User.find(3) #dlopper
 
-    @auth_source = auth_sources(:google_auth)
+    @auth_source = 'google_auth'
   end
 
   context 'reset' do

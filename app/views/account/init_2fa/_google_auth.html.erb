@@ -1,7 +1,7 @@
 <tr class="instruction2FA google_authInstruction" style="<%= style %>">
   <td colspan="3">
     <%= t 'redmine_2fa.second_authentications.google_auth.instruction_html' %>
-    <%= render 'account/init_2fa/google_auth_qr_code' %>
+    <%= render 'account/init_2fa/google_auth_qr_code', qr: protocol.generate_qr(@user) %>
     <p><%= t 'redmine_2fa.second_authentications.google_auth.next_step_instruction' %></p>
   </td>
 </tr>

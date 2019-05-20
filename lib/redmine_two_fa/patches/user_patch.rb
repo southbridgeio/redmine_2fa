@@ -1,10 +1,10 @@
-module Redmine2FA
+module RedmineTwoFa
   module Patches
     module UserPatch
       def self.included(base)
         base.prepend InstanceMethods
-        base.safe_attributes 'mobile_phone', 'ignore_2fa', 'two_fa_id'
-        base.safe_attributes 'api_allowed', if: ->(_user, user) { user.admin? }
+        base.safe_attributes 'mobile_phone'
+        base.safe_attributes 'api_allowed', 'ignore_2fa', if: ->(_user, user) { user.admin? }
         base.validates_format_of :mobile_phone, with: /\A\d*\z/, allow_blank: true
 
         base.class_eval do
@@ -12,8 +12,7 @@ module Redmine2FA
 
           has_one_time_password length: 6
 
-          belongs_to :two_fa, class_name: 'AuthSource'
-          has_one :telegram_connection, class_name: 'Redmine2FA::TelegramConnection'
+          has_one :telegram_connection, class_name: 'RedmineTwoFa::TelegramConnection'
         end
       end
 
@@ -27,26 +26,18 @@ module Redmine2FA
         end
 
         def two_factor_authenticable?
-          two_fa
+          two_fa.present?
         end
 
-        def sms_authenticable?
-          two_fa&.auth_method_name == 'SMS'
-        end
-
-        def telegram_authenticable?
-          two_fa&.auth_method_name == 'Telegram'
-        end
-
-        def google_authenticable?
-          two_fa&.auth_method_name == 'Google Auth'
+        def two_fa_protocol
+          RedmineTwoFa::Protocols[two_fa]
         end
 
         def reset_second_auth
           otp_regenerate_secret
           self.class.transaction do
             self.telegram_connection&.destroy!
-            self.two_fa_id = nil
+            self.two_fa = nil
             self.ignore_2fa = false
             save!
           end
@@ -64,4 +55,4 @@ module Redmine2FA
     end
   end
 end
-User.send(:include, Redmine2FA::Patches::UserPatch)
+User.send(:include, RedmineTwoFa::Patches::UserPatch)

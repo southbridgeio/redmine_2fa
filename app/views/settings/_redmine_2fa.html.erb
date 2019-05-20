@@ -7,7 +7,7 @@
 
 <h4><%= t 'redmine_2fa.settings.common.title' %></h4>
 <ul>
-  <% Redmine2FA::AVAILABLE_PROTOCOLS.each do |protocol| %>
+  <% RedmineTwoFa::AVAILABLE_PROTOCOLS.each do |protocol| %>
     <li style="display: inline-block">
       <%= check_box_tag "settings[active_protocols][]", protocol,
                         @settings["active_protocols"].try(:include?, protocol),

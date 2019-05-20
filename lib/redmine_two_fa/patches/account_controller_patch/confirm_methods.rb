@@ -1,4 +1,4 @@
-module Redmine2FA
+module RedmineTwoFa
   module Patches
     module AccountControllerPatch
       module ConfirmMethods
@@ -14,13 +14,20 @@ module Redmine2FA
 
         module InstanceMethods
           def confirm_2fa
-            if protocol == 'none'
+            unless RedmineTwoFa.active_protocols.keys.include?(params[:protocol])
+              render_403
+              return
+            end
+
+            protocol = RedmineTwoFa::Protocols[params[:protocol]]
+
+            if protocol.bypass?
               @user.update!(ignore_2fa: true, two_fa: nil)
               reset_otp_session
               successful_authentication(@user)
             else
               update_two_fa
-              Redmine2FA::CodeSender.new(@user).send_code
+              send_code
               render 'account/otp'
             end
           end
@@ -45,6 +52,10 @@ module Redmine2FA
 
           private
 
+          def send_code
+            protocol.send_code(@user)
+          end
+
           def set_user_from_session
             if session[:otp_user_id]
               @user = User.find(session[:otp_user_id])
@@ -54,30 +65,11 @@ module Redmine2FA
           end
 
           def update_two_fa
-            @user.update_columns(two_fa_id: two_fa.id) if two_fa
-          end
-
-          def two_fa
-            return unless Redmine2FA.active_protocols.include?(protocol)
-            @two_fa ||= "Redmine2FA::AuthSource::#{auth_source_class}".constantize.first
-          end
-
-          def auth_source_class
-            { 'sms' => 'SMS',
-              'telegram' => 'Telegram',
-              'google_auth' => 'GoogleAuth' }[protocol]
+            @user.update_columns(two_fa: params[:protocol]) if params[:protocol]
           end
 
           def protocol
-            @protocol ||= params[:protocol]
-          end
-
-          def send_code
-            sender.send_code
-          end
-
-          def sender
-            @sender ||= Redmine2FA::CodeSender.new(@user)
+            @user.two_fa_protocol
           end
 
           def reset_otp_session
