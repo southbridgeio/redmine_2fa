@@ -29,13 +29,6 @@ class AccountControllerPatchTest < ActionController::TestCase
           assert_equal @user, assigns(:user)
         end
       end
-
-      context 'init' do
-        should render_template('account/init_2fa')
-        should 'set qr instance variable' do
-          assert_not_nil assigns(:qr)
-        end
-      end
     end
 
     context 'with invalid password' do
@@ -110,9 +103,9 @@ class AccountControllerPatchTest < ActionController::TestCase
       RedmineTwoFa::Protocols::SMS.any_instance.expects(:send_code)
 
       if Rails.version < '5.0'
-        post :confirm_2fa, protocol: @auth_source.protocol
+        post :confirm_2fa, protocol: @auth_source
       else
-        post :confirm_2fa, params: { protocol: @auth_source.protocol }
+        post :confirm_2fa, params: { protocol: @auth_source }
       end
 
       assert_template 'account/otp'
@@ -127,9 +120,9 @@ class AccountControllerPatchTest < ActionController::TestCase
         @request.session[:otp_user_id] = nil
 
         if Rails.version < '5.0'
-          post :confirm_2fa, protocol: @auth_source.protocol
+          post :confirm_2fa, protocol: @auth_source
         else
-          post :confirm_2fa, params: { protocol: @auth_source.protocol }
+          post :confirm_2fa, params: { protocol: @auth_source }
         end
 
         @user.reload
