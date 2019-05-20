@@ -7,7 +7,7 @@ module Redmine2FA
 end
 
 class TransferTelegramConnections < Rails.version < '5.0' ? ActiveRecord::Migration : ActiveRecord::Migration[4.2]
-  class TelegramAccount
+  class TelegramAccount < ActiveRecord::Base
     belongs_to :user
   end
 
