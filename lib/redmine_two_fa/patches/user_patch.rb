@@ -12,7 +12,7 @@ module RedmineTwoFa
 
           has_one_time_password length: 6
 
-          has_one :telegram_connection, class_name: 'RedmineTwoFa::TelegramConnection'
+          has_one :telegram_connection, class_name: 'RedmineTwoFa::TelegramConnection', dependent: :destroy
         end
       end
 
