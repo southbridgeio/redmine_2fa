@@ -1,0 +1,83 @@
+zh-TW:
+  field_two_fa: 二階段驗證
+  field_mobile_phone: '手機'
+  field_ignore_2fa: '忽略二階段驗證'
+  field_api_allowed: 允許 API
+  link_2fa_reset: 重設二階段驗證
+  notice_2fa_reset: 你的二階段驗證已經重設。
+  redmine_2fa:
+    protocols:
+      telegram: Telegram
+      sms: 簡訊驗證
+      google_auth: Google Authenticator
+      none: 不使用二階段驗證
+    settings:
+      restrict_api_access: 限制 API 存取
+      common:
+        title: 驗證方法
+        required: 要求所有用戶都啟用二階段驗證
+      telegram:
+        init:
+          header: 初始化機器人
+          description_html: |
+            初始化步驟:
+            <ul>
+              <li>設定機器人的 web-hook</li>
+              <li>儲存機器人名稱及 id</li>
+            </ul>
+          button_text: 初始化機器人
+        reset:
+          header: 停用機器人
+          description_html: |
+            停用步驟:
+            <ul>
+              <li>重設機器人的 web-hook</li>
+              <li>重設所有使用 Telegram 驗證的用戶的二階段驗證</li>
+            </ul>
+          button_text: 停用機器人
+      required: "需要這個外掛"
+    second_authentications:
+      init:
+        instruction: 請選擇二階段驗證的類型
+        disable: "不使用"
+      next_button_html: 下一步 &#187;
+      next_input_html: 下一步;
+      google_auth:
+        instruction_html: |
+          <p>請透過
+            <a href="https://support.google.com/accounts/answer/1066447" target="_blank">這篇教學</a>來設定你的 Google Authenticator。</p>
+          <p>在 App 中使用這個 QRCode。</p>
+        next_step_instruction: App 設定完成後，輸入驗證碼然後點擊「下一步」。
+      telegram:
+        instruction_html: |
+          %{bot_name} 會傳送驗證碼給你，請務必啟用它。<br>
+          點擊 <a href="https://telegram.me/%{bot_name}" target="_blank">這個連結</a>，開啟 Telegram 對話之後輸入 /start，再依照機器人回覆操作。
+      sms:
+        instruction: 請輸入手機號碼。
+        mobile_phone_hint_html: '輸入手機號碼（包括國碼）。<br>以台灣手機號碼 0912-345-678 為例，請輸入 886912345678。'
+        mobile_phone_submit: "取得驗證碼"
+        confirm_hint: 輸入簡訊收到的驗證碼
+        confirm_submit: 確認
+        error: 我們現在沒辦法發送簡訊，請稍後再試。
+
+    otp_bot:
+      init:
+        success: 機器人初始化完成
+        error:
+          wrong_token: 錯誤的代碼
+          api_error: 無法存取 Telegram Bot API 服務
+        reset:
+          success: 機器人成功停用
+
+    telegram_auth:
+      message: 'Redmine "%{app_title}" 登入驗證碼：%{code}。此代碼將在 %{expiration_time} 後失效。'
+
+    auth_code: '驗證碼'
+    resend:
+      link: '重新發送驗證碼'
+      instruction_html: '驗證碼已發送。您可以在 <span id="otpCodeResendTimer">%{timeout}</span> 秒後重新發送驗證碼。'
+    notice:
+      auth_code:
+        invalid: '驗證碼錯誤'
+        resent_again: '驗證碼已再次發送'
+        limit_exceeded_failed_attempts: '超過失敗次數限制，已發送新的驗證碼。'
