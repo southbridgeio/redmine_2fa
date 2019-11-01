@@ -12,14 +12,6 @@ module RedmineTwoFa
             super
           end
         end
-
-        def send_code
-          protocol.send_code(@user)
-        end
-
-        def protocol
-          RedmineTwoFa::Protocols[@user.two_fa]
-        end
       end
     end
   end
