@@ -110,7 +110,7 @@ If the user selects SMS he needs to enter the phone number to which he will rece
 The responsibility of sending sms-message falls to external command, because there are many sms-gateways with different API. It can be any shell script or command like `curl`, e.g. for [smscentre.com](http://smscentre.com/reg/?AD306203):
 
 ```
-/usr/bin/curl --silent --show-error "https://smsc.ru/sys/send.php?charset=utf-8&login=smsclogin&psw=smscpassword&phones=%{phone}&mes=centos-admin.ru code: %{password} Expired at: %{expired_at}"
+/usr/bin/curl --silent --show-error "https://smsc.ru/sys/send.php?charset=utf-8&login=smsclogin&psw=smscpassword&phones=%{phone}&mes=southbridge.io code: %{password} Expired at: %{expired_at}"
 ```
 
 `%{phone}`, `%{password}` and `%{expired_at}` are placeholders. They will be replaced with actual data during runtime.
@@ -126,14 +126,14 @@ Set SMS command in `config/configuration.yml` in `production` section:
 # that overrides the default ones
 production:
   redmine_2fa:
-    sms_command: '/usr/bin/curl --silent --show-error "https://smsc.ru/sys/send.php?charset=utf-8&login=smsclogin&psw=smscpassword&phones=%{phone}&mes=centos-admin.ru code: %{password} Expired at: %{expired_at}"'
+    sms_command: '/usr/bin/curl --silent --show-error "https://smsc.ru/sys/send.php?charset=utf-8&login=smsclogin&psw=smscpassword&phones=%{phone}&mes=southbridge.io code: %{password} Expired at: %{expired_at}"'
 ```
 
 This is worked example. If you want to use [this service](http://smscentre.com/reg/?AD306203), replace `smsclogin` and `smscpassword` with actual data after registration.
 
 ## Migration from redmine_sms_auth plugin
 
-- update redmine_sms_auth to latest version from (repo)[<https://github.com/centosadmin/redmine_sms_auth>]
+- update redmine_sms_auth to latest version from (repo)[<https://github.com/southbridgeio/redmine_sms_auth>]
 - update redmine_2fa to latest version
 - run `bundle install`
 - run `bundle exec rake redmine:plugins:migrate`
