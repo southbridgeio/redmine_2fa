@@ -1,7 +1,7 @@
-[![Build Status](https://travis-ci.org/centosadmin/redmine_2fa.svg?branch=master)](https://travis-ci.org/centosadmin/redmine_2fa) [![Code Climate](https://codeclimate.com/github/centosadmin/redmine_2fa/badges/gpa.svg)](https://codeclimate.com/github/centosadmin/redmine_2fa)
+[![Build Status](https://travis-ci.org/southbridgeio/redmine_2fa.svg?branch=master)](https://travis-ci.org/southbridgeio/redmine_2fa) [![Code Climate](https://codeclimate.com/github/southbridgeio/redmine_2fa/badges/gpa.svg)](https://codeclimate.com/github/southbridgeio/redmine_2fa)
 [![Rate at redmine.org](http://img.shields.io/badge/rate%20at-redmine.org-blue.svg?style=flat)](http://www.redmine.org/plugins/redmine_2fa)
 
-[English version](https://github.com/centosadmin/redmine_2fa/blob/master/README.md)
+[English version](https://github.com/southbridgeio/redmine_2fa/blob/master/README.md)
 
 # Redmine 2FA
 
@@ -13,17 +13,17 @@
 - SMS
 - Google Authenticator
 
-[Описание плагина на habrahabr.ru](https://habrahabr.ru/company/centosadmin/blog/312656/)
+[Описание плагина на habrahabr.ru](https://habrahabr.ru/company/southbridgeio/blog/312656/)
 
 ## Требования
 
-- [redmine_bots](https://github.com/centosadmin/redmine_bots)
+- [redmine_bots](https://github.com/southbridgeio/redmine_bots)
 - HTTPS - нужен для того, чтобы принимать сообщение от Telegram Bot API ([веб-хук](https://tlgrm.ru/docs/bots/api#setwebhook))
 - Ruby 2.3+
 
 ### Обновление до 1.6.0 и выше
 
-Начиная с версии 1.6.0 redmine_2fa зависит от [redmine_bots](https://github.com/centosadmin/redmine_bots) вместо redmine_telegram_common.
+Начиная с версии 1.6.0 redmine_2fa зависит от [redmine_bots](https://github.com/southbridgeio/redmine_bots) вместо redmine_telegram_common.
 Пожалуйста, установите redmine_bots и следуйте инструкциям по миграции данных в его README.
 
 ### Обновление с 1.3.4 до 1.4.0+
@@ -39,9 +39,9 @@ Token бота будет взят из одного из установленн
 ### Обновление с 1.1.3 на 1.2.0+
 
 Начиная с версии 1.2.0 это плагин использует [redmine_telegram_common](https://github
-.com/centosadmin/redmine_telegram_common).
+.com/southbridgeio/redmine_telegram_common).
 
-Перед обновлением установите [этот](https://github.com/centosadmin/redmine_telegram_common) плагин.
+Перед обновлением установите [этот](https://github.com/southbridgeio/redmine_telegram_common) плагин.
 
 После обновления запустите `bundle exec rake redmine_2fa:common:migrate` для миграции пользоватльских данных в новую таблицу. В версии 2.0 модель `Redmine2FA::TelegramAccount` будет упразднена, в месте с ней будет удалена старая таблица `redmine_2fa_telegram_accounts`.
 
