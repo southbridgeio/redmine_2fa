@@ -1,7 +1,7 @@
-[![Build Status](https://travis-ci.org/centosadmin/redmine_2fa.svg?branch=master)](https://travis-ci.org/centosadmin/redmine_2fa) [![Code Climate](https://codeclimate.com/github/centosadmin/redmine_2fa/badges/gpa.svg)](https://codeclimate.com/github/centosadmin/redmine_2fa)
+[![Build Status](https://travis-ci.org/southbridgeio/redmine_2fa.svg?branch=master)](https://travis-ci.org/southbridgeio/redmine_2fa) [![Code Climate](https://codeclimate.com/github/southbridgeio/redmine_2fa/badges/gpa.svg)](https://codeclimate.com/github/southbridgeio/redmine_2fa)
 [![Rate at redmine.org](http://img.shields.io/badge/rate%20at-redmine.org-blue.svg?style=flat)](http://www.redmine.org/plugins/redmine_2fa)
 
-[Русская версия](https://github.com/centosadmin/redmine_2fa/blob/master/README.ru.md)
+[Русская версия](https://github.com/southbridgeio/redmine_2fa/blob/master/README.ru.md)
 
 # Redmine 2FA
 
@@ -15,13 +15,13 @@ Supports:
 
 ## Requirements
 
-- [redmine_bots](https://github.com/centosadmin/redmine_bots)
+- [redmine_bots](https://github.com/southbridgeio/redmine_bots)
 - HTTPS host - Telegram Bot Webhook needs to POST on HTTPS hosts.
 - Ruby 2.3+
 
 ### Upgrade to 1.6.0+
 
-From 1.6.0 redmine_2fa depends on [redmine_bots](https://github.com/centosadmin/redmine_bots) instead of redmine_telegram_common.
+From 1.6.0 redmine_2fa depends on [redmine_bots](https://github.com/southbridgeio/redmine_bots) instead of redmine_telegram_common.
 Please, install it and follow migration instructions from README of redmine_bots.
 
 ### Upgrade from 1.3.4 to 1.4.0+
@@ -38,9 +38,9 @@ Also you should re-initialize bot on redmine_telegram_common settings page.
 
 ### Upgrade form 1.1.3 to 1.2.0+
 
-Since version 1.2.0 this plugin uses [redmine_telegram_common](https://github.com/centosadmin/redmine_telegram_common) plugin.
+Since version 1.2.0 this plugin uses [redmine_telegram_common](https://github.com/southbridgeio/redmine_telegram_common) plugin.
 
-Before upgrade install [this](https://github.com/centosadmin/redmine_telegram_common) plugin.
+Before upgrade install [this](https://github.com/southbridgeio/redmine_telegram_common) plugin.
 
 Then upgrade and run `bundle exec rake redmine_2fa:common:migrate` for migrate data to new table.
 
