@@ -108,7 +108,7 @@ bin/rake redmine:plugins:migrate
 В связи с тем, что различные СМС-шлюзы используют различные API, в плагине испольуется отправка СМС через системную команду. Пример для сервиса [smsc.ru](http://www.smsc.ru/reg/?AD306203):
 
 ```
-/usr/bin/curl --silent --show-error "https://smsc.ru/sys/send.php?charset=utf-8&login=smsclogin&psw=smscpassword&phones=%{phone}&mes=centos-admin.ru code: %{password} Expired at: %{expired_at}"
+/usr/bin/curl --silent --show-error "https://smsc.ru/sys/send.php?charset=utf-8&login=smsclogin&psw=smscpassword&phones=%{phone}&mes=southbridge.io code: %{password} Expired at: %{expired_at}"
 ```
 
 `%{phone}`, `%{password}` и `%{expired_at}` системные переменные, которые будут замещены соответствующими значениями.
@@ -124,14 +124,14 @@ bin/rake redmine:plugins:migrate
 # that overrides the default ones
 production:
   redmine_2fa:
-    sms_command: '/usr/bin/curl --silent --show-error "https://smsc.ru/sys/send.php?charset=utf-8&login=smsclogin&psw=smscpassword&phones=%{phone}&mes=centos-admin.ru code: %{password} Expired at: %{expired_at}"'
+    sms_command: '/usr/bin/curl --silent --show-error "https://smsc.ru/sys/send.php?charset=utf-8&login=smsclogin&psw=smscpassword&phones=%{phone}&mes=southbridge.io code: %{password} Expired at: %{expired_at}"'
 ```
 
 Это рабочий пример конфига. Если вы хотите польваться [сервисом](http://www.smsc.ru/reg/?AD306203), после регистрации замените `smsclogin` и `smscpassword` актуальными данными.
 
 ## Миграция с плагина redmine_sms_auth
 
-- обновите плагин redmine_sms_auth до последней версии из [репозитория](https://github.com/centosadmin/redmine_sms_auth)
+- обновите плагин redmine_sms_auth до последней версии из [репозитория](https://github.com/southbridgeio/redmine_sms_auth)
 - обновите плагин redmine_2fa до последней версии
 - выполните команду `bundle install`
 - выполните команду `bundle exec rake redmine:plugins:migrate`
