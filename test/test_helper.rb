@@ -1,3 +1,8 @@
+$VERBOSE = nil # for hide ruby warnings
+
+# Load the Redmine helper
+require File.expand_path(File.dirname(__FILE__) + '/../../../test/test_helper')
+
 if RUBY_VERSION>='2.6.0'
   if Rails.version < '5'
     class ActionController::TestResponse < ActionDispatch::TestResponse
@@ -10,11 +15,6 @@ if RUBY_VERSION>='2.6.0'
     end
   end
 end
-
-$VERBOSE = nil # for hide ruby warnings
-
-# Load the Redmine helper
-require File.expand_path(File.dirname(__FILE__) + '/../../../test/test_helper')
 
 require 'minitest/autorun'
 require 'minitest/reporters'
