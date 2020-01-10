@@ -1,3 +1,9 @@
+# 1.7.2
+
+* Add API restriction option
+* Refactor protocols
+* Use rqrcode 1.0+
+
 # 1.7.1
 
 * Add deprecation warning
