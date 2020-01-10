@@ -17,7 +17,7 @@ Supports:
 
 - [redmine_bots](https://github.com/southbridgeio/redmine_bots)
 - HTTPS host - Telegram Bot Webhook needs to POST on HTTPS hosts.
-- Ruby 2.3+
+- Ruby 2.4+
 
 ### Upgrade to 1.6.0+
 
