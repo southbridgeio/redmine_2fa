@@ -1,7 +1,7 @@
-[![Build Status](https://travis-ci.org/centosadmin/redmine_2fa.svg?branch=master)](https://travis-ci.org/centosadmin/redmine_2fa) [![Code Climate](https://codeclimate.com/github/centosadmin/redmine_2fa/badges/gpa.svg)](https://codeclimate.com/github/centosadmin/redmine_2fa)
+[![Build Status](https://travis-ci.org/southbridgeio/redmine_2fa.svg?branch=master)](https://travis-ci.org/southbridgeio/redmine_2fa) [![Code Climate](https://codeclimate.com/github/southbridgeio/redmine_2fa/badges/gpa.svg)](https://codeclimate.com/github/southbridgeio/redmine_2fa)
 [![Rate at redmine.org](http://img.shields.io/badge/rate%20at-redmine.org-blue.svg?style=flat)](http://www.redmine.org/plugins/redmine_2fa)
 
-[Русская версия](https://github.com/centosadmin/redmine_2fa/blob/master/README.ru.md)
+[Русская версия](https://github.com/southbridgeio/redmine_2fa/blob/master/README.ru.md)
 
 # Redmine 2FA
 
@@ -15,13 +15,13 @@ Supports:
 
 ## Requirements
 
-- [redmine_bots](https://github.com/centosadmin/redmine_bots)
+- [redmine_bots](https://github.com/southbridgeio/redmine_bots)
 - HTTPS host - Telegram Bot Webhook needs to POST on HTTPS hosts.
 - Ruby 2.3+
 
 ### Upgrade to 1.6.0+
 
-From 1.6.0 redmine_2fa depends on [redmine_bots](https://github.com/centosadmin/redmine_bots) instead of redmine_telegram_common.
+From 1.6.0 redmine_2fa depends on [redmine_bots](https://github.com/southbridgeio/redmine_bots) instead of redmine_telegram_common.
 Please, install it and follow migration instructions from README of redmine_bots.
 
 ### Upgrade from 1.3.4 to 1.4.0+
@@ -38,9 +38,9 @@ Also you should re-initialize bot on redmine_telegram_common settings page.
 
 ### Upgrade form 1.1.3 to 1.2.0+
 
-Since version 1.2.0 this plugin uses [redmine_telegram_common](https://github.com/centosadmin/redmine_telegram_common) plugin.
+Since version 1.2.0 this plugin uses [redmine_telegram_common](https://github.com/southbridgeio/redmine_telegram_common) plugin.
 
-Before upgrade install [this](https://github.com/centosadmin/redmine_telegram_common) plugin.
+Before upgrade install [this](https://github.com/southbridgeio/redmine_telegram_common) plugin.
 
 Then upgrade and run `bundle exec rake redmine_2fa:common:migrate` for migrate data to new table.
 
@@ -110,7 +110,7 @@ If the user selects SMS he needs to enter the phone number to which he will rece
 The responsibility of sending sms-message falls to external command, because there are many sms-gateways with different API. It can be any shell script or command like `curl`, e.g. for [smscentre.com](http://smscentre.com/reg/?AD306203):
 
 ```
-/usr/bin/curl --silent --show-error "https://smsc.ru/sys/send.php?charset=utf-8&login=smsclogin&psw=smscpassword&phones=%{phone}&mes=centos-admin.ru code: %{password} Expired at: %{expired_at}"
+/usr/bin/curl --silent --show-error "https://smsc.ru/sys/send.php?charset=utf-8&login=smsclogin&psw=smscpassword&phones=%{phone}&mes=southbridge.io code: %{password} Expired at: %{expired_at}"
 ```
 
 `%{phone}`, `%{password}` and `%{expired_at}` are placeholders. They will be replaced with actual data during runtime.
@@ -126,14 +126,14 @@ Set SMS command in `config/configuration.yml` in `production` section:
 # that overrides the default ones
 production:
   redmine_2fa:
-    sms_command: '/usr/bin/curl --silent --show-error "https://smsc.ru/sys/send.php?charset=utf-8&login=smsclogin&psw=smscpassword&phones=%{phone}&mes=centos-admin.ru code: %{password} Expired at: %{expired_at}"'
+    sms_command: '/usr/bin/curl --silent --show-error "https://smsc.ru/sys/send.php?charset=utf-8&login=smsclogin&psw=smscpassword&phones=%{phone}&mes=southbridge.io code: %{password} Expired at: %{expired_at}"'
 ```
 
 This is worked example. If you want to use [this service](http://smscentre.com/reg/?AD306203), replace `smsclogin` and `smscpassword` with actual data after registration.
 
 ## Migration from redmine_sms_auth plugin
 
-- update redmine_sms_auth to latest version from (repo)[<https://github.com/centosadmin/redmine_sms_auth>]
+- update redmine_sms_auth to latest version from (repo)[<https://github.com/southbridgeio/redmine_sms_auth>]
 - update redmine_2fa to latest version
 - run `bundle install`
 - run `bundle exec rake redmine:plugins:migrate`
