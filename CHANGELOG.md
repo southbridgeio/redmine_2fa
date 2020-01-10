@@ -3,6 +3,7 @@
 * Add API restriction option
 * Refactor protocols
 * Use rqrcode 1.0+
+* Add zh-TW locale
 
 # 1.7.1
 
