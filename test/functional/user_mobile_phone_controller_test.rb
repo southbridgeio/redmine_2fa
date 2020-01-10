@@ -8,8 +8,10 @@ class UserMobilePhoneControllerTest < ActionController::TestCase
   end
 
   def test_user_phone_update
+    RedmineTwoFa::Protocols::Sms.any_instance.expects(:send_code)
+
     @request.session[:otp_user_id] = @user.id
-    User.any_instance.expects(:otp_code).returns('123456')
+
     if Rails.version < '5.0'
       post :update, user: { mobile_phone: '79241234567' }, format: 'js'
     else

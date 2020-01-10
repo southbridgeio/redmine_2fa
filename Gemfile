@@ -1,12 +1,10 @@
 source 'https://rubygems.org'
 
-gem 'active_model_otp'
-gem 'rotp', '~> 3.3.0'
-gem 'rqrcode'
+gem 'active_model_otp', git: 'https://github.com/heapsource/active_model_otp.git', ref: '6ed9927'
+gem 'rotp', '~> 4.0'
+gem 'rqrcode', '~> 1.0'
 
 group :test do
-  gem 'vcr'
-  gem 'webmock'
   gem 'shoulda', '~> 3.6'
   gem 'rails-controller-testing'
 end

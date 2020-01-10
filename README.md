@@ -17,7 +17,7 @@ Supports:
 
 - [redmine_bots](https://github.com/southbridgeio/redmine_bots)
 - HTTPS host - Telegram Bot Webhook needs to POST on HTTPS hosts.
-- Ruby 2.3+
+- Ruby 2.4+
 
 ### Upgrade to 1.6.0+
 
@@ -44,7 +44,7 @@ Before upgrade install [this](https://github.com/southbridgeio/redmine_telegram_
 
 Then upgrade and run `bundle exec rake redmine_2fa:common:migrate` for migrate data to new table.
 
-Since 2.0 version, model `Redmine2FA::TelegramAccount` will be removed, also table `redmine_2fa_telegram_accounts` will be removed.
+Since 2.0 version, model `RedmineTwoFa::TelegramAccount` will be removed, also table `redmine_2fa_telegram_accounts` will be removed.
 
 ### Important!!!
 
