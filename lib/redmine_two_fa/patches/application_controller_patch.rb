@@ -7,4 +7,6 @@ module TwoFaApplicationControllerPatch
   end
 end
 
-ApplicationController.prepend(TwoFaApplicationControllerPatch)
+Rails.configuration.to_prepare do
+  ApplicationController.prepend(TwoFaApplicationControllerPatch)
+end
