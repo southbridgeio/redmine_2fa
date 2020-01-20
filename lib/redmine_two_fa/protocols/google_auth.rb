@@ -3,7 +3,7 @@ module RedmineTwoFa::Protocols
     def generate_qr(user)
       qr_size ||= 10
       RQRCode::QRCode.new(user.provisioning_uri("#{user.login}", issuer: "#{Setting.host_name}"), size: qr_size, level: :h)
-    rescue RQRCode::QRCodeRunTimeError => e
+    rescue RQRCodeCore::QRCodeRunTimeError=> e
       retry unless (qr_size += 1) > 20
       raise e
     end
