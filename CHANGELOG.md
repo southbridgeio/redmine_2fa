@@ -1,3 +1,10 @@
+# 1.7.3
+
+* Fix None protocol
+* Fix conflict with redmineup/a_common_lib
+* Fix runtime error
+* Remove ruby 2.7.0 from build matrix
+
 # 1.7.2
 
 * Add API restriction option
