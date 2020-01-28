@@ -17,7 +17,7 @@ end
 
 Redmine::Plugin.register :redmine_2fa do
   name 'Redmine 2FA'
-  version '1.7.2'
+  version '1.7.3'
   url 'https://github.com/southbridgeio/redmine_2fa'
   description 'Two-factor authorization for Redmine'
   author 'Southbridge'
