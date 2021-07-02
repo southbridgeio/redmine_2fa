@@ -1,3 +1,7 @@
+# 1.7.4
+
+* Bump redmine_bots dependency version
+
 # 1.7.3
 
 * Fix None protocol
