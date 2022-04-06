@@ -17,7 +17,7 @@ end
 
 Redmine::Plugin.register :redmine_2fa do
   name 'Redmine 2FA'
-  version '1.7.4'
+  version '1.7.5'
   url 'https://github.com/southbridgeio/redmine_2fa'
   description 'Two-factor authorization for Redmine'
   author 'Southbridge'
@@ -25,7 +25,7 @@ Redmine::Plugin.register :redmine_2fa do
 
   requires_redmine version_or_higher: '3.0'
 
-  requires_redmine_plugin :redmine_bots, '0.5.0'
+  requires_redmine_plugin :redmine_bots, '0.5.1'
 
   settings(default: { 'required' => false,
                       'active_protocols' => RedmineTwoFa::AVAILABLE_PROTOCOLS
