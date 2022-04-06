@@ -1,3 +1,7 @@
+# 1.7.5
+
+* Fix problem with telegram_id exceeding int.
+
 # 1.7.4
 
 * Bump redmine_bots dependency version
