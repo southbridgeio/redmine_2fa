@@ -2,6 +2,8 @@ require_dependency Rails.root.join('plugins','redmine_bots', 'init')
 
 FileUtils.mkdir_p(Rails.root.join('log/redmine_2fa')) unless Dir.exist?(Rails.root.join('log/redmine_2fa'))
 
+$LOAD_PATH.unshift "#{File.dirname(__FILE__)}/lib"
+
 require 'redmine_two_fa'
 require 'telegram/bot'
 
