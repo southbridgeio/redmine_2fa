@@ -1,6 +1,6 @@
 
 #init2FA {
-    width: 500px;
+    width: 550px;
     margin-top: 5em;
     padding: 1em;
     margin-left: auto;
@@ -50,3 +50,12 @@ table .qr td.white {
     background-color: #fff;
 }
 
+#login-form-2fa {
+    margin:5em auto 2em auto;
+    padding:20px;
+    width:500px;
+    border:1px solid #FDBF3B;
+    background-color:#FFEBC1;
+    border-radius:4px;
+    box-sizing: border-box;
+}
