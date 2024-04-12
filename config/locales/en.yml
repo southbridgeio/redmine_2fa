@@ -72,7 +72,7 @@ en:
     telegram_auth:
       message: 'Redmine "%{app_title}" auth code: %{code}. Expired at %{expiration_time}.'
 
-    auth_code: 'Authorization code'
+    auth_code: 'Authorization code from Google Authenticator or other authenticator app'
     resend:
       link: 'Resend code'
       instruction_html: 'Code sent. Code resending is possible after <span id="otpCodeResendTimer">%{timeout}</span> seconds.'
