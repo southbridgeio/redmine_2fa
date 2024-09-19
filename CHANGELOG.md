@@ -1,3 +1,12 @@
+# 1.7.7
+
+* Add compatibility with Redmine 5.1
+* Add 2FA OTP instructions
+
+# 1.7.6
+
+* Bump version after redmine_bots
+
 # 1.7.5
 
 * Fix problem with telegram_id exceeding int.
