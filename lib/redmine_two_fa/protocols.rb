@@ -1,18 +1,20 @@
 module RedmineTwoFa
   module Protocols
-    extend Dry::Container::Mixin
+    REGISTRY = {
+      sms: Sms.new,
+      google_auth: GoogleAuth.new,
+      telegram: RedmineTwoFa::Protocols::Telegram.new,
+      none: None.new
+    }.freeze
 
-    class << self
-      def resolve(*)
-        super
-      rescue Dry::Container::Error
-        nil
-      end
+    def self.[](key)
+      return if key.nil?
+
+      REGISTRY[key.to_sym]
     end
 
-    register :sms, Sms.new
-    register :google_auth, GoogleAuth.new
-    register :telegram, RedmineTwoFa::Protocols::Telegram.new
-    register :none, None.new
+    def self.keys
+      REGISTRY.keys.map(&:to_s)
+    end
   end
 end

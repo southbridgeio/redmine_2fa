@@ -1,3 +1,8 @@
+# 1.7.8
+
+* Add compatibility with Ruby 3.x
+* Remove redundant dependencies
+
 # 1.7.7
 
 * Add compatibility with Redmine 5.1
