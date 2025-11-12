@@ -1,6 +1,4 @@
 class UserMobilePhoneController < ApplicationController
-  unloadable
-
   skip_before_action :check_if_login_required
 
   before_action :set_user_from_session

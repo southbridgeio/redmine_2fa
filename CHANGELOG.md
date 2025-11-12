@@ -1,5 +1,5 @@
-# 1.7.8
-
+# 1.8.0
+* Add Redmine 6.1 support
 * Add compatibility with Ruby 3.x
 * Remove redundant dependencies
 
