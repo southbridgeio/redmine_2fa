@@ -6,8 +6,6 @@ module RedmineTwoFa
           base.send(:include, InstanceMethods)
 
           base.class_eval do
-            unloadable
-
             before_action :set_user_from_session, only: [:confirm_otp, :confirm_2fa]
           end
         end

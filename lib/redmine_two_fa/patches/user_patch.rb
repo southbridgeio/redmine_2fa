@@ -8,8 +8,6 @@ module RedmineTwoFa
         base.validates_format_of :mobile_phone, with: /\A\d*\z/, allow_blank: true
 
         base.class_eval do
-          unloadable
-
           has_one_time_password length: 6
 
           has_one :telegram_connection, class_name: 'RedmineTwoFa::TelegramConnection', dependent: :destroy

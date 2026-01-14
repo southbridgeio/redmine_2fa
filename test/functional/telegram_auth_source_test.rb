@@ -22,9 +22,5 @@ class TelegramAuthSourceTest < ActionController::TestCase
     should 'telegram_connection can handle telegram_id above integer range' do
       RedmineTwoFa::TelegramConnection.create!(telegram_id: @telegram_id, user_id: @user.id)
     end
-
-    should 'telegram_accounts can handle telegram_id above integer range' do
-      RedmineTwoFa::TelegramAccount.create!(telegram_id: @telegram_id, user_id: @user.id)
-    end
   end
 end

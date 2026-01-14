@@ -1,6 +1,4 @@
 class SecondAuthenticationsController < ApplicationController
-  unloadable
-
   def destroy
     user = User.find(params[:id])
     if User.current.admin? || user == User.current

@@ -12,7 +12,7 @@ module RedmineTwoFa
   def self.active_protocols
     Setting.plugin_redmine_2fa['active_protocols']
         .map { |identifier| { identifier => Protocols[identifier] } }
-        .reduce(:merge)
+        .reduce({}, :merge)
         .compact
   end
 
