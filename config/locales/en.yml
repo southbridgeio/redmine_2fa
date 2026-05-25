@@ -9,7 +9,7 @@ en:
     protocols:
       telegram: Telegram
       sms: SMS
-      google_auth: Google Auth
+      google_auth: TOTP application
       none: Without 2FA
     settings:
       restrict_api_access: Ограничить доступ к API
@@ -44,8 +44,7 @@ en:
       next_input_html: Next;
       google_auth:
         instruction_html: |
-          <p>Please setup Google Authenticator follow
-            <a href="https://support.google.com/accounts/answer/1066447" target="_blank">the instruction</a>.</p>
+          <p>Please setup TOTP application (e.g.: <a href="https://support.google.com/accounts/answer/1066447" target="_blank">Google Authenticator</a>).</p>
           <p>Use this QR-code in application.</p>
         next_step_instruction: After app setup, enter the confirmation code and click "Next".
       telegram:
@@ -72,7 +71,7 @@ en:
     telegram_auth:
       message: 'Redmine "%{app_title}" auth code: %{code}. Expired at %{expiration_time}.'
 
-    auth_code: 'Authorization code from Google Authenticator or other authenticator app'
+    auth_code: 'Authorization code from the TOTP application or other authenticator app'
     resend:
       link: 'Resend code'
       instruction_html: 'Code sent. Code resending is possible after <span id="otpCodeResendTimer">%{timeout}</span> seconds.'
