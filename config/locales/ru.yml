@@ -73,7 +73,7 @@ ru:
     telegram_auth:
       message: 'Код Redmine "%{app_title}": %{code}. Действителен до %{expiration_time}.'
 
-    auth_code: 'Код подтверждения из установленного приложения или другого аутентификатора'
+    auth_code: 'Код подтверждения из TOTP приложения или другого аутентификатора'
     resend:
       link: 'Отправить повторно'
       instruction_html: 'Код отправлен. Повторная отправка кода возможна через <span id="otpCodeResendTimer">%{timeout}</span> секунд.'
