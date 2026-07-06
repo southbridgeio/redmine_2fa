@@ -2,6 +2,14 @@
   <td colspan="3">
     <%= t 'redmine_2fa.second_authentications.google_auth.instruction_html' %>
     <%= render 'account/init_2fa/google_auth_qr_code', qr: protocol.generate_qr(@user) %>
+    <div class="totpManualEntry">
+      <p><%= t 'redmine_2fa.second_authentications.google_auth.manual_entry' %></p>
+      <div class="totpSecretRow">
+        <code id="totpSecret" class="totpSecret"><%= @user.otp_secret_key %></code>
+        <button type="button" class="totpCopyButton" data-totp-secret="<%= @user.otp_secret_key %>" data-copied-label="<%= t 'redmine_2fa.second_authentications.google_auth.copied' %>" onclick="copyTotpSecret(this)"><%= t 'redmine_2fa.second_authentications.google_auth.copy_secret' %></button>
+      </div>
+    </div>
+    <hr class="totpDivider">
     <p><%= t 'redmine_2fa.second_authentications.google_auth.next_step_instruction' %></p>
   </td>
 </tr>

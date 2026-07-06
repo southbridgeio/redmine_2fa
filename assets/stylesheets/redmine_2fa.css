@@ -50,6 +50,59 @@ table .qr td.white {
     background-color: #fff;
 }
 
+.totpManualEntry {
+    margin: 1em 0;
+}
+
+.totpManualEntry p {
+    margin-bottom: 0.4em;
+}
+
+.totpSecretRow {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.totpSecret {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    height: 28px;
+    padding: 0 0.6em;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 1em;
+    letter-spacing: 1px;
+    word-break: break-all;
+    user-select: all;
+}
+
+.totpCopyButton {
+    box-sizing: border-box;
+    cursor: pointer;
+    height: 28px;
+    padding: 0 0.8em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    white-space: nowrap;
+}
+
+.totpCopyButton:hover {
+    background-color: #FFEBC1;
+}
+
+.totpDivider {
+    border: 0;
+    border-top: 1px solid #FDBF3B;
+    margin: 1em 0;
+}
+
 #login-form-2fa {
     margin:5em auto 2em auto;
     padding:20px;

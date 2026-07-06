@@ -46,6 +46,9 @@ en:
         instruction_html: |
           <p>Please setup TOTP application (e.g.: <a href="https://support.google.com/accounts/answer/1066447" target="_blank">Google Authenticator</a>).</p>
           <p>Use this QR-code in application.</p>
+        manual_entry: "Or enter this code manually in the application:"
+        copy_secret: "Copy"
+        copied: "Copied"
         next_step_instruction: After app setup, enter the confirmation code and click "Next".
       telegram:
         instruction_html: |
