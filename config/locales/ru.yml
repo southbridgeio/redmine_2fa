@@ -45,8 +45,11 @@ ru:
       next_input_html: Далее
       google_auth:
         instruction_html: |
-          <p>Установите TOTP приложение (например: <a href="https://support.google.com/accounts/answer/1066447" target="_blank">Google Authenticator</a>).</p>
+          <p>Установите TOTP приложение (например: <a href="https://www.yandex.ru/support/id/ru/authorization/twofa" target="_blank">Яндекс ID (Ключ)</a>).</p>
           <p>Используйте предложенный ниже QR-код в приложении.</p>
+        manual_entry: "Или введите этот код вручную в приложении:"
+        copy_secret: "Скопировать"
+        copied: "Скопировано"
         next_step_instruction: После настройки приложения введите код подтверждения и нажмите "Далее".
       telegram:
         instruction_html: |
